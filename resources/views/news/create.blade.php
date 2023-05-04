@@ -27,7 +27,7 @@
                     @csrf
                   <div class="col-12">
                     <label for="inputNanme4" class="form-label">Title EN</label>
-                    <input type="text" class="form-control" id="inputNanme4">
+                    <input type="text" class="form-control" >
                   </div>
                   @error('title_en')
                     <div class="error_message"> {{ $message }} </div>
