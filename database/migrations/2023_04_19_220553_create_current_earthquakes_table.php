@@ -25,6 +25,7 @@ return new class extends Migration
             $table->longText('description_am');
             $table->longText('description_ru');
             $table->string('status')->default('new');
+            $table->string('magnitude');
             $table->timestamps();
         });
     }

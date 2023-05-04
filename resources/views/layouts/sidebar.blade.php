@@ -16,9 +16,15 @@
             </a>
         </li>
         <li class="nav-item">
+
             <a class="nav-link collapsed" href="{{route('news.index')}}">
               <i class="bi bi-person"></i>
               <span>News</span>
+
+            <a class="nav-link collapsed" href="{{route('current-earthquakes.index')}}">
+                <i class="bi bi-person"></i>
+                <span>Current Earthquakes</span>
+
             </a>
         </li>
         <li class="nav-item">
