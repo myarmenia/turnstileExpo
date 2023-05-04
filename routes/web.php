@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PressReleases\PressReleaseController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,15 +37,12 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('/users', UserController::class);
             // Route::resource('/permissions', PermissionController::class);
             route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-
         });
 
     });
 
     Route::resource('press-release', PressReleaseController::class);
-
-
+    Route::resource('current-earthquakes', CurrentEarthquakesController::class);
 
 });
 
@@ -57,3 +55,5 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     $request->fulfill();
     return redirect('/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file');

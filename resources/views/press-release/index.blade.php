@@ -10,7 +10,6 @@
         </ol>
         </nav>
     </div><!-- End Page Title -->
-
     <section class="section dashboard">
         <div class="row">
             <div class="col-lg-12">
