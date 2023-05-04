@@ -24,6 +24,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Create Current Earthquakes</h5>
 
+                        
                         <form class="row g-3" action="{{ route('current-earthquakes.store') }}" method="POST"
                               enctype="multipart/form-data">
                             @csrf
