@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Profile\DashboardController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\News\NewsController;
 use App\Http\Controllers\PressReleases\PressReleaseController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,7 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
     Route::resource('press-release', PressReleaseController::class);
+    Route::resource('news', NewsController::class);
 
 
 
