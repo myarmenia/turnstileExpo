@@ -22,7 +22,10 @@ return new class extends Migration
             $table->longText('description_am');
             $table->longText('description_ru');
             $table->string('image');
-            $table->string('button')->nullable();
+            $table->string('button_text_en')->nullable();
+            $table->string('button_text_am')->nullable();
+            $table->string('button_text_ru')->nullable();
+            $table->string('button_link')->nullable();
             $table->string('status')->default('new');
             $table->timestamps();
         });
