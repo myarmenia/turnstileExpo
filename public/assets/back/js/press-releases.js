@@ -24,14 +24,27 @@ items.addEventListener("change", (e) => {
     document.querySelector('.items_div').innerHTML=''
 
     let files = e.target.files;
+    console.log(files)
     console.log(files.length)
     let content = ''
     for (var i = 0; i < files.length; i++){
         let url = URL.createObjectURL(files[i])
-        content += `<div class="d-flex file_div">
-                        <img src="${url}" class="">
-                        <i data-key="${files[i].lastModified}" class="item_remove ri-delete-bin-2-line"></i>
-                    </div>`
+        let type_arr = files[i].type.split('/')
+        console.log(url)
+        if(type_arr[0] == 'video'){
+            content += `<div class="d-flex file_div order-3">
+                            <video class="img-thumbnail" controls><source src="${url}" type="${files[i].type}"></video>
+                            <i data-key="${files[i].lastModified}" class="item_remove ri-delete-bin-2-line"></i>
+                        </div>`
+
+        }
+        else{
+            content += `<div class="d-flex file_div order-3">
+                            <img src="${url}" class="img-thumbnail">
+                            <i data-key="${files[i].lastModified}" class="item_remove ri-delete-bin-2-line"></i>
+                        </div>`
+        }
+
     }
 
     document.querySelector('.items_div').innerHTML = content;
@@ -112,9 +125,25 @@ function removeFile(e){
 }
 
 add_link.addEventListener('click', function(){
-    let content = `<div class="links_div col-lg-6 mr-3 d-flex">
-                        <input type="url" class="mt-2 form-control" name="links[]" >
-                        <i class="icon ri-delete-bin-2-line"></i>
-                    </div>`
+    let content = `<div><div class="col-lg-6 mr-3 d-flex mt-2 link_div">
+                        <input type="url" class="form-control" name="links[]" >
+                        <i class="icon ri-delete-bin-2-line remove_link"></i>
+                    </div></div>`
     document.querySelector('.links_div').insertAdjacentHTML('beforeend',content)
+    remove_links()
 })
+
+remove_links()
+
+function remove_links(){
+    console.log(55555)
+    document.querySelectorAll('.remove_link').forEach(el => {
+        el.addEventListener('click', removeLink)
+    })
+}
+
+function removeLink(){
+    if(document.querySelector('.links_div').children.length > 1){
+        this.parentNode.parentNode.remove()
+    }
+}

@@ -43,7 +43,7 @@ class PressReleaseController extends Controller
         $requestData = $request->all();
 
         $validate = [
-                    "logo" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
+                    "logo" => "required | mimes:jpeg,jpg,png,PNG,JPG | max:2048",
                     "title_en" => "required",
                     "title_am" => "required",
                     "title_ru" => "required",
@@ -52,8 +52,8 @@ class PressReleaseController extends Controller
                     "description_en" => "required",
                     "description_am" => "required",
                     "description_ru" => "required",
-                    "items" => "required",
-                    "links" => "required"
+                    "items" => "required | mimes:mp4,mov,ogg,qt,jpeg,jpg,png,PNG,JPG | max:20000",
+                    "links.*" => "required"
         ];
 
         $validator = Validator::make($request->all(), $validate);
@@ -110,7 +110,10 @@ class PressReleaseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $press_release = PressRelease::find($id);
+
+        return view('press-release.edit', compact('press_release'));
+
     }
 
     /**
