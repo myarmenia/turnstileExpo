@@ -108,7 +108,6 @@
                                     @endforeach
 
                                 </div>
-
                             </div>
                             <div class="col-lg-12 d-flex">
                                 <div class="pt-1">Add Link</div>

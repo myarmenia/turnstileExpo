@@ -28,7 +28,7 @@
                             @csrf
                             <div class="col-12">
                                 <label for="logo" class="form-label">Logo</label>
-                                <input type="file" class="form-control" id="logo" name="logo">
+                                <input type="file" class="form-control" id="logo" name="logo" accept="image/png, image/jpeg, image/jpg, image/PNG, image/JPG">
                                 @error('logo')
                                     <div class="error_message" > {{ $message }} </div>
                                 @enderror
@@ -79,7 +79,7 @@
                             <div class="col-lg-12">
                                 <label for="description_am" class="form-label">Description AM</label>
                                 <textarea class="ckeditor form-control @error('description_am') _incorrectly @enderror" name="description_am" id="description_am">{{ old('description_am')}}</textarea>
-                                @error('description_en')
+                                @error('description_am')
                                     <div class="error_message" > {{ $message }} </div>
                                 @enderror
                             </div>
@@ -94,34 +94,47 @@
                             <div class="col-lg-12">
                                 <label for="description_ru" class="form-label">Links </label>
                                 <div class="links_div">
-                                    <div class=" col-lg-6 mr-3 d-flex">
-                                        <input type="url" class="form-control @error('links') _incorrectly @enderror" name="links[]" >
-                                        <i class="icon ri-delete-bin-2-line"></i>
+
+                                    @error('links.*')
+                                        @foreach (old('links') as $key => $item)
+                                            <div>
+                                                <div class=" col-lg-6 mr-3 d-flex mt-2">
+                                                    <input type="url" class="form-control {{ $item == null ? '_incorrectly' : ''}}" name="links[]" value="{{$item ?? ''}}">
+                                                    <i class="icon ri-delete-bin-2-line remove_link"></i>
+                                                </div>
+                                                @if ($item == null)
+                                                    <div class="error_message" >The link field is required. </div>
+                                                @endif
+                                            </div>
+                                        @endforeach
+                                    @else
+                                    <div>
+                                        <div class=" col-lg-6 mr-3 d-flex">
+                                            <input type="url" class="form-control @error('links.*') _incorrectly @enderror" name="links[]" >
+                                            <i class="icon ri-delete-bin-2-line remove_link"></i>
+                                        </div>
                                     </div>
-
+                                    @enderror
                                 </div>
-                                @error('links')
-                                    <div class="error_message" > {{ $message }} </div>
-                                @enderror
-                            </div>
-                            <div class="col-lg-12">
-                                <label for="description_ru" class="form-label">Add Link</label>
 
-                                <i class="icon  ml-3 ri-add-box-line" id="add_link"></i>
+                            </div>
+                            <div class="col-lg-12 d-flex">
+                                <div class="pt-1">Add Link</div>
+
+                                <i class="icon px-3 ri-add-box-line" id="add_link"></i>
                             </div>
 
                             <div class="col-12">
                                 <label for="items" class="form-label">Files</label>
-                                <input type="file" class="form-control" id="items" name="items[]" multiple>
+                                <input type="file" class="form-control" id="items" name="items[]" multiple accept="image/png, image/jpeg, image/jpg, image/PNG, image/JPG, video/mp4, video/mov, video/ogg, video/qt">
                                 @error('items')
                                     <div class="error_message" > {{ $message }} </div>
                                 @enderror
                             </div>
-                            <div class="items_div d-flex"></div>
+                            <div class="items_div d-flex flex-wrap justify-content-between"> </div>
 
-                            <div class="text-center">
+                            <div class="text-start">
                                 <button class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Reset</button>
                             </div>
                         </form><!-- Vertical Form -->
 
