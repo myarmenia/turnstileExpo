@@ -19,6 +19,7 @@ class CurrentEarthquake extends Model
         'description_en',
         'description_am',
         'description_ru',
+        'magnitude'
     ];
 
     public function files()
