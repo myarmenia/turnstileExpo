@@ -4,7 +4,9 @@ namespace App\Http\Controllers\News;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Services\FileUploadService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class NewsController extends Controller
@@ -38,8 +40,8 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        $requestData = $request->all();
+        // dd($request->all());
+        // $requestData = $request->all();
 
         $validate = [
                     "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
@@ -49,15 +51,26 @@ class NewsController extends Controller
                     "description_en" => "required",
                     "description_am" => "required",
                     "description_ru" => "required",
-                    // "button_link" => "required"
+
         ];
-        
+        if($request->button_link!=null || $request->button_text_en!=null || $request->button_text_am!=null || $request->button_text_ru!=null){
+            $validate['button_link']="required|url";
+            $validate['button_text_en']="required";
+            $validate['button_text_am']="required";
+            $validate['button_text_ru']="required";
+
+        }
 
         $validator = Validator::make($request->all(), $validate);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        // dd($request->all());
         $news = News::create($request->all());
+        if($news){
+            return redirect('/news');
+        }
+
 
 
     }
@@ -81,7 +94,8 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $news=News::where('id',$id)->first();
+        return view('news.edit',compact('news'));
     }
 
     /**
@@ -93,7 +107,77 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+        $validate = [
+            // "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
+            "title_en" => "required",
+            "title_am" => "required",
+            "title_ru" => "required",
+            "description_en" => "required",
+            "description_am" => "required",
+            "description_ru" => "required",
+
+        ];
+        if($request->button_link!=null || $request->button_text_en!=null || $request->button_text_am!=null || $request->button_text_ru!=null){
+            $validate['button_link']="required|url";
+            $validate['button_text_en']="required";
+            $validate['button_text_am']="required";
+            $validate['button_text_ru']="required";
+
+        }
+        if($request->has('image')){
+            $validate['image']="required | mimes:jpeg,jpg,png,PNG | max:10000";
+        }
+        $news=News::where('id',$id)->first();
+        if($news->image==null){
+
+            $validate['image']="required | mimes:jpeg,jpg,png,PNG | max:10000";
+        }
+
+        $validator = Validator::make($request->all(), $validate);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $news_update = News::where('id',$id)->update([
+            "title_en" => $request->title_en,
+            "title_am" => $request->title_am,
+            "title_ru" => $request->title_ru,
+            "description_en" =>$request->description_en,
+            "description_am" =>$request->description_am,
+            "description_ru" =>$request->description_ru,
+        ]);
+
+        if($request->has('image')){
+            $path=FileUploadService::upload($request->image,'news/'.$id);
+            $news->image=$path;
+            $news->save();
+
+        }
+
+        if($request->button_link!=null || $request->button_text_en!=null || $request->button_text_am!=null || $request->button_text_ru!=null){
+            $news->button_link=$request->button_link;
+            $news->button_text_en=$request->button_text_en;
+            $news->button_text_am=$request->button_text_am;
+            $news->button_text_ru=$request->button_text_ru;
+            $news->save();
+        }
+
+        if($news){
+            return redirect('/news');
+        }
+    }
+    public function deleteFile($id){
+        $news=News::where('id',$id)->first();
+
+        Storage::delete($news->image);
+        $news->image='';
+        $news->save();
+
+
+
+        return response()->json(['message'=>'deleted']);
+
     }
 
     /**
