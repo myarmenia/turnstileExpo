@@ -1,5 +1,4 @@
 deleteItem()
-
 function deleteItem(){
     document.querySelectorAll('.delete_item').forEach(el=>{
         el.addEventListener('click', deleteItemFromDB)
@@ -8,7 +7,6 @@ function deleteItem(){
 
 function deleteItemFromDB()
 {
-
     let item_id = this.getAttribute('data-id')
     let type = this.getAttribute('data-type')
     let table = this.getAttribute('data-table')
