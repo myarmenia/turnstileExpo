@@ -17,6 +17,9 @@ class News extends Model
         'description_am',
         'description_ru',
         'image',
-        'button'
+        'button_link',
+        'button_text_en',
+        'button_text_am',
+        'button_text_ru',
     ];
 }

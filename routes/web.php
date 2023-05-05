@@ -9,6 +9,8 @@ use App\Http\Controllers\PressReleases\PressReleaseController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
+use App\Http\Controllers\DeleteFileController;
+use App\Services\FileUploadService;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +47,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('press-release', PressReleaseController::class);
 
     Route::resource('news', NewsController::class);
-
+    Route::get('delete_file/{id}',[NewsController::class,'deleteFile']);
 
     Route::resource('current-earthquakes', CurrentEarthquakesController::class);
 
