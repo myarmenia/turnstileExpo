@@ -26,6 +26,10 @@
                             </div>
                             <div class="d-flex flex-column w-50 justify-content-end pt-3">
                                 <div class="text-end">
+                                    <label>Moderator:</label>
+                                    <span class="text-primary ont-weight-bold text-end">  moderator name</span>
+                                </div>
+                                <div class="text-end">
                                     <label>Status:</label>
                                     <span class="text-primary ont-weight-bold text-end">  {{ $press_release->status}}</span>
                                 </div>
@@ -38,13 +42,13 @@
                                         <option value="reditab">Reditab</option>
                                         <option value="delete">Delete</option>
                                     </select>
-
                                 </div>
                             </div>
                         </div>
 
-                        <form class="row g-3" action="{{ route('press-release.store') }}" method="POST" enctype="multipart/form-data">
+                        <form class="row g-3" action="{{ route('press-release.update', $press_release->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="col-12">
                                 <label for="logo" class="form-label">Logo</label>
                                 <input type="file" class="form-control" id="logo" name="logo" accept="image/png, image/jpeg, image/jpg, image/PNG, image/JPG">
@@ -54,8 +58,7 @@
                             </div>
                             <div class="logo_div ">
                                 <div class="d-flex file_div">
-                                    <img src="${url}">
-                                    <i id="logo_remove" class=" ri-delete-bin-2-line"></i>
+                                    <img src="{{ route('get-file',['path'=>$press_release->logo]) }}">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -81,7 +84,7 @@
                             </div>
                             <div class="col-6">
                                 <label for="date" class="form-label">Date</label>
-                                <input type="date" class="form-control @error('date') _incorrectly @enderror" id="date" name="date" value="{{$press_release->daate}}">
+                                <input type="date" class="form-control @error('date') _incorrectly @enderror" id="date" name="date" value="{{$press_release->date}}">
                                 @error('date')
                                     <div class="error_message" > {{ $message }} </div>
                                 @enderror
@@ -119,14 +122,29 @@
                                 <label for="description_ru" class="form-label">Links </label>
                                 <div class="links_div">
 
-                                    @foreach ($press_release->links as $key => $item)
-                                        <div>
-                                            <div class=" col-lg-6 mr-3 d-flex mt-2">
-                                                <input type="url" class="form-control" name="links[]" value = "{{$item->link}}">
-                                                <i class="icon ri-delete-bin-2-line remove_link"></i>
+
+                                    @error('links.*')
+                                        @foreach (old('links') as $key => $item)
+                                            <div>
+                                                <div class=" col-lg-6 mr-3 d-flex mt-2">
+                                                    <input type="url" class="form-control link {{ $item == null ? '_incorrectly' : ''}}" name="links[]" value="{{$item ?? ''}}">
+                                                    <i class="icon ri-delete-bin-2-line remove_link"></i>
+                                                </div>
+                                                @if ($item == null)
+                                                    <div class="error_message" >The link field is required. </div>
+                                                @endif
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        @foreach ($press_release->links as $key => $item)
+                                            <div>
+                                                <div class=" col-lg-6 mr-3 d-flex mt-2">
+                                                    <input type="url" class="form-control link" name="links[]" value = "{{$item->link}}">
+                                                    <i class="icon ri-delete-bin-2-line delete_item" data-id="{{$item->id}}" data-table="links" data-type="link"></i>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @enderror
 
                                 </div>
                             </div>
@@ -141,6 +159,14 @@
                                 @error('items')
                                     <div class="error_message" > {{ $message }} </div>
                                 @enderror
+                            </div>
+                            <div class="d-flex flex-wrap justify-content-between">
+                                @foreach ($press_release->files as $item)
+                                    <div class="d-flex file_div">
+                                        <img src="{{ route('get-file',['path'=>$item->path]) }}" class="file">
+                                        <i class="delete_item ri-delete-bin-2-line" data-id="{{$item->id}}" data-table="files" data-type="file"></i>
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="items_div d-flex flex-wrap justify-content-between"> </div>
 
@@ -160,21 +186,7 @@
 
 @section('js-scripts')
     <script src="{{ asset('assets/back/js/press-releases.js') }}"></script>
-
+    <script src="{{ asset('assets/back/js/delete_item.js') }}"></script>
     <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 
-    <script type="text/javascript">
-        // $(document).ready(function() {
-        // $('.ckeditor').ckeditor();
-        // });
-        // CKEDITOR.replace( 'description_em' );
-        // CKEDITOR.replace( 'description_am' );
-
-        // CKEDITOR.replace( 'description_ru' );
-
-        // document.querySelectorAll('.ckeditor').forEach(element => {
-        //     element.ckeditor()
-        // });
-
-    </script>
 @endsection

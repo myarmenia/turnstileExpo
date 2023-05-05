@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
 use App\Http\Controllers\DeleteFileController;
+use App\Http\Controllers\DeleteItemController;
 use App\Services\FileUploadService;
 
 /*
@@ -50,6 +51,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('delete_file/{id}',[NewsController::class,'deleteFile']);
 
     Route::resource('current-earthquakes', CurrentEarthquakesController::class);
+
+    Route::get('delete_item/{id}/{table}/{type}',[DeleteItemController::class,'delete_item'])->name('delete_item');
 
 
 });

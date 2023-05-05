@@ -18,7 +18,6 @@ class FileResource extends JsonResource
         $files = [
             'type' => $this->type,
             "path" => $this->path,
-            
         ];
 
         return $files;
