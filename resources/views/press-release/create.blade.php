@@ -10,7 +10,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Press Release</li>
+                <li class="breadcrumb-item"><a href="{{route('press-release.index')}}">Press Release</a></li>
                 <li class="breadcrumb-item active">Create</li>
             </ol>
         </nav>

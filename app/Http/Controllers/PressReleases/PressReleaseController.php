@@ -18,7 +18,8 @@ class PressReleaseController extends Controller
      */
     public function index()
     {
-        return view('press-release.index');
+        $press_releases = PressRelease::all();
+        return view('press-release.index', compact('press_releases'));
     }
 
     /**
