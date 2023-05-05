@@ -17,9 +17,12 @@ class CurrentEarthquakesController extends Controller
      */
     public function index(Request $request)
     {
-        $current_earthquakes = CurrentEarthquake::paginate(5);
 
-        return view('current-earthquakes.index', compact("current_earthquakes"))->with('i', ($request->input('page', 1) - 1) * 5);;
+        // if($request->)
+
+        $current_earthquakes = CurrentEarthquake::paginate(1);
+
+        return view('current-earthquakes.index', compact("current_earthquakes"))->with('i', ($request->input('page', 1) - 1) * 1);;
     }
 
     /**
@@ -42,15 +45,14 @@ class CurrentEarthquakesController extends Controller
     {
         $requestData = $request->all();
 
-//        dd($requestData);
-
         $validate = [
-            "banner" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
+            // "banner" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
             "title_en" => "required",
             "title_am" => "required",
             "title_ru" => "required",
             "date" => "required",
             "time" => "required",
+            "magnitude" => "required",
             "description_en" => "required",
             "description_am" => "required",
             "description_ru" => "required",
@@ -66,8 +68,8 @@ class CurrentEarthquakesController extends Controller
 
         $current_earthquakes = CurrentEarthquake::create($request->all());
 
-        if($request->has('banner')){
-            $path_banner = FileUploadService::upload($request->banner,'current-earthquakes/'.$current_earthquakes->id);
+        if ($request->has('banner')) {
+            $path_banner = FileUploadService::upload($request->banner, 'current-earthquakes/' . $current_earthquakes->id);
             $current_earthquakes->banner = $path_banner;
             $current_earthquakes->save();
         }
@@ -76,20 +78,18 @@ class CurrentEarthquakesController extends Controller
 
             $f_extension = $image->getClientOriginalExtension();
             $f_type = 'image';
-            if($f_extension == 'mp4' || $f_extension == 'avi' || $f_extension == 'mkv'){
+            if ($f_extension == 'mp4' || $f_extension == 'avi' || $f_extension == 'mkv') {
                 $f_type = 'video';
             }
-            $f_path = FileUploadService::upload($image,'current-earthquakes/'.$current_earthquakes->id);
-            $current_earthquakes->files()->create(['path'=>$f_path, 'type'=>$f_type ]);
+            $f_path = FileUploadService::upload($image, 'current-earthquakes/' . $current_earthquakes->id);
+            $current_earthquakes->files()->create(['path' => $f_path, 'type' => $f_type]);
         }
 
-        if($request->has('links')){
+        if ($request->has('links')) {
             foreach ($request->links as $key => $link) {
-
-                $current_earthquakes->links()->create(['link' => $link, 'type' => 'current_earthquakes' ]);
+                $current_earthquakes->links()->create(['link' => $link, 'type' => 'current_earthquakes']);
             }
         }
-
     }
 
     /**
@@ -111,9 +111,9 @@ class CurrentEarthquakesController extends Controller
      */
     public function edit($id)
     {
-        $current_earthquakes = CurrentEarthquake::find($id);
+        $current_earthquake = CurrentEarthquake::where('id', $id)->with('links')->with('files')->first();
 
-        return view('current-earthquakes.edit', compact('current_earthquakes'));
+        return view('current-earthquakes.edit', compact('current_earthquake'));
     }
 
     /**
@@ -125,7 +125,34 @@ class CurrentEarthquakesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+
+        $validate = [
+            // "banner" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
+            "title_en" => "required",
+            "title_am" => "required",
+            "title_ru" => "required",
+            "date" => "required",
+            "time" => "required",
+            "magnitude" => "required",
+            "description_en" => "required",
+            "description_am" => "required",
+            "description_ru" => "required",
+            // "items" => "required",
+            // "links.*" => "required"
+        ];
+
+        $validator = Validator::make($requestData, $validate);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $current_earthquake = CurrentEarthquake::find($id);
+        // dd($current_earthquake);
+        $current_earthquake->update($requestData);
+
+        dd($requestData);
     }
 
     /**

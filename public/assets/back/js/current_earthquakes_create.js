@@ -1,45 +1,58 @@
-banner.addEventListener("change", (e) => {
-    document.querySelector('.banner_div').innerHTML=''
+// banner.addEventListener("change", (e) => {
+//     document.querySelector('.banner_div').innerHTML=''
 
-    let file = e.target.files;
-    let url = URL.createObjectURL(file[0])
+//     let file = e.target.files;
+//     let url = URL.createObjectURL(file[0])
 
-    document.querySelector('.banner_div').innerHTML = `<div class="d-flex file_div">
-                                                        <img src="${url}">
-                                                        <i data-key="${file[0].lastModified}" id="banner_remove" class=" ri-delete-bin-2-line"></i>
-                                                    </div>`;
-    logoRemove()
-})
+//     document.querySelector('.banner_div').innerHTML = `<div class="d-flex file_div">
+//                                                         <img src="${url}">
+//                                                         <i data-key="${file[0].lastModified}" id="banner_remove" class=" ri-delete-bin-2-line"></i>
+//                                                     </div>`;
+//     logoRemove()
+// })
 
-function logoRemove(){
-    if(document.getElementById('banner_remove') != null){
-        banner_remove.addEventListener('click', function(e){
-            banner.value = ''
-            e.target.parentNode.remove()
-        })
-    }
-}
+// function logoRemove(){
+//     if(document.getElementById('banner_remove') != null){
+//         banner_remove.addEventListener('click', function(e){
+//             banner.value = ''
+//             e.target.parentNode.remove()
+//         })
+//     }
+// }
 
 items.addEventListener("change", (e) => {
     document.querySelector('.items_div').innerHTML=''
 
     let files = e.target.files;
+    console.log(files)
     console.log(files.length)
     let content = ''
     for (var i = 0; i < files.length; i++){
         let url = URL.createObjectURL(files[i])
-        content += `<div class="d-flex file_div">
-                        <img src="${url}" class="">
-                        <i data-key="${files[i].lastModified}" class="item_remove ri-delete-bin-2-line"></i>
-                    </div>`
+        let type_arr = files[i].type.split('/')
+        console.log(url)
+        if(type_arr[0] == 'video'){
+            content += `<div class="d-flex file_div order-3">
+                            <video class="img-thumbnail" controls><source src="${url}" type="${files[i].type}"></video>
+                            <i data-key="${files[i].lastModified}" class="item_remove ri-delete-bin-2-line"></i>
+                        </div>`
+
+        }
+        else{
+            content += `<div class="d-flex file_div order-3">
+                            <img src="${url}" class="img-thumbnail">
+                            <i data-key="${files[i].lastModified}" class="item_remove ri-delete-bin-2-line"></i>
+                        </div>`
+        }
+
     }
 
     document.querySelector('.items_div').innerHTML = content;
     // logoRemove()
     document.querySelectorAll('.item_remove').forEach( el => {
-        el.addEventListener('click', removeFile)
+                    el.addEventListener('click', removeFile)
 
-    })
+            })
     // removeFile()
 })
 
@@ -111,13 +124,18 @@ function removeFile(e){
     e.target.parentNode.remove()
 }
 const removeElemnet = (a) => {
-    if(document.querySelectorAll(".delete_link").length>1)a.parentElement.remove()
+    if(document.querySelectorAll(".delete_link").length>1){
+      
+        a.parentElement.parentElement.remove()
+    }
 }
 add_link.addEventListener('click', function(){
-    let content = `<div class="links_div col-lg-6 mr-3 d-flex">
+    let content = `<div>
+                    <div class="links_div col-lg-6 mr-3 d-flex">
                         <input type="url" class="mt-2 form-control" name="links[]" >
                         <i class="icon ri-delete-bin-2-line delete_link" onclick="removeElemnet(this)"></i>
-                    </div>`
+                    </div>
+                </div>`
     document.querySelector('.links_div').insertAdjacentHTML('beforeend',content)
 })
 
