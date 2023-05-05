@@ -164,8 +164,17 @@
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
                         </div>
+                        <div class="d-flex flex-wrap justify-content-between">
+                            @foreach ($current_earthquake->files as $item)
+                            <div class="d-flex file_div">
+                                <img src="{{ route('get-file',['path'=>$item->path]) }}" class="file">
+                                <i class="delete_item ri-delete-bin-2-line" data-id="{{$item->id}}" data-table="files"
+                                    data-type="file"></i>
+                            </div>
+                            @endforeach
+                        </div>
                         <div class="items_div d-flex flex-wrap justify-content-between mt-3 ">
-                            
+
                         </div>
 
                         <div class="text-start">
@@ -184,6 +193,6 @@
 
 @section('js-scripts')
 <script src="{{ asset('assets/back/js/current_earthquakes_edit.js') }}"></script>
-
+<script src="{{ asset('assets/back/js/delete_item.js') }}"></script>
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 @endsection
