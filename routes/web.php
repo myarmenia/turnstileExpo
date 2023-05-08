@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\Profile\DashboardController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -40,7 +41,7 @@ Route::group(['middleware' => ['auth']], function() {
 
             Route::resource('/roles', RoleController::class);
             Route::resource('/users', UserController::class);
-            // Route::resource('/permissions', PermissionController::class);
+            Route::resource('/permissions', PermissionController::class);
             route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         });
 
@@ -49,8 +50,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('press-release', PressReleaseController::class);
 
     Route::resource('news', NewsController::class);
-    Route::get('delete_file/{id}',[NewsController::class,'deleteFile']);
-
+   
     Route::resource('current-earthquakes', CurrentEarthquakesController::class);
 
     Route::get('delete_item/{id}/{table}/{type}',[DeleteItemService::class, 'delete_item'])->name('delete_item');

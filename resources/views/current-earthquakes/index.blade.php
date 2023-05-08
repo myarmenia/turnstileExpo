@@ -1,18 +1,11 @@
 @extends('layouts.auth-app')
 @section('link')
-<link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
-<style>
-    .check_hover:hover {
-        color: #0d6efd;
-    }
-
-    .check_hover {
-        cursor: pointer;
-    }
-</style>
+{{--
+<link href="{{ asset('assets/css/index.css') }}" rel="stylesheet"> --}}
+<link href="{{ asset('assets/css/table.css') }}" rel="stylesheet">
+@endsection
 {{--
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> --}}
-@endsection
 @section('content')
 <div class="pagetitle">
     <h1>Current Earthquakes</h1>
@@ -48,34 +41,38 @@
                 <div class="mb-3" style="display: flex; gap: 8px">
                     <div class="col-2">
                         <!-- <label for="inputNanme4" class="form-label">Title</label> -->
-                        <input type="text" class="form-control" name="title" id="title" placeholder="Title" />
+                        <input type="text" class="form-control" name="title" id="title" placeholder="Title"
+                            value="{{ request()->input('title') }}" />
                     </div>
-                    <div class="col-2">
+                    <div class=" col-2">
                         <!-- <label for="inputEmail4" class="form-label">Title AM</label> -->
-                        <input type="email" class="form-control" name="magnitude" id="magnitude"
-                            placeholder="Magnitude" />
+                        <input type="text" class="form-control" name="magnitude" id="magnitude" placeholder="Magnitude"
+                            value="{{ request()->input('magnitude') }}" />
                     </div>
 
                     <!-- <div class="row mb-3"> -->
                     <!-- <label for="inputDate" class="col-sm-2 col-form-label">From</label> -->
                     <div class="col-2">
-                        <input type="date" name="date_from" class="form-control" placeholder="From" />
+                        <input type="text" class="form-control" placeholder="Date_from" onfocus="(this.type='date')"
+                            name="date_from"
+                            value="{{ request()->input('date_from') ? date('d-m-Y', strtotime(request()->input('date_from'))) : '' }}">
                     </div>
-                    <!-- </div> -->
-
-                    <!-- <div class="row mb-3"> -->
-                    <!-- <label for="inputDate" class="col-sm-2 col-form-label">To</label> -->
                     <div class="col-2">
-                        <input type="date" name="date_to" class="form-control" placeholder="To" />
+                        <input type="text" class="form-control" placeholder="Date_to" onfocus="(this.type='date')"
+                            name="date_to"
+                            value="{{ request()->input('date_to') ? date('d-m-Y', strtotime(request()->input('date_to'))) : '' }}">
                     </div>
 
                     <div class="col-2">
                         <select id="inputStatus" name="status" class="form-select">
                             {{-- <option selected>Status</option> --}}
-                            <option>new</option>
-                            <option>...</option>
-                            <option>...</option>
-                            <option>...</option>
+                            <option value="new" {{ request()->input('status') == 'new' ? 'selected' : ''}}>New</option>
+                            <option value="confirmed" {{ request()->input('status') == 'confirmed' ? 'selected' :
+                                ''}}>Confirmed</option>
+                            <option value="hidden" {{ request()->input('status') == 'hidden' ? 'selected' : ''}}>Hidden
+                            </option>
+                            <option value="reditab" {{ request()->input('status') == 'reditab' ? 'selected' :
+                                ''}}>Reditab</option>
                         </select>
                     </div>
 
@@ -98,7 +95,7 @@
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
                     <th scope="col">Status</th>
-                    <th scope="col" style="width: 60px !important">Actions</th>
+                    <th scope="col" style="width: 80px !important">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -113,15 +110,21 @@
                     <td>{{ $current_earthquake->date }}</td>
                     <td>{{ $current_earthquake->time }}</td>
                     <td>{{ $current_earthquake->status }}</td>
-                    <td>
-                        <div style="display: flex !important">
+                    <td class="px-0">
+                        <div style="d-flex justify-content-between">
                             <a href="{{ route('current-earthquakes.edit', $current_earthquake->id) }}">
-                                <i class="bi bi-pencil-square px-1" style="cursor: pointer"></i>
+                                <i class="bi bi-pencil-square action_i"></i>
                             </a>
-                            <i class="bi bi-trash px-2" style="cursor: pointer" data-bs-target="#disablebackdrop"
-                                data-bs-toggle="modal"
-                                onclick="create_request_route(`current-earthquakes`, {{ $current_earthquake->id }})"></i>
-                            <i class="bi bi-check-circle check_hover"></i>
+                            <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"
+                                onclick="create_request_route(`current-earthquakes`, {{$current_earthquake->id}})"></i>
+                            <a
+                                href="{{ route('change_status', [$current_earthquake->id, 'current_earthquakes', 'confirmed']) }}">
+                                <i class="bi bi-check-circle action_i"
+                                    style="color:{{ $current_earthquake->status == 'confirmed' ? '#0d6efd' : ''}}"
+                                    data-bs-toggle="tooltip" data-bs-placement="left"
+                                    data-bs-original-title="{{ $current_earthquake->status == 'confirmed' ? 'Confirmed' : 'Change status to confirmed'}}">
+                                </i>
+                            </a>
                         </div>
                     </td>
                 </tr>

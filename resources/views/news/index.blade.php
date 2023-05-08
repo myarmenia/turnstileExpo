@@ -1,4 +1,7 @@
 @extends('layouts.auth-app')
+@section('link')
+    <link href="{{ asset('assets/css/table.css') }}" rel="stylesheet">
+@endsection
 
 @section('content')
 {{-- <main id="main" class="main"> --}}
@@ -21,31 +24,25 @@
         </div>
 
         <div>
-          <form class="row g-3 mt-2" style="display: flex">
-            <div class="mb-3" style="display: flex; gap: 8px">
-              <div class="col-2">
-                <!-- <label for="inputNanme4" class="form-label">Title</label> -->
-                <input type="text" class="form-control" id="inputNanme4" placeholder="Title" />
-              </div>
-              <div class="col-2">
-                <select id="inputState" class="form-select">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                  <option>222</option>
-                </select>
-              </div>
+            <form action="{{route('news.index')}}" method="get" class="row g-3 mt-2" style="display: flex">
+                <div class="mb-3" style="display: flex; gap: 8px">
+                <div class="col-2">
+                    <!-- <label for="inputNanme4" class="form-label">Title</label> -->
+                    <input type="text" class="form-control" id="inputNanme4"  name="title" placeholder="Title" value="{{ request()->input('title') }}" />
+                </div>
+                <div class="col-2">
+                    <select id="inputState" class="form-select" name="status">
+                        <option value="new" {{ request()->input('status') == 'new' ? 'selected' : ''}}>New</option>
+                        <option value="confirmed" {{ request()->input('status') == 'confirmed' ? 'selected' : ''}}>Confirmed</option>
+                        <option value="hidden" {{ request()->input('status') == 'hidden' ? 'selected' : ''}}>Hidden</option>
+                        <option value="reditab" {{ request()->input('status') == 'reditab' ? 'selected' : ''}}>Reditab</option>
+                    </select>
+                </div>
 
-              <button
-                type="button"
-                class="btn btn-primary"
-                style="width: 13.01111111111111111111% !important"
-              >
-                Search
-              </button>
-            </div>
-
-            <!-- </div> -->
-          </form>
+                <button type="submit" class="btn btn-primary" style="width: 13.01111111111111111111% !important">Search</button>
+                </div>
+                <!-- </div> -->
+            </form>
         </div>
         <table class="table table-bordered border-primary">
           <thead>
@@ -70,48 +67,11 @@
                 <td>{{ $item->status }}</td>
                 <td>
                     <div style="display: flex !important">
-                        <a href="{{route('news.edit',$item->id)}}"><i class="bi bi-pencil-square px-1" style="cursor: pointer"></i></a>
-
-
-                    <i
-                        class="bi bi-trash px-2"
-                        style="cursor: pointer"
-                        data-bs-toggle="modal"
-                        data-bs-target="#disablebackdrop"
-                    ></i>
-                    <i class="bi bi-check-circle check_hover"></i>
-                    </div>
-                    <div
-                    class="modal fade"
-                    id="disablebackdrop"
-                    tabindex="-1"
-                    data-bs-backdrop="false"
-                    >
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Disabled Backdrop</h5>
-                            <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                            ></button>
-                        </div>
-                        <div class="modal-body">
-                            Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta
-                            at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in
-                            facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est
-                            facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Close
-                            </button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                        </div>
-                    </div>
+                        <a href="{{route('news.edit',$item->id)}}"><i class="bi bi-pencil-square action_i"></i></a>
+                        <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"  onclick="create_request_route(`news`, {{$item->id}})"></i>
+                        <a href="{{ route('change_status', [$item->id, 'news', 'confirmed']) }}">
+                            <i class="bi bi-check-circle action_i" style="color:{{ $item->status == 'confirmed' ? '#0d6efd' : ''}}" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="{{ $item->status == 'confirmed' ? 'Confirmed' : 'Change status to confirmed'}}"> </i>
+                        </a>
                     </div>
                 </td>
                 </tr>
@@ -131,3 +91,8 @@
   {{-- </main> --}}
 
 @endsection
+@extends('layouts.modal')
+@section('js-scripts')
+    <script src="{{ asset('assets/back/js/modal.js') }}"></script>
+@endsection
+
