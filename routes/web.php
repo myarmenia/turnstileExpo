@@ -49,8 +49,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('press-release', PressReleaseController::class);
 
     Route::resource('news', NewsController::class);
-    Route::get('delete_file/{id}',[NewsController::class,'deleteFile']);
-
+   
     Route::resource('current-earthquakes', CurrentEarthquakesController::class);
 
     Route::get('delete_item/{id}/{table}/{type}',[DeleteItemService::class, 'delete_item'])->name('delete_item');
