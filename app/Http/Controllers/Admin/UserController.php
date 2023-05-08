@@ -10,6 +10,12 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role_or_permission:Admin']);
+        // $this->updateService = new updateService();
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +23,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
+        $data = User::whereDoesntHave('roles', function ($q) {
+            $q->where('name', 'Admin');
+        })->orderBy('id','DESC')->paginate(5);
+
         return view('admin.users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -30,7 +39,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        return view('users.create',compact('roles'));
+        return view('admin.users.create',compact('roles'));
     }
 
     /**
