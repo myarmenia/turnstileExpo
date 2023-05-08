@@ -18,9 +18,24 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
+
         $paginate=2;
         $i=$request['page'] ? ($request['page']-1)*$paginate : 0;
         $query=News::latest();
+        if($request->has('title')){
+            $title = $request->title;
+            $news = $query->where(function ($query) use ($title){
+                $query->where('title_en', 'like', '%' . $title . '%')
+                        ->orWhere('title_ru', 'like', '%' . $title . '%')
+                        ->orWhere('title_am', 'like', '%' . $title . '%');
+            });
+
+        }
+        if($request->has('status')){
+            $query = $query->where('status', $request->status);
+        }
+
+
 
         $news=$query->paginate(2)->withQueryString();
 
@@ -122,7 +137,7 @@ class NewsController extends Controller
     {
         // dd($request->all());
         $validate = [
-            // "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
+
             "title_en" => "required",
             "title_am" => "required",
             "title_ru" => "required",
@@ -184,18 +199,7 @@ class NewsController extends Controller
 
         }
     }
-    public function deleteFile($id){
-        $news=News::where('id',$id)->first();
 
-        Storage::delete($news->image);
-        $news->image='';
-        $news->save();
-
-
-
-        return response()->json(['message'=>'deleted']);
-
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -205,6 +209,10 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        //
+            $news=News::where('id',$id)->first();
+            $deleted=$news->delete();
+            if($deleted){
+                return redirect()->back();
+            }
     }
 }
