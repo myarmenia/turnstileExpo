@@ -17,7 +17,7 @@ class PressReleaseController extends BaseController
      */
     public function index(Request $request)
     {
-        $press_releases = PressRelease::orderBy('id', 'desc')->paginate(4);
+        $press_releases = PressRelease::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
         // dd($book_latest);
 
         return is_null($press_releases) ? $this->sendError('error message') :

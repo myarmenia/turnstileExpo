@@ -16,10 +16,37 @@ class PressReleaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $press_releases = PressRelease::all();
-        return view('press-release.index', compact('press_releases'));
+        $press_releases = PressRelease::orderBy('id','DESC');
+
+        if($request->from){
+            $press_releases = $press_releases->where('date', '>=', $request->from);
+        }
+
+        if($request->to){
+            $press_releases = $press_releases->where('date', '<=', $request->to);
+        }
+
+        if($request->status){
+            $press_releases = $press_releases->where('status', $request->status);
+        }
+
+        if($request->title){
+            $title = $request->title;
+            $press_releases = $press_releases->where(function ($query) use ($title){
+                $query->where('title_en', 'like', '%' . $title . '%')
+                        ->orWhere('title_ru', 'like', '%' . $title . '%')
+                        ->orWhere('title_am', 'like', '%' . $title . '%');
+            });
+
+        }
+
+        $press_releases = $press_releases->paginate(6)->withQueryString();
+
+        return view('press-release.index', compact('press_releases'))
+            ->with('i', ($request->input('page', 1) - 1) * 6);
+
     }
 
     /**
@@ -91,6 +118,8 @@ class PressReleaseController extends Controller
                 $press_releases->links()->create(['link' => $link, 'type' => 'press_release' ]);
             }
         }
+
+        return redirect()->route('press-release.index');
 
     }
 
@@ -197,6 +226,8 @@ class PressReleaseController extends Controller
                 $press_releases->links()->create(['link' => $link, 'type' => 'press_release' ]);
             }
         }
+
+        return back();
     }
 
     /**
@@ -207,6 +238,10 @@ class PressReleaseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $press_releases = PressRelease::where('id',$id)->first();
+        $deleted = $press_releases->delete();
+        if($deleted){
+            return redirect()->back();
+        }
     }
 }
