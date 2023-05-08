@@ -9,6 +9,10 @@ use App\Http\Controllers\PressReleases\PressReleaseController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
+use App\Http\Controllers\DeleteFileController;
+use App\Services\ChangeStatusService;
+use App\Services\DeleteItemService;
+use App\Services\FileUploadService;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +32,7 @@ Route::get('/', function () {
 Auth::routes(['verify'=>true]);
 
 
-// Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::name('admin.')->group(function () {
@@ -45,9 +49,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('press-release', PressReleaseController::class);
 
     Route::resource('news', NewsController::class);
-
+    Route::get('delete_file/{id}',[NewsController::class,'deleteFile']);
 
     Route::resource('current-earthquakes', CurrentEarthquakesController::class);
+
+    Route::get('delete_item/{id}/{table}/{type}',[DeleteItemService::class, 'delete_item'])->name('delete_item');
+    Route::get('change_status/{id}/{table}/{status}',[ChangeStatusService::class,'change_status'])->name('change_status');
 
 
 });

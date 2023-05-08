@@ -9,7 +9,7 @@
     border-color: red;
 }
 
-.item_remove, #logo_remove, .icon{
+.item_remove, #logo_remove, .icon, .delete_item{
     font-size: 24px;
     cursor: pointer;
 }

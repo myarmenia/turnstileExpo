@@ -13,7 +13,16 @@ logo.addEventListener("change", (e) => {
 
 function logoRemove(){
     if(document.getElementById('logo_remove') != null){
-        logo_remove.addEventListener('click', function(e){
+        document.getElementById('logo_remove').addEventListener('click', function(e){
+            logo.value = ''
+            e.target.parentNode.remove()
+        })
+    }
+}
+
+function itemDelete(){
+    if(document.getElementById('logo_remove') != null){
+        document.getElementById('logo_remove').addEventListener('click', function(e){
             logo.value = ''
             e.target.parentNode.remove()
         })
@@ -48,55 +57,15 @@ items.addEventListener("change", (e) => {
     }
 
     document.querySelector('.items_div').innerHTML = content;
-    // logoRemove()
+
     document.querySelectorAll('.item_remove').forEach( el => {
                     el.addEventListener('click', removeFile)
 
             })
-    // removeFile()
+
 })
 
 
-// if(document.getElementById('delete_video') != null){
-//     delete_video.addEventListener('click', function(){
-//         let id = this.getAttribute('data-id')
-//         console.log(id)
-//         csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-//          fetch('/admin/courses/lesson/video/delete/'+id,{
-//                     method: 'get',
-//                     headers: {'X-CSRF-TOKEN':csrf},
-//                 }).then(async response => {
-//                         if (!response.ok) {
-//                         }
-//                         else{
-//                             const success = await response.json();
-//                             if(success.message == 'deleted'){
-//                                 delete_video.parentNode.remove()
-//                             }
-//                         }
-//                     })
-//     })
-// }
-
-// if (document.querySelectorAll('.files-input input').length > 0) {
-//   document.querySelectorAll('.files-input input').forEach(fileInput => {
-//     fileInput.addEventListener('change', (e) => {
-//       // обходит файлы используя цикл
-//       fileInput.parentNode.parentNode.querySelector('.file-list').innerHTML=''
-//     //   let files = delfile.files;
-//     let files = e.target.files;
-
-
-//       for (var i = 0; i < files.length; i++) {
-//         fileInput.parentNode.parentNode.querySelector('.file-list').innerHTML += `<div class="create-course__file-list"><span class="file-name">${files[i].name}</span><span data-key="${files[i].lastModified}" class="file-remove _icon-search-close"></span></div >`;
-//       }
-//       fileInput.parentNode.parentNode.querySelectorAll('.file-remove').forEach( el => {
-//             el.addEventListener('click', removeFile)
-
-//     })
-//     });
-//   });
-// }
 
 function removeFile(e){
 
@@ -136,7 +105,6 @@ add_link.addEventListener('click', function(){
 remove_links()
 
 function remove_links(){
-    console.log(55555)
     document.querySelectorAll('.remove_link').forEach(el => {
         el.addEventListener('click', removeLink)
     })
@@ -147,3 +115,5 @@ function removeLink(){
         this.parentNode.parentNode.remove()
     }
 }
+
+

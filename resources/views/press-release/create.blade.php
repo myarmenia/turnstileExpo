@@ -10,7 +10,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Press Release</li>
+                <li class="breadcrumb-item"><a href="{{route('press-release.index')}}">Press Release</a></li>
                 <li class="breadcrumb-item active">Create</li>
             </ol>
         </nav>
@@ -149,21 +149,5 @@
 
 @section('js-scripts')
     <script src="{{ asset('assets/back/js/press-releases.js') }}"></script>
-
     <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-
-    <script type="text/javascript">
-        // $(document).ready(function() {
-        // $('.ckeditor').ckeditor();
-        // });
-        // CKEDITOR.replace( 'description_em' );
-        // CKEDITOR.replace( 'description_am' );
-
-        // CKEDITOR.replace( 'description_ru' );
-
-        // document.querySelectorAll('.ckeditor').forEach(element => {
-        //     element.ckeditor()
-        // });
-
-    </script>
 @endsection

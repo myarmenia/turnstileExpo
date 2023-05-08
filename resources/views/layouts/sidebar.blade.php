@@ -4,32 +4,32 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="index.html">
-            <i class="bi bi-grid"></i>
-            <span>Dashboard</span>
+            <a class="nav-link {{ request()->routeIs('home') ? '' : ' collapsed' }}" href="{{route('home')}}">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{route('press-release.index')}}">
-              <i class="bi bi-person"></i>
-              <span>Press Releases</span>
+            <a class="nav-link {{ request()->routeIs('press-release.*') ? '' : ' collapsed' }}" href="{{route('press-release.index')}}">
+                <i class="ri-file-list-2-line"></i>
+                <span>Press Releases</span>
             </a>
         </li>
         <li class="nav-item">
-
-            <a class="nav-link collapsed" href="{{route('news.index')}}">
-              <i class="bi bi-person"></i>
-              <span>News</span>
-
-            <a class="nav-link collapsed" href="{{route('current-earthquakes.index')}}">
-                <i class="bi bi-person"></i>
+            <a class="nav-link {{ request()->routeIs('news.*') ? '' : ' collapsed' }}" href="{{route('news.index')}}">
+                <i class="bx bx-news"></i>
+                <span>News</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('current-earthquakes.*') ? '' : ' collapsed' }}" href="{{route('current-earthquakes.index')}}">
+                <i class="ri-earthquake-line"></i>
                 <span>Current Earthquakes</span>
-
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
