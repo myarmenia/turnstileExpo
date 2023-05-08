@@ -1,6 +1,8 @@
 <?php
 
+
 use App\Http\Controllers\API\CurrentEarthquake\CurrentEarthquakeController;
+use App\Http\Controllers\API\News\NewsController;
 use App\Http\Controllers\API\PressReleases\PressReleaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +30,10 @@ Route::apiResources([
 
     'press-releases' => PressReleaseController::class,
     'current-earthquake' => CurrentEarthquakeController::class,
+    'news'=>NewsController::class,
 
 ]);
+
 
 
 
