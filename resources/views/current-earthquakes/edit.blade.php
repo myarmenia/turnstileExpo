@@ -23,7 +23,33 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Edit Current Earthquakes</h5>
+
+                    <div class="col-12 d-flex ">
+                        <div class="w-50">
+                            <h5 class="card-title">Edit Current Earthquakes</h5>
+                        </div>
+                        <div class="d-flex flex-column w-50 justify-content-end pt-3">
+                            <div class="text-end">
+                                <label>Moderator:</label>
+                                <span class="text-primary ont-weight-bold text-end"> moderator name</span>
+                            </div>
+                            <div class="text-end">
+                                <label>Status:</label>
+                                <span class="text-primary ont-weight-bold text-end"> {{
+                                    $current_earthquake->status}}</span>
+                            </div>
+                            <div class="d-flex text-end justify-content-end ">
+                                <label for="select_status" class="form-label pt-2 mx-2">Change status to: </label>
+
+                                <select id="select_status" class="form-select w-50">
+                                    <option value="confirmed">Confirmed</option>
+                                    <option value="hidden">Hidden</option>
+                                    <option value="reditab">Reditab</option>
+                                    <option value="delete">Delete</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
                     <form class="row g-3" action="{{ route('current-earthquakes.update', $current_earthquake->id) }}"
                         method="POST" enctype="multipart/form-data">

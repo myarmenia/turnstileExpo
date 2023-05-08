@@ -52,7 +52,8 @@
                     </div>
                     <div class="col-2">
                         <!-- <label for="inputEmail4" class="form-label">Title AM</label> -->
-                        <input type="email" class="form-control" id="magnitude" placeholder="Magnitude" />
+                        <input type="email" class="form-control" name="magnitude" id="magnitude"
+                            placeholder="Magnitude" />
                     </div>
 
                     <!-- <div class="row mb-3"> -->
@@ -78,7 +79,7 @@
                         </select>
                     </div>
 
-                    <button type="button" class="btn btn-primary" style="width: 13.01111111111111111111% !important">
+                    <button class="btn btn-primary" style="width: 13.01111111111111111111% !important">
                         Search
                     </button>
                 </div>
@@ -117,9 +118,9 @@
                             <a href="{{ route('current-earthquakes.edit', $current_earthquake->id) }}">
                                 <i class="bi bi-pencil-square px-1" style="cursor: pointer"></i>
                             </a>
-                            <i class="bi bi-trash px-2" style="cursor: pointer" data-bs-toggle="modal"
-                                data-bs-target="#disablebackdrop"
-                                onclick="create_request_route(`current-earthquakes`, 1)"></i>
+                            <i class="bi bi-trash px-2" style="cursor: pointer" data-bs-target="#disablebackdrop"
+                                data-bs-toggle="modal"
+                                onclick="create_request_route(`current-earthquakes`, {{ $current_earthquake->id }})"></i>
                             <i class="bi bi-check-circle check_hover"></i>
                         </div>
                     </td>
@@ -132,7 +133,6 @@
 </div>
 
 <div class="card-body d-flex justify-content-center">
-    {{-- {{ $current_earthquakes->links() }} --}}
 
     <!-- Disabled and active states -->
     <nav aria-label="...">

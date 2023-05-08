@@ -18,9 +18,34 @@ class CurrentEarthquakesController extends Controller
     public function index(Request $request)
     {
 
-        // if($request->)
+        if ($request->status) {
+            dd($request->all());
 
-        $current_earthquakes = CurrentEarthquake::paginate(1);
+            $title = null;
+            $magnitude = null;
+            $date_from = null;
+            $date_to = null;
+
+            if ($request->title != null) {
+                $title = $request->title;
+            }
+
+            if ($request->magnitude != null) {
+                $magnitude = $request->magnitude;
+            }
+
+            if ($request->date_from != null) {
+                $date_from = $request->date_from;
+            }
+
+            if ($request->date_to != null) {
+                $date_to = $request->date_to;
+            }
+
+            $current_earthquakes = CurrentEarthquake::where('status', $request->status)->where('magnitude', $magnitude)->where('date_from', '>=', $date_from)->where('date_to', '<=', $date_to);
+        }
+
+        $current_earthquakes = CurrentEarthquake::where('status', 'new')->paginate(1);
 
         return view('current-earthquakes.index', compact("current_earthquakes"))->with('i', ($request->input('page', 1) - 1) * 1);;
     }
@@ -60,6 +85,7 @@ class CurrentEarthquakesController extends Controller
             "links.*" => "required"
         ];
 
+
         $validator = Validator::make($request->all(), $validate);
 
         if ($validator->fails()) {
@@ -90,6 +116,8 @@ class CurrentEarthquakesController extends Controller
                 $current_earthquakes->links()->create(['link' => $link, 'type' => 'current_earthquakes']);
             }
         }
+
+        return redirect()->back();
     }
 
     /**
@@ -125,6 +153,9 @@ class CurrentEarthquakesController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $current_earthquake = CurrentEarthquake::find($id);
+
         $requestData = $request->all();
 
         $validate = [
@@ -138,9 +169,16 @@ class CurrentEarthquakesController extends Controller
             "description_en" => "required",
             "description_am" => "required",
             "description_ru" => "required",
-            // "items" => "required",
-            // "links.*" => "required"
         ];
+
+        if ($current_earthquake->links == null || $request->has('links')) {
+            $validate["links.*"] = "required";
+        }
+
+        if ($current_earthquake->files == null || $request->has('items')) {
+            $validate["items.*"] = "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:20000";
+        }
+
 
         $validator = Validator::make($requestData, $validate);
 
@@ -148,11 +186,32 @@ class CurrentEarthquakesController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $current_earthquake = CurrentEarthquake::find($id);
-        // dd($current_earthquake);
         $current_earthquake->update($requestData);
 
-        dd($requestData);
+        if ($request->has('items')) {
+            foreach ($request->items as $key => $image) {
+
+                $f_extension = $image->getClientOriginalExtension();
+                $f_type = 'image';
+                if ($f_extension == 'mp4' || $f_extension == 'mov' || $f_extension == 'ogg') {
+                    $f_type = 'video';
+                }
+                $f_path = FileUploadService::upload($image, 'press-releases/' . $current_earthquake->id);
+                $current_earthquake->files()->create(['path' => $f_path, 'type' => $f_type]);
+            }
+        }
+
+        if ($request->has('links')) {
+
+            $current_earthquake->links()->detach();
+            $current_earthquake->links()->delete();
+
+            foreach ($request->links as $key => $link) {
+                $current_earthquake->links()->create(['link' => $link, 'type' => 'press_release']);
+            }
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -163,6 +222,9 @@ class CurrentEarthquakesController extends Controller
      */
     public function destroy($id)
     {
-        dd(123);
+        $current_earthquake = CurrentEarthquake::find($id);
+        $current_earthquake->delete();
+
+        return redirect()->back();
     }
 }
