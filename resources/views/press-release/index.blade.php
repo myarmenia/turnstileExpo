@@ -68,8 +68,8 @@
                         <td>{{ date('d-m-Y', strtotime($release->date))}}</td>
                         <td>moderator name</td>
                         <td>{{ $release->status }}</td>
-                        <td class="px-0">
-                            <div style="d-flex justify-content-between">
+                        <td class="px-1">
+                            <div class="d-flex justify-content-between">
                                 <a href="{{ route('press-release.edit', $release->id) }}">
                                     <i class="bi bi-pencil-square action_i"></i>
                                 </a>
