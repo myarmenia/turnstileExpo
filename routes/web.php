@@ -10,7 +10,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
 use App\Http\Controllers\DeleteFileController;
-use App\Http\Controllers\DeleteItemController;
+use App\Services\ChangeStatusService;
+use App\Services\DeleteItemService;
 use App\Services\FileUploadService;
 
 /*
@@ -52,7 +53,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('current-earthquakes', CurrentEarthquakesController::class);
 
-    Route::get('delete_item/{id}/{table}/{type}',[DeleteItemController::class,'delete_item'])->name('delete_item');
+    Route::get('delete_item/{id}/{table}/{type}',[DeleteItemService::class, 'delete_item'])->name('delete_item');
+    Route::get('change_status/{id}/{table}/{status}',[ChangeStatusService::class,'change_status'])->name('change_status');
 
 
 });

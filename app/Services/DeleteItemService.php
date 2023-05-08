@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
+use Dotenv\Util\Str;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
-class DeleteItemController extends Controller
+class DeleteItemService
 {
+
     public function delete_item($id, $table, $type = null){
         $item = DB::table($table)->where('id', $id);
 
@@ -17,4 +19,5 @@ class DeleteItemController extends Controller
         $deleted = $item->delete();
         return $deleted ? true : false;
     }
+
 }
