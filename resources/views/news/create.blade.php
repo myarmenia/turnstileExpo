@@ -80,6 +80,9 @@
                       <input class="form-control" type="file"  name="image" id="logo" accept="image/png, image/jpeg, image/jpg, image/PNG, image/JPG">
                     </div>
                   </div>
+                  @error('image')
+                    <div class="error_message" id="image_error"> {{ $message }} </div>
+                 @enderror
                   <div class="logo_div "></div>
 
 

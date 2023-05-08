@@ -95,7 +95,7 @@
                         <div class="d-flex file_div">
 
                             <img src="{{route('get-file',['path'=>$news->image])}}">
-                            <i data-key="{{$news->id}}" data-action="edit" id="logo_remove" class=" ri-delete-bin-2-line"></i>
+                            {{-- <i data-key="{{$news->id}}" data-action="edit" id="logo_remove" class=" ri-delete-bin-2-line"></i> --}}
                         </div>
                     </div>
 
