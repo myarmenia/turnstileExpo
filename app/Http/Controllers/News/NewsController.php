@@ -16,9 +16,15 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('news.index');
+        $paginate=2;
+        $i=$request['page'] ? ($request['page']-1)*$paginate : 0;
+        $query=News::latest();
+
+        $news=$query->paginate(2)->withQueryString();
+
+        return view('news.index',compact('news','i'));
     }
 
     /**
@@ -41,7 +47,7 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        // $requestData = $request->all();
+
 
         $validate = [
                     "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
@@ -51,7 +57,6 @@ class NewsController extends Controller
                     "description_en" => "required",
                     "description_am" => "required",
                     "description_ru" => "required",
-
         ];
         if($request->button_link!=null || $request->button_text_en!=null || $request->button_text_am!=null || $request->button_text_ru!=null){
             $validate['button_link']="required|url";
@@ -65,8 +70,16 @@ class NewsController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
         // dd($request->all());
         $news = News::create($request->all());
+        if($request->image!=null){
+            $path=FileUploadService::upload($request->image,'news/'.$news->id);
+            $news->image=$path;
+            $news->save();
+
+
+        }
         if($news){
             return redirect('/news');
         }
@@ -149,6 +162,7 @@ class NewsController extends Controller
         ]);
 
         if($request->has('image')){
+            Storage::delete($news->image);
             $path=FileUploadService::upload($request->image,'news/'.$id);
             $news->image=$path;
             $news->save();
@@ -164,7 +178,10 @@ class NewsController extends Controller
         }
 
         if($news){
-            return redirect('/news');
+
+            $news=News::where('id',$id)->first();
+            return view('news.edit',compact('news'));
+
         }
     }
     public function deleteFile($id){
