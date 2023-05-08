@@ -2,12 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\File;
-use App\Models\Link;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
-class PressReleaseResource extends JsonResource
+class CurrentEarthquakesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,22 +15,19 @@ class PressReleaseResource extends JsonResource
      */
     public function toArray($request)
     {
-
         return $data =  [
             'id' => $this->id,
             'title_en' => $this->title_en,
-      ,
-            'description_am' => $this->description_am,
-            'description_ru' => $this->description_am,
-            "files" => FileResource::collection($this->files),
-            "links" => LinkResource::collection($this->links),      'title_am' => $this->title_am,
+            'title_am' => $this->title_am,
             'title_ru' => $this->title_ru,
             'date' => $this->date,
             'time' => $this->time,
-            'logo' => Storage::path($this->logo),
-            'description_en' => $this->description_en
+            'description_en' => $this->description_en,
+            'description_am' => $this->description_am,
+            'description_ru' => $this->description_am,
+            "files" => FileResource::collection($this->files),
+            "links" => LinkResource::collection($this->links),
 
         ];
-
     }
 }

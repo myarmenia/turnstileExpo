@@ -18,36 +18,28 @@ class CurrentEarthquakesController extends Controller
     public function index(Request $request)
     {
 
-        if ($request->status) {
-            dd($request->all());
+        $current_earthquakes = CurrentEarthquake::orderBy('id', 'DESC');
 
-            $title = null;
-            $magnitude = null;
-            $date_from = null;
-            $date_to = null;
-
-            if ($request->title != null) {
-                $title = $request->title;
-            }
-
-            if ($request->magnitude != null) {
-                $magnitude = $request->magnitude;
-            }
-
-            if ($request->date_from != null) {
-                $date_from = $request->date_from;
-            }
-
-            if ($request->date_to != null) {
-                $date_to = $request->date_to;
-            }
-
-            $current_earthquakes = CurrentEarthquake::where('status', $request->status)->where('magnitude', $magnitude)->where('date_from', '>=', $date_from)->where('date_to', '<=', $date_to);
+        if ($request->date_from) {
+            $current_earthquakes = $current_earthquakes->where('date', '>=', $request->date_from);
         }
 
-        $current_earthquakes = CurrentEarthquake::where('status', 'new')->paginate(1);
+        if ($request->date_to) {
+            $current_earthquakes = $current_earthquakes->where('date', '<=', $request->date_to);
+        }
 
-        return view('current-earthquakes.index', compact("current_earthquakes"))->with('i', ($request->input('page', 1) - 1) * 1);;
+        if ($request->status) {
+            $current_earthquakes = $current_earthquakes->where('status', $request->status);
+        }
+
+        if ($request->title) {
+            $current_earthquakes = $current_earthquakes->where('title_en', 'like', '%' . $request->title . '%');
+        }
+
+        $current_earthquakes = $current_earthquakes->paginate(6)->withQueryString();
+
+        return view('current-earthquakes.index', compact("current_earthquakes"))
+            ->with('i', ($request->input('page', 1) - 1) * 6);
     }
 
     /**
