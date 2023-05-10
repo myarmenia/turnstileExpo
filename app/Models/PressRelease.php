@@ -32,4 +32,9 @@ class PressRelease extends Model
     {
         return $this->morphToMany(Link::class, 'linkable');
     }
+
+    public function press_release_translations()
+    {
+        return $this->hasMany(PressReleaseTranslation::class);
+    }
 }

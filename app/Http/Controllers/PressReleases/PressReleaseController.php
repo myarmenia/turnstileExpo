@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PressReleases;
 
 use App\Http\Controllers\Controller;
 use App\Models\PressRelease;
+use App\Models\PressReleaseTranslation;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -73,14 +74,10 @@ class PressReleaseController extends Controller
 
         $validate = [
                     "logo" => "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:2048",
-                    "title_en" => "required",
-                    "title_am" => "required",
-                    "title_ru" => "required",
+                    "tanslations.*.title" => "required",
+                    "tanslations.*.description" => "required",
                     "date" => "required",
                     "time" => "required",
-                    "description_en" => "required",
-                    "description_am" => "required",
-                    "description_ru" => "required",
                     "items" => "required",
                     "items.*" => "mimes:mp4,mov,ogg,jpeg,jpg,png,PNG,JPG,JPEG | max:20000",
                     "links.*" => "required"
@@ -99,6 +96,17 @@ class PressReleaseController extends Controller
             $path_logo = FileUploadService::upload($request->logo,'press-releases/'.$press_releases->id);
             $press_releases->logo = $path_logo;
             $press_releases->save();
+        }
+
+        foreach ($request->tanslations as $key => $item) {
+            // dd($item['title']);
+            PressReleaseTranslation::create([
+                'press_release_id' => $press_releases->id,
+                'language_id' => $key,
+                'title' => $item['title'],
+                'description' => $item['description']
+
+            ]);
         }
 
         foreach ($request->items as $key => $image) {

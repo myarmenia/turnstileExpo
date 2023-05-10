@@ -179,6 +179,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'tanslations.*.title' => ' ',
+        'tanslations.*.description' => ' '
+    ],
 
 ];

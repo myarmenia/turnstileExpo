@@ -34,7 +34,17 @@
                                 @enderror
                             </div>
                             <div class="logo_div "></div>
-                            <div class="col-12">
+                            @foreach (languages() as $lng)
+                                <div class="col-12">
+                                    <label for="title_{{$lng->name}}" class="form-label">Title {{ Str::upper($lng->name) }}</label>
+                                    <input type="text" class='form-control @error("tanslations.$lng->id.title") _incorrectly @enderror' id="title_{{$lng->name}}" name="tanslations[{{$lng->id}}][title]" value='{{ old("tanslations.$lng->id.title")}}'>
+                                    @error("tanslations.$lng->id.title")
+                                        <div class="error_message" > {{ $message }} </div>
+                                    @enderror
+                                </div>
+                            @endforeach
+                            {{-- <div class="col-12">
+
                                 <label for="title_en" class="form-label">Title EN</label>
                                 <input type="text" class="form-control @error('title_en') _incorrectly @enderror" id="title_en" name="title_en" value="{{ old('title_en')}}">
                                 @error('title_en')
@@ -54,7 +64,7 @@
                                 @error('title_ru')
                                     <div class="error_message" > {{ $message }} </div>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="col-6">
                                 <label for="date" class="form-label">Date</label>
                                 <input type="date" class="form-control @error('date') _incorrectly @enderror" id="date" name="date" value="{{ old('date')}}">
@@ -69,7 +79,16 @@
                                     <div class="error_message" > {{ $message }} </div>
                                 @enderror
                             </div>
-                            <div class="col-lg-12">
+                            @foreach (languages() as $lng)
+                                <div class="col-lg-12">
+                                    <label for="description_{{$lng->name}}" class="form-label">Description {{ Str::upper($lng->name) }}</label>
+                                    <textarea class='ckeditor form-control @error("tanslations.$lng->id.description") _incorrectly @enderror' name="tanslations[{{$lng->id}}][description]" id="description_en">{{ old("tanslations.$lng->id.description")}}</textarea>
+                                    @error("tanslations.$lng->id.description")
+                                        <div class="error_message" > {{ $message }} </div>
+                                    @enderror
+                                </div>
+                            @endforeach
+                            {{-- <div class="col-lg-12">
                                 <label for="description_en" class="form-label">Description EN</label>
                                 <textarea class="ckeditor form-control @error('description_en') _incorrectly @enderror" name="description_en" id="description_en">{{ old('description_en')}}</textarea>
                                 @error('description_en')
@@ -89,10 +108,10 @@
                                 @error('description_ru')
                                     <div class="error_message" > {{ $message }} </div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
                             <div class="col-lg-12">
-                                <label for="description_ru" class="form-label">Links </label>
+                                <label for="" class="form-label">Links </label>
                                 <div class="links_div">
 
                                     @error('links.*')
