@@ -10,10 +10,11 @@ class ScientificPublications extends Model
     use HasFactory;
 
     protected $fillable = [
-        'content_en',
-        'content_am',
-        'content_ru',
         "file_path"
     ];
 
+    public function scientific_publication_languages()
+    {
+        return $this->hasMany(ScientificPublicationsLanguages::class, 'sc_publication_id');
+    }
 }
