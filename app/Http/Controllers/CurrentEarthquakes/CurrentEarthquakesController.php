@@ -188,7 +188,7 @@ class CurrentEarthquakesController extends Controller
                 if ($f_extension == 'mp4' || $f_extension == 'mov' || $f_extension == 'ogg') {
                     $f_type = 'video';
                 }
-                $f_path = FileUploadService::upload($image, 'press-releases/' . $current_earthquake->id);
+                $f_path = FileUploadService::upload($image, 'current-earthquakes/' . $current_earthquake->id);
                 $current_earthquake->files()->create(['path' => $f_path, 'type' => $f_type]);
             }
         }
@@ -199,7 +199,7 @@ class CurrentEarthquakesController extends Controller
             $current_earthquake->links()->delete();
 
             foreach ($request->links as $key => $link) {
-                $current_earthquake->links()->create(['link' => $link, 'type' => 'press_release']);
+                $current_earthquake->links()->create(['link' => $link, 'type' => 'current_earthquakes']);
             }
         }
 
