@@ -10,7 +10,8 @@
             </a>
         </li><!-- End Dashboard Nav -->
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('press-release.*') ? '' : ' collapsed' }}" href="{{route('press-release.index')}}">
+            <a class="nav-link {{ request()->routeIs('press-release.*') ? '' : ' collapsed' }}"
+                href="{{route('press-release.index')}}">
                 <i class="ri-file-list-2-line"></i>
                 <span>Press Releases</span>
             </a>
@@ -22,19 +23,31 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('current-earthquakes.*') ? '' : ' collapsed' }}" href="{{route('current-earthquakes.index')}}">
+            <a class="nav-link {{ request()->routeIs('current-earthquakes.*') ? '' : ' collapsed' }}"
+                href="{{route('current-earthquakes.index')}}">
                 <i class="ri-earthquake-line"></i>
                 <span>Current Earthquakes</span>
             </a>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('admin.users.*') ? '' : ' collapsed' }}" href="{{route('admin.users.index')}}">
+            <a class="nav-link {{ request()->routeIs('scientific-publications.*') ? '' : ' collapsed' }}"
+                href="{{route('scientific-publications.index')}}">
+                <i class="ri-earthquake-line"></i>
+                <span>Scientific Publications</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('admin.users.*') ? '' : ' collapsed' }}"
+                href="{{route('admin.users.index')}}">
                 <i class="ri-file-list-2-line"></i>
                 <span>Users</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('admin.roles.*') ? '' : ' collapsed' }}" href="{{route('admin.roles.index')}}">
+            <a class="nav-link {{ request()->routeIs('admin.roles.*') ? '' : ' collapsed' }}"
+                href="{{route('admin.roles.index')}}">
                 <i class="ri-file-list-2-line"></i>
                 <span>Roles</span>
             </a>
@@ -44,26 +57,26 @@
                 <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-                <a href="components-alerts.html">
-                <i class="bi bi-circle"></i><span>Alerts</span>
-                </a>
-            </li>
-            <li>
-                <a href="components-accordion.html">
-                <i class="bi bi-circle"></i><span>Accordion</span>
-                </a>
-            </li>
-            <li>
-                <a href="components-badges.html">
-                <i class="bi bi-circle"></i><span>Badges</span>
-                </a>
-            </li>
-            <li>
-                <a href="components-breadcrumbs.html">
-                <i class="bi bi-circle"></i><span>Breadcrumbs</span>
-                </a>
-            </li>
+                <li>
+                    <a href="components-alerts.html">
+                        <i class="bi bi-circle"></i><span>Alerts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="components-accordion.html">
+                        <i class="bi bi-circle"></i><span>Accordion</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="components-badges.html">
+                        <i class="bi bi-circle"></i><span>Badges</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="components-breadcrumbs.html">
+                        <i class="bi bi-circle"></i><span>Breadcrumbs</span>
+                    </a>
+                </li>
 
 
             </ul>
@@ -75,12 +88,12 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="pages-contact.html">
-            <i class="bi bi-envelope"></i>
-            <span>Contact</span>
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
             </a>
         </li><!-- End Contact Page Nav -->
 
 
     </ul>
 
-  </aside><!-- End Sidebar-->
+</aside><!-- End Sidebar-->

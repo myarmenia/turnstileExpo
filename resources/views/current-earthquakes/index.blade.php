@@ -65,7 +65,7 @@
 
                     <div class="col-2">
                         <select id="inputStatus" name="status" class="form-select">
-                            {{-- <option selected>Status</option> --}}
+                            <option value="" selected>Status</option>
                             <option value="new" {{ request()->input('status') == 'new' ? 'selected' : ''}}>New</option>
                             <option value="confirmed" {{ request()->input('status') == 'confirmed' ? 'selected' :
                                 ''}}>Confirmed</option>
@@ -111,7 +111,7 @@
                     <td>{{ $current_earthquake->time }}</td>
                     <td>{{ $current_earthquake->status }}</td>
                     <td class="px-0">
-                        <div style="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between">
                             <a href="{{ route('current-earthquakes.edit', $current_earthquake->id) }}">
                                 <i class="bi bi-pencil-square action_i"></i>
                             </a>

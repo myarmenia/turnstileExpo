@@ -11,6 +11,7 @@ function deleteItemFromDB()
     let type = this.getAttribute('data-type')
     let table = this.getAttribute('data-table')
     let that = this
+
     if(document.querySelectorAll('.'+type).length > 1){
         csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
