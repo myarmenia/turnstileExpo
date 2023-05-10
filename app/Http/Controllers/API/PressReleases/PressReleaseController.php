@@ -17,11 +17,18 @@ class PressReleaseController extends BaseController
      */
     public function index(Request $request)
     {
-        $press_releases = PressRelease::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
-        // dd($book_latest);
+        $lang='ru';
+        $press_releases = PressRelease::select("title_$lang as title",'id')->where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
+        // $press_releases = PressRelease::first();
+        // $press_releases =$press_releases['lang'] = 'ru';
 
+        // $lang = 'ru';
+        // dd($press_releases);
+// dd( $press_releases['lang']);
         return is_null($press_releases) ? $this->sendError('error message') :
                $this->sendResponse( PressReleaseResource::collection($press_releases), 'success');
+            //    $this->sendResponse( new PressReleaseResource($press_releases->additional(['lang' => 'ru'])), 'success');
+
 
     }
 
