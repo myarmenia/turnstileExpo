@@ -23,9 +23,34 @@
     <div class="card-body">
         <h5 class="card-title">Edit Scientific Publications</h5>
 
+
         <!-- News Form -->
-        <form class="row g-3">
+        <form class="row g-3" action="{{ route('scientific-publications.update', $scientific_publication->id) }}"
+            method="post">
+            @csrf
+            @method("patch")
+
+            {{-- {{ dd($scientific_publication->scientific_publication_languages) }} --}}
+
+            @foreach (languages() as $index => $lng)
+
             <div class="flex mb-2 p-2">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Content {{ Str::upper($lng->name) }}</label>
+                <div class="col-sm-12">
+                    <textarea class="form-control" style="height: 100px"
+                        name="content[{{ $lng->id }}]">{{ old("content.$lng->id") ?? $scientific_publication->scientific_publication_languages[$index]->content }}</textarea>
+                </div>
+
+                @error("content.$lng->id")
+                <div class="error_message"> {{ $message }} </div>
+                @enderror
+            </div>
+
+            @endforeach
+
+            {{-- {{ $scientific_publication->content_en }} --}}
+
+            {{-- <div class="flex mb-2 p-2">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Content EN</label>
                 <div class="col-sm-12">
                     <textarea class="form-control"
@@ -45,7 +70,7 @@
                     <textarea class="form-control"
                         style="height: 100px">{{ $scientific_publication->content_am }}</textarea>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="flex mb-3">
                 <!-- <label for="inputNumber" class="col-sm-2 col-form-label">Image</label> -->
@@ -54,6 +79,7 @@
                 </div>
             </div>
 
+            <a href="">PDF File</a>
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Save</button>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ScientificPublications;
 use App\Http\Controllers\Controller;
 use App\Models\ScientificPublications;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ScientificPublicationsController extends Controller
 {
@@ -69,6 +70,7 @@ class ScientificPublicationsController extends Controller
 
         $scientific_publication = ScientificPublications::where('id', $id)->first();
 
+
         return view("scientific-publications.edit", compact('scientific_publication'));
     }
 
@@ -81,7 +83,19 @@ class ScientificPublicationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+
+        $validate = [
+            'content.*' => 'required'
+        ];
+
+        $validator = Validator::make($request->all(), $validate);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
+
     }
 
     /**
