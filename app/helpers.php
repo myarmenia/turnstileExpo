@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Language as ModelsLanguage;
+use App\Models\Language;
 
 if(!function_exists('languages')){
     function languages(){
-        return ModelsLanguage::all();
+        return Language::all();
     }
 }
