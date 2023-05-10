@@ -65,13 +65,15 @@ class NewsController extends Controller
 
 
         $validate = [
+
                     "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
-                    "title_en" => "required",
-                    "title_am" => "required",
-                    "title_ru" => "required",
-                    "description_en" => "required",
-                    "description_am" => "required",
-                    "description_ru" => "required",
+                    // "title_en" => "required",
+                    // "title_am" => "required",
+                    // "title_ru" => "required",
+                    // "description_en" => "required",
+                    // "description_am" => "required",
+                    // "description_ru" => "required",
+                    "translation.*."=> "required",
         ];
         if($request->button_link!=null || $request->button_text_en!=null || $request->button_text_am!=null || $request->button_text_ru!=null){
             $validate['button_link']="required|url";
@@ -83,6 +85,7 @@ class NewsController extends Controller
 
         $validator = Validator::make($request->all(), $validate);
         if ($validator->fails()) {
+            dd($validator->messages());
             return redirect()->back()->withErrors($validator)->withInput();
         }
 

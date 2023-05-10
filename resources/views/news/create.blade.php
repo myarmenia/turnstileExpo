@@ -24,7 +24,18 @@
                 <!-- News Form -->
                 <form class="row g-3" action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                  <div class="col-12">
+                    @foreach (languages() as  $lng)
+
+                    <div class="col-12">
+                        <label for="title_{{$lng->name}}" class="form-label">Title {{$lng->name}}</label>
+                        <input type="text" name="translation[{{$lng->id}}]['title_{{$lng->name}}']"  class="form-control @error('title_{{$lng->name}}') _incorrectly @enderror"  value="{{ old('title_$lng->name')}}">
+                      </div>
+                      @error('title_{{$lng->name}}')
+                        <div class="error_message"> {{ $message }} </div>
+                      @enderror
+
+                    @endforeach
+                  {{-- <div class="col-12">
                     <label for="title_en" class="form-label">Title EN</label>
                     <input type="text" name="title_en"  class="form-control @error('title_en') _incorrectly @enderror"  value="{{ old('title_en')}}">
                   </div>
@@ -44,7 +55,7 @@
                   </div>
                   @error('title_ru')
                     <div class="error_message"> {{ $message }} </div>
-                  @enderror
+                  @enderror --}}
 
                   <div class="flex mb-2 p-2">
                     <label for="inputPassword" class="col-sm-2 col-form-label">Description EN</label>
