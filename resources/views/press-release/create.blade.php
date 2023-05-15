@@ -37,8 +37,8 @@
                             @foreach (languages() as $lng)
                                 <div class="col-12">
                                     <label for="title_{{$lng->name}}" class="form-label">Title {{ Str::upper($lng->name) }}</label>
-                                    <input type="text" class='form-control @error("tanslations.$lng->id.title") _incorrectly @enderror' id="title_{{$lng->name}}" name="tanslations[{{$lng->id}}][title]" value='{{ old("tanslations.$lng->id.title")}}'>
-                                    @error("tanslations.$lng->id.title")
+                                    <input type="text" class='form-control @error("translations.$lng->id.title") _incorrectly @enderror' id="title_{{$lng->name}}" name="translations[{{$lng->id}}][title]" value='{{ old("translations.$lng->id.title")}}'>
+                                    @error("translations.$lng->id.title")
                                         <div class="error_message" > {{ $message }} </div>
                                     @enderror
                                 </div>
@@ -82,8 +82,8 @@
                             @foreach (languages() as $lng)
                                 <div class="col-lg-12">
                                     <label for="description_{{$lng->name}}" class="form-label">Description {{ Str::upper($lng->name) }}</label>
-                                    <textarea class='ckeditor form-control @error("tanslations.$lng->id.description") _incorrectly @enderror' name="tanslations[{{$lng->id}}][description]" id="description_en">{{ old("tanslations.$lng->id.description")}}</textarea>
-                                    @error("tanslations.$lng->id.description")
+                                    <textarea class='ckeditor form-control @error("translations.$lng->id.description") _incorrectly @enderror' name="translations[{{$lng->id}}][description]" id="description_en">{{ old("translations.$lng->id.description")}}</textarea>
+                                    @error("translations.$lng->id.description")
                                         <div class="error_message" > {{ $message }} </div>
                                     @enderror
                                 </div>

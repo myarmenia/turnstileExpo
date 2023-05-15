@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
@@ -13,8 +15,6 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware(['role_or_permission:Admin']);
-        // $this->updateService = new updateService();
-
     }
     /**
      * Display a listing of the resource.
@@ -25,9 +25,33 @@ class UserController extends Controller
     {
         $data = User::whereDoesntHave('roles', function ($q) {
             $q->where('name', 'Admin');
-        })->orderBy('id','DESC')->paginate(5);
+        })->orderBy('id','DESC');
 
-        return view('admin.users.index',compact('data'))
+        if($request->role){
+            $role = $request->role;
+            $data = $data->whereHas('roles', function ($sub_query) use ($role) {
+                $sub_query->where('name',$role);
+            });
+        }
+
+        if($request->has('status')){
+
+            $data = $data->where('status', $request->status);
+        }
+
+        if($request->name){
+            $name = $request->name;
+            $data = $data->where(function ($query) use ($name){
+                $query->where('name', 'like', '%' . $name . '%')
+                        ->orWhere('second_name', 'like', '%' . $name . '%');
+            });
+        }
+
+        $data = $data->paginate(1)->withQueryString();
+
+        $roles = Role::pluck('name','name')->all();
+
+        return view('admin.users.index',compact('data', 'roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -52,8 +76,9 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'second_name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
+            'password' => 'required|min:8|same:confirm-password',
             'roles' => 'required'
         ]);
 
@@ -63,7 +88,7 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
                         ->with('success','User created successfully');
     }
 
@@ -91,7 +116,7 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('admin.users.edit',compact('user','roles','userRole'));
     }
 
     /**
@@ -105,6 +130,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'second_name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
@@ -123,7 +149,7 @@ class UserController extends Controller
 
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
                         ->with('success','User updated successfully');
     }
 
@@ -136,7 +162,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
                         ->with('success','User deleted successfully');
     }
 }

@@ -70,14 +70,16 @@ class PressReleaseController extends Controller
         $requestData = $request->all();
 
         $validate = [
-            "logo" => "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:2048",
-            "tanslations.*.title" => "required",
-            "tanslations.*.description" => "required",
-            "date" => "required",
-            "time" => "required",
-            "items" => "required",
-            "items.*" => "mimes:mp4,mov,ogg,jpeg,jpg,png,PNG,JPG,JPEG | max:20000",
-            "links.*" => "required"
+
+                    "logo" => "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:2048",
+                    "translations.*.title" => "required",
+                    "translations.*.description" => "required",
+                    "date" => "required",
+                    "time" => "required",
+                    "items" => "required",
+                    "items.*" => "mimes:mp4,mov,ogg,jpeg,jpg,png,PNG,JPG,JPEG | max:20000",
+                    "links.*" => "required"
+
         ];
 
         $validator = Validator::make($request->all(), $validate);
@@ -95,7 +97,7 @@ class PressReleaseController extends Controller
             $press_releases->save();
         }
 
-        foreach ($request->tanslations as $key => $item) {
+        foreach ($request->translations as $key => $item) {
             // dd($item['title']);
             PressReleaseTranslation::create([
                 'press_release_id' => $press_releases->id,

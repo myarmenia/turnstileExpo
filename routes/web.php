@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\Profile\DashboardController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\News\NewsController;
 use App\Http\Controllers\PressReleases\PressReleaseController;
@@ -31,8 +32,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify'=>true]);
-
+Auth::routes(['register' => false, 'verify' => false, ]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -51,7 +51,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('press-release', PressReleaseController::class);
 
     Route::resource('news', NewsController::class);
-   
+
     Route::resource('current-earthquakes', CurrentEarthquakesController::class);
 
     Route::resource('scientific-publications', ScientificPublicationsController::class);
