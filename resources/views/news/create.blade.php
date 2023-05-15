@@ -24,67 +24,30 @@
                 <!-- News Form -->
                 <form class="row g-3" action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+
+
                     @foreach (languages() as  $lng)
-
-                    <div class="col-12">
-                        <label for="title_{{$lng->name}}" class="form-label">Title {{$lng->name}}</label>
-                        <input type="text" name="translation[{{$lng->id}}]['title_{{$lng->name}}']"  class="form-control @error('title_{{$lng->name}}') _incorrectly @enderror"  value="{{ old('title_$lng->name')}}">
-                      </div>
-                      @error('title_{{$lng->name}}')
-                        <div class="error_message"> {{ $message }} </div>
-                      @enderror
-
+                        <div class="col-12">
+                            <label for="title_{{$lng->name}}" class="form-label">Title {{ Str::upper($lng->name) }}</label>
+                            <input type="text" name="translations[{{$lng->id}}][title]"  class='form-control @error("translations.$lng->id.title") _incorrectly @enderror'  value="{{ old("translations.$lng->id.title")}}">
+                        </div>
+                        @error("translations.$lng->id.title")
+                                <div class="error_message"> {{ $message }} </div>
+                        @enderror
                     @endforeach
-                  {{-- <div class="col-12">
-                    <label for="title_en" class="form-label">Title EN</label>
-                    <input type="text" name="title_en"  class="form-control @error('title_en') _incorrectly @enderror"  value="{{ old('title_en')}}">
-                  </div>
-                  @error('title_en')
-                    <div class="error_message"> {{ $message }} </div>
-                  @enderror
-                  <div class="col-12">
-                    <label for="title_am" class="form-label">Title AM</label>
-                    <input type="text" name="title_am" class="form-control @error('title_am') _incorrectly @enderror" value="{{ old('title_am')}}">
-                  </div>
-                  @error('title_am')
-                    <div class="error_message"> {{ $message }} </div>
-                  @enderror
-                  <div class="col-12">
-                    <label for="title_ru" class="form-label">Title RU</label>
-                    <input type="text"  name="title_ru" class="form-control @error('title_ru') _incorrectly @enderror"  value="{{ old('title_ru')}}">
-                  </div>
-                  @error('title_ru')
-                    <div class="error_message"> {{ $message }} </div>
-                  @enderror --}}
+                    @foreach (languages() as  $lng)
+                        <div class="flex mb-2 p-2">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Description {{ Str::upper($lng->name) }}</label>
+                            <div class="col-sm-12">
+                            <textarea class="ckeditor form-control @error("translations.$lng->id.description") _incorrectly @enderror" name="translations[{{$lng->id}}][description]" >{{ old("translations.$lng->id.description")}}</textarea>
+                            </div>
+                        </div>
+                        @error("translations.$lng->id.description")
+                            <div class="error_message"> {{ $message }} </div>
+                        @enderror
+                    @endforeach
 
-                  <div class="flex mb-2 p-2">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Description EN</label>
-                    <div class="col-sm-12">
-                      <textarea class="ckeditor form-control @error('description_en') _incorrectly @enderror" name="description_en" id="description_en">{{ old('description_en')}}</textarea>
-                    </div>
-                  </div>
-                  @error('description_en')
-                    <div class="error_message"> {{ $message }} </div>
-                  @enderror
-                  <div class="flex mb-2 p-2 ">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Description AM</label>
-                    <div class="col-sm-12">
 
-                      <textarea class="ckeditor form-control @error('description_am') _incorrectly @enderror" name="description_am" id="description_am">{{ old('description_am')}}</textarea>
-                    </div>
-                  </div>
-                  @error('description_am')
-                    <div class="error_message"> {{ $message }} </div>
-                   @enderror
-                  <div class="flex mb-2 p-2">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Description RU</label>
-                    <div class="col-sm-12">
-                      <textarea class="ckeditor form-control @error('description_ru') _incorrectly @enderror" name="description_ru" id="description_ru">{{ old('description_ru')}}</textarea>
-                    </div>
-                  </div>
-                  @error('description_ru')
-                    <div class="error_message"> {{ $message }} </div>
-                  @enderror
                   <div class="flex mb-3">
                     <label for="inputNumber" class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
@@ -95,37 +58,23 @@
                     <div class="error_message" id="image_error"> {{ $message }} </div>
                  @enderror
                   <div class="logo_div "></div>
-
-
                   <div class="col-12">
                     <label for="inputNanme4" class="form-label">Button Link</label>
                     <input type="text" class="form-control @error('button_link') _incorrectly @enderror" name="button_link" value="{{ old('button_link')}}">
-                  </div>
-                  @error('button_link')
+                </div>
+                @error('button_link')
                     <div class="error_message"> {{ $message }} </div>
-                  @enderror
-                  <div class="col-12">
-                    <label for="inputNanme4" class="form-label">Button EN</label>
-                    <input type="text" class="form-control @error('button_text_en') _incorrectly @enderror" name="button_text_en" value="{{ old('button_text_en')}}">
-                  </div>
-                  @error('button_text_en')
-                    <div class="error_message"> {{ $message }} </div>
-                  @enderror
-                  <div class="col-12">
-                    <label for="inputEmail4" class="form-label">Button AM</label>
-                    <input type="text" class="form-control @error('button_text_am') _incorrectly @enderror" name="button_text_am" value="{{ old('button_text_am')}}" >
-                  </div>
-                  @error('button_text_am')
-                    <div class="error_message"> {{ $message }} </div>
-                  @enderror
-                  <div class="col-12">
-                    <label for="inputPassword4" class="form-label">Button RU</label>
-                    <input type="text" class="form-control @error('button_text_ru') _incorrectly @enderror" name="button_text_ru" value="{{ old('button_text_ru')}}">
-                  </div>
-                  @error('button_text_ru')
-                    <div class="error_message"> {{ $message }} </div>
-                  @enderror
+                @enderror
 
+                @foreach (languages() as  $lng)
+                    <div class="col-12">
+                        <label for="inputNanme4" class="form-label">Button {{$lng->name}}</label>
+                        <input type="text" class="form-control @error('button_text_{{$lng->name}}') _incorrectly @enderror" name="translations[{{$lng->id}}][button_text]"  value="{{ old('button_text_$lng->name')}}">
+                    </div>
+                    @error("translations.$lng->id.button_text")
+                        <div class="error_message"> {{ $message }} </div>
+                    @enderror
+                @endforeach
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>

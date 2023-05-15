@@ -10,16 +10,18 @@ class Region extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name_en',
-        'name_am',
-        'name_ru',
-        'number'
-
+        'parent_id',
     ];
 
 
-    public function countries(){
-        return $this->hasMany(Country::class);
+
+    public function region_translations()
+    {
+        return $this->hasOne(RegionTranslation::class);
+    }
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id');
     }
 
 }

@@ -12,4 +12,8 @@ class Language extends Model
     protected $fillable=[
         'name'
     ];
+    public function news_translations()
+    {
+        return $this->hasMany(NewsTranslation::class);
+    }
 }
