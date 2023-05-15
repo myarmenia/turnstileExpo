@@ -92,7 +92,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Create Users</h5>
 
-                        <form class="row g-3" action="{{ route('press-release.store') }}" method="POST" enctype="multipart/form-data">
+                        <form class="row g-3" action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="col-12">
                                 <label for="name" class="form-label">Name</label>
@@ -130,24 +130,27 @@
                                 @enderror
                             </div>
 
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <label for="email" class="form-label">Role</label>
                                 <input type="text" class="form-control @error('email') _incorrectly @enderror" id="email" name="email" value="{{ old('email')}}">
                                 @error('email')
                                     <div class="error_message" > {{ $message }} </div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
 
                             <div class="col-12">
                                 <label for="select_role" class="form-label pt-2 mx-2">Roles</label>
 
-                                <select id="select_role" class="form-select w-50" multiple>
+                                <select id="select_role" class="form-select w-50" name="roles[]" multiple>
                                     @foreach ($roles as $role)
-                                        <option value="roles[]">{{$role}}</option>
+                                        <option value="{{$role}}">{{$role}}</option>
                                     @endforeach
 
                                 </select>
+                                @error('roles')
+                                    <div class="error_message" > {{ $message }} </div>
+                                @enderror
                             </div>
 
                             <div class="items_div d-flex flex-wrap justify-content-between"> </div>

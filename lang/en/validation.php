@@ -180,8 +180,8 @@ return [
     */
 
     'attributes' => [
-        'tanslations.*.title' => ' ',
-        'tanslations.*.description' => ' '
+        'translations.*.title' => ' ',
+        'translations.*.description' => ' '
     ],
 
 ];

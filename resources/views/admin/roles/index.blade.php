@@ -79,29 +79,14 @@
                 <a href="{{route('admin.roles.create')}}"><button type="button" class="btn btn-primary">Create Role</button></a>
             </div>
             <div>
-                {{-- <form action="{{route('press-release.index')}}" method="get" class="row g-3 mt-2" style="display: flex">
-                    <div class="mb-3" style="display: flex; gap: 8px">
+                <form action="{{route('admin.roles.index')}}" method="get" class="row g-3 mt-2" style="display: flex">
+                    <div class="mb-3 justify-content-end" style="display: flex; gap: 8px">
                         <div class="col-2">
-                            <input type="text" class="form-control" id="inputNanme4" placeholder="Title" name="title" value="{{ request()->input('title') }}">
+                            <input type="text" class="form-control" id="inputNanme4" placeholder="Role name" name="role" value="{{ request()->input('role') }}">
                         </div>
-                        <div class="col-2 pt-2 text-end">Date interval: </div>
-                        <div class="col-2">
-                            <input type="text" class="form-control" placeholder="From" onfocus="(this.type='date')" name="from" value="{{ request()->input('from') ? date('d-m-Y', strtotime(request()->input('from'))) : '' }}">
-                        </div>
-                        <div class="col-2">
-                            <input type="text" class="form-control" placeholder="To" onfocus="(this.type='date')" name="to" value="{{ request()->input('to') ? date('d-m-Y', strtotime(request()->input('to'))) : '' }}">
-                        </div>
-                        <div class="col-2">
-                            <select id="inputState" class="form-select" name="status">
-                                <option value="new" {{ request()->input('status') == 'new' ? 'selected' : ''}}>New</option>
-                                <option value="confirmed" {{ request()->input('status') == 'confirmed' ? 'selected' : ''}}>Confirmed</option>
-                                <option value="hidden" {{ request()->input('status') == 'hidden' ? 'selected' : ''}}>Hidden</option>
-                                <option value="reditab" {{ request()->input('status') == 'reditab' ? 'selected' : ''}}>Reditab</option>
-                            </select>
-                        </div>
-                        <button class="btn btn-primary w-100">Search</button>
+                        <button class="btn btn-primary col-2">Search</button>
                     </div>
-                </form> --}}
+                </form>
             </div>
             <table class="table table-bordered border-primary">
                 <thead>
@@ -122,7 +107,7 @@
                                 <a href="{{ route('admin.roles.edit',$role->id) }}">
                                     <i class="bi bi-pencil-square action_i"></i>
                                 </a>
-                                <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"  onclick="create_request_route(`press-release`, {{$role->id}})"></i>
+                                <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"  onclick="create_request_route(`roles`, {{$role->id}})"></i>
                             </div>
                         </td>
                     </tr>
