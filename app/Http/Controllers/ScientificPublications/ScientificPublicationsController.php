@@ -4,8 +4,11 @@ namespace App\Http\Controllers\ScientificPublications;
 
 use App\Http\Controllers\Controller;
 use App\Models\ScientificPublications;
+use App\Models\ScientificPublicationsLanguages;
 use Illuminate\Http\Request;
+use App\Services\FileUploadService;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ScientificPublicationsController extends Controller
 {
@@ -17,10 +20,19 @@ class ScientificPublicationsController extends Controller
     public function index(Request $request)
     {
 
+        // ->withQueryString();
+
         if ($request->has('content')) {
-            $scientific_publications = ScientificPublications::where('content_en', 'like', '%' . $request->content . '%')->paginate(6)->withQueryString();
+
+            $sc_publications_id = ScientificPublicationsLanguages::orderBy('id', 'DESC')->where('language_id', 1)->where('content', 'like', '%' . $request->content . '%')->pluck('sc_publication_id');
+            $scientific_publications = ScientificPublications::whereIn('id', $sc_publications_id)->paginate(6);
         } else {
-            $scientific_publications = ScientificPublications::paginate(6)->withQueryString();
+
+
+            $scientific_publications = ScientificPublications::orderBy('id', 'DESC')
+                ->with('scientific_publication_languages', function ($query) {
+                    return $query->where('language_id', 1);
+                })->paginate(6);
         }
 
         return view("scientific-publications.index", compact('scientific_publications'))
@@ -83,6 +95,7 @@ class ScientificPublicationsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $requestData = $request->all();
 
         $validate = [
@@ -94,8 +107,25 @@ class ScientificPublicationsController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        
 
+        $scientific_publication = ScientificPublications::find($id);
+        $scientific_publications_language = ScientificPublicationsLanguages::where("sc_publication_id", $id)->get();
+
+        if ($request->has('file')) {
+
+            $scientific_publication->file_path != null ? Storage::delete($scientific_publication->file_path) : null;
+
+            $f_path = FileUploadService::upload($request->file, 'scientific-publications/' . $id);
+            $scientific_publication->update(['file_path' => $f_path]);
+        }
+
+        foreach ($scientific_publications_language as $key => $publication_language) {
+            $publication_language->update([
+                'content' => $request->content[++$key]
+            ]);
+        }
+
+        return redirect()->back();
     }
 
     /**

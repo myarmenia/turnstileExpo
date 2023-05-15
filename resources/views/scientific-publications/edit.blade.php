@@ -26,7 +26,7 @@
 
         <!-- News Form -->
         <form class="row g-3" action="{{ route('scientific-publications.update', $scientific_publication->id) }}"
-            method="post">
+            method="post" enctype="multipart/form-data">
             @csrf
             @method("patch")
 
@@ -48,41 +48,21 @@
 
             @endforeach
 
-            {{-- {{ $scientific_publication->content_en }} --}}
-
-            {{-- <div class="flex mb-2 p-2">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Content EN</label>
-                <div class="col-sm-12">
-                    <textarea class="form-control"
-                        style="height: 100px">{{ $scientific_publication->content_en }}</textarea>
-                </div>
-            </div>
-            <div class="flex mb-2 p-2">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Content RU</label>
-                <div class="col-sm-12">
-                    <textarea class="form-control"
-                        style="height: 100px">{{ $scientific_publication->content_ru }}</textarea>
-                </div>
-            </div>
-            <div class="flex mb-2 p-2">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Content AM</label>
-                <div class="col-sm-12">
-                    <textarea class="form-control"
-                        style="height: 100px">{{ $scientific_publication->content_am }}</textarea>
-                </div>
-            </div> --}}
-
             <div class="flex mb-3">
                 <!-- <label for="inputNumber" class="col-sm-2 col-form-label">Image</label> -->
                 <div class="col-sm-10">
-                    <input class="form-control" type="file" id="formFile">
+                    <input class="form-control" name="file" type="file" id="formFile">
                 </div>
             </div>
 
-            <a href="">PDF File</a>
+            @if ($scientific_publication->file_path != null)
+            <a href="{{ route('get-file',['path'=>$scientific_publication->file_path]) }}" target="blank"
+                class="my-2">PDF File</a>
+            @endif
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">Save</button>
+
+            <div class="text-start">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
 
         </form><!-- News Form -->

@@ -64,10 +64,12 @@
             </thead>
             <tbody>
                 @foreach($scientific_publications as $publication)
+
+                
                 <tr>
                     <th scope="row">{{++$i}}</th>
                     <td style="max-width: 300px !important">
-                        {!! $publication->content_en !!}
+                        {{ $publication->scientific_publication_languages[0]->content }}
                     </td>
                     <td class="px-0">
                         <div class="d-flex justify-content-center">
@@ -77,6 +79,7 @@
                         </div>
                     </td>
                 </tr>
+
                 @endforeach
             </tbody>
         </table>
