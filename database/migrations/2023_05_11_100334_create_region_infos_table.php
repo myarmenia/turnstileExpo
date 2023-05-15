@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('region_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
-            $table->string('button_link')->nullable();
-            $table->string('status')->default('new');
+            $table->bigInteger('region_id')->unsigned();
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('image_path');
+            $table->string('schema_path');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('region_infos');
     }
 };

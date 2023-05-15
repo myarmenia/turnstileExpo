@@ -86,6 +86,7 @@ class PressReleaseController extends Controller
         $validator = Validator::make($request->all(), $validate);
 
         if ($validator->fails()) {
+           
             return redirect()->back()->withErrors($validator)->withInput();
         }
 

@@ -23,6 +23,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('news.*') ? '' : ' collapsed' }}" href="{{route('global-monitoring.index')}}">
+                <i class="bx bx-news"></i>
+                <span>Global Monitoring</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('current-earthquakes.*') ? '' : ' collapsed' }}"
                 href="{{route('current-earthquakes.index')}}">
                 <i class="ri-earthquake-line"></i>

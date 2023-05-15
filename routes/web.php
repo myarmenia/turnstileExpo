@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
 use App\Http\Controllers\DeleteFileController;
+use App\Http\Controllers\GlobalMonitoring\GlobalMonitoringController;
 use App\Http\Controllers\ScientificPublications\ScientificPublicationsController;
 use App\Services\ChangeStatusService;
 use App\Services\DeleteItemService;
@@ -51,7 +52,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('press-release', PressReleaseController::class);
 
     Route::resource('news', NewsController::class);
-   
+    Route::resource('global-monitoring', GlobalMonitoringController::class);
+
     Route::resource('current-earthquakes', CurrentEarthquakesController::class);
 
     Route::resource('scientific-publications', ScientificPublicationsController::class);
