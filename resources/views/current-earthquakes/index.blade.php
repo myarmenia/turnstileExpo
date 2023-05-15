@@ -101,10 +101,12 @@
             <tbody>
                 @foreach($current_earthquakes as $current_earthquake)
                 <tr>
+
+
                     <th scope="row">{{++$i}}</th>
-                    <td>{{ $current_earthquake->title_en }}</td>
+                    <td>{{ $current_earthquake->current_earthquakes_translations[0]->title }}</td>
                     <td style="max-width: 300px !important">
-                        {!! $current_earthquake->description_en !!}
+                        {!! $current_earthquake->current_earthquakes_translations[0]->description !!}
                     </td>
                     <td>{{ $current_earthquake->magnitude }}</td>
                     <td>{{ $current_earthquake->date }}</td>

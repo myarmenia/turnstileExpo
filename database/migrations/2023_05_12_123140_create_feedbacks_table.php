@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('current_earthquakes', function (Blueprint $table) {
+        Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
-            $table->string('banner')->nullable();
-            $table->date('date');
-            $table->time('time');
+            $table->string('full_name');
+            $table->string('email');
+            $table->string('type');
+            $table->string('content');
             $table->string('status')->default('new');
-            $table->string('magnitude');
+            $table->unsignedBigInteger('editor_id')->nullable();
+            $table->longText('answer_content')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('current_earthquakes');
+        Schema::dropIfExists('feedbacks');
     }
 };

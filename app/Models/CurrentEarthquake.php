@@ -31,4 +31,9 @@ class CurrentEarthquake extends Model
     {
         return $this->morphToMany(Link::class, 'linkable');
     }
+
+    public function current_earthquakes_translations()
+    {
+        return $this->hasMany(CurrentEarthquakesTranslations::class);
+    }
 }

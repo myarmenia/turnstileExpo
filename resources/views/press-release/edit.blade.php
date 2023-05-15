@@ -63,7 +63,16 @@
                                 <img src="{{ route('get-file',['path'=>$press_release->logo]) }}">
                             </div>
                         </div>
-                        <div class="col-12">
+                        @foreach (languages() as $lng)
+                            <div class="col-12">
+                                <label for="title_{{$lng->name}}" class="form-label">Title {{ Str::upper($lng->name) }}</label>
+                                <input type="text" class='form-control @error("translations.$lng->id.title") _incorrectly @enderror' id="title_{{$lng->name}}" name="translations[{{$lng->id}}][title]" value='{{ $press_release->translation($lng->id)->title}}'>
+                                @error("translations.$lng->id.title")
+                                    <div class="error_message" > {{ $message }} </div>
+                                @enderror
+                            </div>
+                        @endforeach
+                        {{-- <div class="col-12">
                             <label for="title_en" class="form-label">Title EN</label>
                             <input type="text" class="form-control @error('title_en') _incorrectly @enderror"
                                 id="title_en" name="title_en" value="{{ $press_release->title_en}}">
@@ -86,7 +95,7 @@
                             @error('title_ru')
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="col-6">
                             <label for="date" class="form-label">Date</label>
                             <input type="date" class="form-control @error('date') _incorrectly @enderror" id="date"
@@ -103,15 +112,24 @@
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
                         </div>
-                        <div class="col-lg-12">
+                        @foreach (languages() as $lng)
+                            <div class="col-lg-12">
+                                <label for="description_{{$lng->name}}" class="form-label">Description {{ Str::upper($lng->name) }}</label>
+                                <textarea class='ckeditor form-control @error("translations.$lng->id.description") _incorrectly @enderror' name="translations[{{$lng->id}}][description]" id="description_en">{{ $press_release->translation($lng->id)->description}}</textarea>
+                                @error("translations.$lng->id.description")
+                                    <div class="error_message" > {{ $message }} </div>
+                                @enderror
+                            </div>
+                        @endforeach
+                        {{-- <div class="col-lg-12">
                             <label for="description_en" class="form-label">Description EN</label>
                             <textarea class="ckeditor form-control @error('description_en') _incorrectly @enderror"
-                                name="description_en" id="description_en">{{ $press_release->description_en}}</textarea>
+                                name="description_en" id="description_en">{{ $press_release->translation($lng->id)->description}}</textarea>
                             @error('description_en')
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
-                        </div>
-                        <div class="col-lg-12">
+                        </div> --}}
+                        {{-- <div class="col-lg-12">
                             <label for="description_am" class="form-label">Description AM</label>
                             <textarea class="ckeditor form-control @error('description_am') _incorrectly @enderror"
                                 name="description_am" id="description_am">{{ $press_release->description_am}}</textarea>
@@ -126,7 +144,7 @@
                             @error('description_ru')
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         <div class="col-lg-12">
                             <label for="description_ru" class="form-label">Links </label>
