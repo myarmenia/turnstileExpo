@@ -2,6 +2,8 @@
 
 
 use App\Http\Controllers\API\CurrentEarthquake\CurrentEarthquakeController;
+use App\Http\Controllers\API\Feedback\CreateController;
+use App\Http\Controllers\API\Feedback\FedbackController;
 use App\Http\Controllers\API\News\NewsController;
 use App\Http\Controllers\API\PressReleases\PressReleaseController;
 use Illuminate\Http\Request;
@@ -30,10 +32,8 @@ Route::apiResources([
 
     'press-releases' => PressReleaseController::class,
     'current-earthquake' => CurrentEarthquakeController::class,
-    'news'=>NewsController::class,
+    'news' => NewsController::class,
 
 ]);
 
-
-
-
+Route::post('feedback/create', [CreateController::class, 'index']);

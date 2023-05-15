@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('scientific_publications_languages', function (Blueprint $table) {
+        Schema::create('current_earthquakes_translations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sc_publication_id');
-            $table->foreign('sc_publication_id')->references('id')->on('scientific_publications')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('language_id');
+            $table->bigInteger('current_earthquake_id')->unsigned();
+            $table->foreign('current_earthquake_id')->references('id')->on('current_earthquakes')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('language_id')->unsigned();
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade')->onUpdate('cascade');
-            $table->longText('content');
+            $table->string('title');
+            $table->longText('description');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scientific_publications_languages');
+        Schema::dropIfExists('current_earthquakes_translations');
     }
 };

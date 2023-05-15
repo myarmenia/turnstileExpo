@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('scientific-publications', ScientificPublicationsController::class);
 
+    // Route::resource('feedback', ScientificPublicationsController::class);
+
     Route::get('delete_item/{id}/{table}/{type}',[DeleteItemService::class, 'delete_item'])->name('delete_item');
     Route::get('change_status/{id}/{table}/{status}',[ChangeStatusService::class,'change_status'])->name('change_status');
 

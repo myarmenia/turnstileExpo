@@ -63,34 +63,24 @@
                             @enderror
                         </div>
                         <div class="banner_div "></div> --}}
+
+                        @foreach (languages() as $index => $lng)
+                        {{-- {{ dd($current_earthquake->current_earthquakes_translations) }} --}}
                         <div class="col-12">
-                            <label for="title_en" class="form-label">Title EN</label>
-                            <input type="text" class="form-control @error('title_en') _incorrectly @enderror"
-                                id="title_en" name="title_en"
-                                value="{{ old('title_en') ?? $current_earthquake->title_en }}">
-                            @error('title_en')
+                            <label for="title_{{$lng->name}}" class="form-label">Title {{ Str::upper($lng->name)
+                                }}</label>
+                            <input type="text"
+                                class='form-control @error("tanslations.$lng->id.title") _incorrectly @enderror'
+                                id="title_{{$lng->name}}" name="tanslations[{{$lng->id}}][title]"
+                                value='{{ old("tanslations.$lng->id.title") ?? $current_earthquake->current_earthquakes_translations[$index]->title }}'>
+                            @error("tanslations.$lng->id.title")
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
                         </div>
-                        <div class="col-12">
-                            <label for="title_am" class="form-label">Title AM</label>
-                            <input type="text" class="form-control @error('title_am') _incorrectly @enderror"
-                                id="title_am" name="title_am"
-                                value="{{ old('title_am') ?? $current_earthquake->title_am }}">
-                            @error('title_am')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="col-12">
-                            <label for="title_ru" class="form-label">Title RU</label>
-                            <input type="text" class="form-control @error('title_am') _incorrectly @enderror"
-                                id="title_ru" name="title_ru"
-                                value="{{ old('title_ru') ?? $current_earthquake->title_ru }}">
-                            @error('title_ru')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="col-4   ">
+                        @endforeach
+
+
+                        <div class="col-4">
                             <label for="date" class="form-label">Date</label>
                             <input type="date" class="form-control @error('date') _incorrectly @enderror" id="date"
                                 name="date" value="{{ old('date') ?? $current_earthquake->date }}">
@@ -115,7 +105,22 @@
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
                         </div>
+
+                        @foreach (languages() as $index => $lng)
                         <div class="col-lg-12">
+                            <label for="description_{{$lng->name}}" class="form-label">Description {{
+                                Str::upper($lng->name) }}</label>
+                            <textarea
+                                class='ckeditor form-control @error("tanslations.$lng->id.description") _incorrectly @enderror'
+                                name="tanslations[{{$lng->id}}][description]"
+                                id="description_en">{{ old("tanslations.$lng->id.description") ?? $current_earthquake->current_earthquakes_translations[$index]->description }}</textarea>
+                            @error("tanslations.$lng->id.description")
+                            <div class="error_message"> {{ $message }} </div>
+                            @enderror
+                        </div>
+                        @endforeach
+
+                        {{-- <div class="col-lg-12">
                             <label for="description_en" class="form-label">Description EN</label>
                             <textarea class="ckeditor form-control @error('description_en') _incorrectly @enderror"
                                 name="description_en"
@@ -141,7 +146,7 @@
                             @error('description_ru')
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         <div class="col-lg-12">
                             <label for="description_ru" class="form-label">Links </label>
