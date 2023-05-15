@@ -27,7 +27,12 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        $roles = Role::orderBy('id','DESC');
+
+        if($request->role){
+            $roles = $roles->where('name', 'like', '%' . $request->role . '%');
+        }
+        $roles = $roles->paginate(5)->withQueryString();
 
         return view('admin.roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -130,5 +135,6 @@ class RoleController extends Controller
         DB::table("roles")->where('id',$id)->delete();
         return redirect()->route('admin.roles.index')
                         ->with('success','Role deleted successfully');
+
     }
 }

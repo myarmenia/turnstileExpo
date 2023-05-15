@@ -37,4 +37,8 @@ class PressRelease extends Model
     {
         return $this->hasMany(PressReleaseTranslation::class);
     }
+
+    public function translation($lng_id){
+        return $this->hasOne(PressReleaseTranslation::class)->where('language_id', $lng_id)->first();
+    }
 }
