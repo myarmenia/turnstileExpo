@@ -5,11 +5,23 @@ namespace App\Http\Controllers\API\PressReleases;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PressReleaseResource;
+use App\Models\Language;
 use App\Models\PressRelease;
 use Illuminate\Http\Request;
 
 class PressReleaseController extends BaseController
 {
+    public function __construct(Request $request)
+    {
+        $lng = 'en';
+
+        if($request->lng){
+            $lng = $request->lng;
+        }
+
+        $lng_id = Language::where('name', $lng)->first()->id;
+        $request['lng_id'] = $lng_id;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,18 +29,10 @@ class PressReleaseController extends BaseController
      */
     public function index(Request $request)
     {
-        $lang='ru';
-        $press_releases = PressRelease::select("title_$lang as title",'id')->where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
-        // $press_releases = PressRelease::first();
-        // $press_releases =$press_releases['lang'] = 'ru';
+        $press_releases = PressRelease::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
 
-        // $lang = 'ru';
-        // dd($press_releases);
-// dd( $press_releases['lang']);
         return is_null($press_releases) ? $this->sendError('error message') :
                $this->sendResponse( PressReleaseResource::collection($press_releases), 'success');
-            //    $this->sendResponse( new PressReleaseResource($press_releases->additional(['lang' => 'ru'])), 'success');
-
 
     }
 

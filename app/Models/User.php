@@ -28,10 +28,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
     ];
 
-
+    public function press_releases()
+    {
+        return $this->hasMany(PressRelease::class);
+    }
 
     public function isAdmin()
     {
+
 
         foreach ($this->roles()->get() as $role) {
             if ($role->name == 'Admin') {

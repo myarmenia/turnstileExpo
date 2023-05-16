@@ -10,16 +10,11 @@ class PressRelease extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title_en',
-        'title_am',
-        'title_ru',
+        'editor_id',
         'banner',
         'date',
         'time',
         'logo',
-        'description_en',
-        'description_am',
-        'description_ru'
 
     ];
 
@@ -35,10 +30,16 @@ class PressRelease extends Model
 
     public function press_release_translations()
     {
-        return $this->hasMany(PressReleaseTranslation::class);
+        return $this->hasMany(PressReleaseTranslation::class, 'press_release_id');
     }
 
     public function translation($lng_id){
         return $this->hasOne(PressReleaseTranslation::class)->where('language_id', $lng_id)->first();
     }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'editor_id');
+    }
+
 }
