@@ -22,71 +22,52 @@
             <div class="card-body" style="padding-top: 20px">
               <!-- Default Accordion -->
               <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne"
-                      aria-expanded="true"
-                      aria-controls="collapseOne"
-                    >
-                      Region
-                    </button>
+                @foreach($regions as $item)
+                {{-- {{dd($item->children()->)}} --}}
+                {{-- @if ($item->children()->count()==0)
+
+                  <h2 class="accordion-header" >
+                    <button class="accordion-button" type="button">{{$item->region_translations->name}}</button>
                   </h2>
-                  <div
-                    id="collapseOne"
-                    class="accordion-collapse collapse show"
-                    aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div class="accordion-body p-0 parent">
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 1</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 2</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 3</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+                @else --}}
                 <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree"
+                        aria-expanded="false"
+                        aria-controls="collapseThree"
+                      >
+                      {{$item->region_translations->name}}
+                      </button>
+                    </h2>
+                    @if ($item->children()->count()>0)
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body p-0 parent">
+                            {{-- {{dd($item->children)}} --}}
+                            @foreach ($item->children as $data)
+                                <div class="px-3 py-2 bord_title d-flex justify-content-between align-items-center">
+                                    <div>{{$data->region_translations->name}}</div>
+                                    <div> <i class="bi bi-arrow-right-circle" style="cursor: pointer; font-size: 24px"></i></div>
+                                </div>
+                            @endforeach
+                        </div>
+                        </div>
+                    @endif
+                  </div>
+
+
+
+
+
+                @endforeach
+
+                {{-- <div class="accordion-item">
                   <h2 class="accordion-header" id="headingTwo">
-                    <button
-                      class="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseTwo"
-                      aria-expanded="false"
-                      aria-controls="collapseTwo"
-                    >
-                      Region2
-                    </button>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Region2</button>
                   </h2>
                   <div
                     id="collapseTwo"
@@ -162,31 +143,21 @@
                           ></i>
                         </div>
                       </div>
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
+                      <div class="px-3 py-2 bord_title d-flex justify-content-between align-items-center">
                         <div>Country 8</div>
                         <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
+                          <i class="bi bi-arrow-right-circle" style="cursor: pointer; font-size: 24px"></i>
                         </div>
                       </div>
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
+                      <div class="px-3 py-2 bord_title d-flex justify-content-between align-items-center">
                         <div>Country 9</div>
                         <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
+                          <i class="bi bi-arrow-right-circle" style="cursor: pointer; font-size: 24px"></i>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> --}}
               </div>
               <!-- End Default Accordion Example -->
             </div>

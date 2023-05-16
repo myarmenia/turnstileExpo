@@ -16,8 +16,8 @@ class GlobalMonitoringController extends Controller
     public function index()
 
     {
-        $regions = Region::with('region_translations')->latest()->get();
-      
+        $regions = Region::where('parent_id',null)->with('region_translations')->latest()->get();
+
         return view('regions.index',compact('regions'));
     }
 
