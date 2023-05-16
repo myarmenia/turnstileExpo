@@ -34,19 +34,21 @@
                                     <label>Status:</label>
                                     <span class="text-primary ont-weight-bold text-end"> {{ $press_release->status}}</span>
                                 </div>
-                                <form>
+                                {{-- <form action="{{route('change_status', [ $press_release->id, 'press_releases', 'hidden'])}}" method="get"> --}}
                                 <div class="d-flex text-end justify-content-end ">
 
                                         <label for="select_status" class="form-label pt-2 mx-2">Change status to: </label>
 
-                                        <select id="select_status" class="form-select w-50">
+                                        <select id="select_status" class="form-select w-50" data-id="{{$press_release->id}}" data-table="press_releases" data-delete-url="press-release">
+                                            <option selected disabled>Status</option>
                                             <option value="confirmed">Confirmed</option>
                                             <option value="hidden">Hidden</option>
                                             <option value="reditab">Reditab</option>
                                             <option value="delete">Delete</option>
                                         </select>
 
-                                </div> </form>
+                                </div>
+                             {{-- </form> --}}
                             </div>
                         @endrole
                     </div>
@@ -226,7 +228,7 @@
 @section('js-scripts')
 <script src="{{ asset('assets/back/js/press-releases.js') }}"></script>
 <script src="{{ asset('assets/back/js/delete_item.js') }}"></script>
-{{-- <script src="{{ asset('assets/back/js/edit-status-item.js') }}"></script> --}}
+<script src="{{ asset('assets/back/js/edit-status-item.js') }}"></script>
 
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 

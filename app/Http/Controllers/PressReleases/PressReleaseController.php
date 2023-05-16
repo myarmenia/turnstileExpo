@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\PressReleases;
 
 use App\Http\Controllers\Controller;
+use App\Models\File;
 use App\Models\Language;
 use App\Models\PressRelease;
 use App\Models\PressReleaseTranslation;
 use App\Services\FileUploadService;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -263,7 +265,26 @@ class PressReleaseController extends Controller
      */
     public function destroy($id)
     {
+
+        $dir =Storage::disk('public')->path("press-releases/$id");
         $press_releases = PressRelease::where('id', $id)->first();
+
+        Storage::delete($press_releases->logo);
+
+        foreach ($press_releases->files as $key => $value) {
+            Storage::delete($value->path);
+        }
+
+        $press_releases->links()->delete();
+        $press_releases->links()->detach();
+
+        $press_releases->files()->delete();
+        $press_releases->files()->detach();
+
+        if(count(glob("$dir/*")) === 0){
+            Storage::disk('public')->deleteDirectory("press-releases/$id");
+        }
+
         $deleted = $press_releases->delete();
         if ($deleted) {
             return redirect()->back();

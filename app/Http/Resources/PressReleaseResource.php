@@ -22,7 +22,7 @@ class PressReleaseResource extends JsonResource
         return $data =  [
             'id' => $this->id,
             'title' => $this->translation($request->lng_id)->title,
-            'description' => $this->translation($request->lng_id)->description_en,
+            'description' => $this->translation($request->lng_id)->description,
             'date' => $this->date,
             'time' => $this->time,
             'logo' => Storage::path($this->logo),
