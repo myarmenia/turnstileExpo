@@ -41,5 +41,4 @@ Route::apiResources([
 Route::get('languages', [LanguageController::class, 'index']);  /**updated*/
 Route::get('home', [HomeController::class, 'index']);  /**updated*/
 
-
 Route::post('feedback/create', [CreateController::class, 'index']);

@@ -32,44 +32,44 @@
             </a>
         </div> --}}
 
-        {{-- <div>
-            <form action="{{ route('current-earthquakes.index') }}" method="get" class="row g-3 mt-2"
-                style="display: flex">
-                <div class="mb-3" style="display: flex; gap: 8px">
+        <div>
+            <form action="{{ route('feedback.index') }}" method="get" class="row g-3 mt-2" style="display: flex">
+                <div class="mb-3" style="display: flex; justify-content:space-around; gap: 8px">
+
                     <div class="col-2">
-                        <!-- <label for="inputNanme4" class="form-label">Title</label> -->
-                        <input type="text" class="form-control" name="title" id="title" placeholder="Title"
-                            value="{{ request()->input('title') }}" />
+                        <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Full name"
+                            value="{{ request()->input('full_name') }}" />
                     </div>
+
                     <div class=" col-2">
-                        <!-- <label for="inputEmail4" class="form-label">Title AM</label> -->
-                        <input type="text" class="form-control" name="magnitude" id="magnitude" placeholder="Magnitude"
-                            value="{{ request()->input('magnitude') }}" />
-                    </div>
-
-                    <!-- <div class="row mb-3"> -->
-                    <!-- <label for="inputDate" class="col-sm-2 col-form-label">From</label> -->
-                    <div class="col-2">
-                        <input type="text" class="form-control" placeholder="Date_from" onfocus="(this.type='date')"
-                            name="date_from"
-                            value="{{ request()->input('date_from') ? date('d-m-Y', strtotime(request()->input('date_from'))) : '' }}">
-                    </div>
-                    <div class="col-2">
-                        <input type="text" class="form-control" placeholder="Date_to" onfocus="(this.type='date')"
-                            name="date_to"
-                            value="{{ request()->input('date_to') ? date('d-m-Y', strtotime(request()->input('date_to'))) : '' }}">
+                        <input type="text" class="form-control" name="email" id="email" placeholder="Email"
+                            value="{{ request()->input('email') }}" />
                     </div>
 
                     <div class="col-2">
-                        <select id="inputStatus" name="status" class="form-select">
+                        <select name="type" class="form-select">
+                            <option value="" selected>Type</option>
+                            <option value="aaaa">aaaa</option>
+                            <option value="bbbb">bbbb</option>
+                            <option value="cccc">cccc</option>
+                            <option value="dddd">dddd</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-2">
+                        <select name="status" class="form-select">
                             <option value="" selected>Status</option>
                             <option value="new" {{ request()->input('status') == 'new' ? 'selected' : ''}}>New</option>
-                            <option value="confirmed" {{ request()->input('status') == 'confirmed' ? 'selected' :
-                                ''}}>Confirmed</option>
-                            <option value="hidden" {{ request()->input('status') == 'hidden' ? 'selected' : ''}}>Hidden
+                            <option value="read" {{ request()->input('status') == 'read' ? 'selected' :
+                                ''}}>Read</option>
+                            <option value="hidden" {{ request()->input('status') == 'answerd' ? 'selected' :
+                                ''}}>Answerd
                             </option>
-                            <option value="reditab" {{ request()->input('status') == 'reditab' ? 'selected' :
-                                ''}}>Reditab</option>
+                            @role('Admin')
+                            <option value="draft" {{ request()->input('status') == 'draft' ? 'selected' :
+                                ''}}>Draft</option>
+                            @endrole
                         </select>
                     </div>
 
@@ -78,9 +78,8 @@
                     </button>
                 </div>
 
-                <!-- </div> -->
             </form>
-        </div> --}}
+        </div>
 
         <table class="table table-bordered border-primary">
             <thead>
