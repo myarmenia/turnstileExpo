@@ -16,7 +16,15 @@
 
     <div class="card pt-4">
         <div class="card-body">
-            <div style="display: flex; justify-content: flex-end">
+            <div class="d-flex justify-content-between">
+                <div class="w-75">
+                    @if ($message = Session::get('permission_denied'))
+                        <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                            {{$message}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                </div>
                 <a href="{{route('press-release.create')}}"><button type="button" class="btn btn-primary">Create Press Release</button></a>
             </div>
             <div>
@@ -61,22 +69,26 @@
                     @foreach($press_releases as $release)
                     <tr>
                         <th scope="row">{{++$i}}</th>
-                        <td>{{ $release->title_en }}</td>
+                        <td>
+                           {{ $release->translation($lng_id)->title}}
+                        </td>
                         <td style="max-width: 300px !important">
-                            {!! $release->description_en !!}
+                            {!! $release->translation($lng_id)->description !!}
                         </td>
                         <td>{{ date('d-m-Y', strtotime($release->date))}}</td>
-                        <td>moderator name</td>
+                        <td>{{$release->editor->name}}</td>
                         <td>{{ $release->status }}</td>
                         <td class="px-1">
                             <div class="d-flex justify-content-between">
                                 <a href="{{ route('press-release.edit', $release->id) }}">
                                     <i class="bi bi-pencil-square action_i"></i>
                                 </a>
-                                <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"  onclick="create_request_route(`press-release`, {{$release->id}})"></i>
-                                <a href="{{ $release->status != 'confirmed' ? route('change_status', [$release->id, 'press_releases', 'confirmed']) : ''}}">
-                                    <i class="bi bi-check-circle action_i" style="color:{{ $release->status == 'confirmed' ? '#0d6efd' : ''}}" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="{{ $release->status == 'confirmed' ? 'Confirmed' : 'Change status to confirmed'}}"> </i>
-                                </a>
+                                @role('Admin')
+                                    <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"  onclick="create_request_route(`press-release`, {{$release->id}})"></i>
+                                    <a href="{{ $release->status != 'confirmed' ? route('change_status', [$release->id, 'press_releases', 'confirmed']) : ''}}">
+                                        <i class="bi bi-check-circle action_i" style="color:{{ $release->status == 'confirmed' ? '#0d6efd' : ''}}" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="{{ $release->status == 'confirmed' ? 'Confirmed' : 'Change status to confirmed'}}"> </i>
+                                    </a>
+                                @endrole
                             </div>
                         </td>
                     </tr>
