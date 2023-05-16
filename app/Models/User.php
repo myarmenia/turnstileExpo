@@ -33,18 +33,24 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(PressRelease::class);
     }
 
-    public function isAdmin() {
+    public function isAdmin()
+    {
 
-        foreach ($this->roles()->get() as $role)
-        {
-            if ($role->name == 'Admin')
-            {
+
+        foreach ($this->roles()->get() as $role) {
+            if ($role->name == 'Admin') {
                 return true;
             }
         }
 
         return false;
     }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedbacks::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
