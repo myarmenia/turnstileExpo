@@ -7,6 +7,7 @@ use App\Models\CurrentEarthquake;
 use App\Models\CurrentEarthquakesTranslations;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CurrentEarthquakesController extends Controller
@@ -105,7 +106,8 @@ class CurrentEarthquakesController extends Controller
                 'current_earthquake_id' => $current_earthquakes->id,
                 'language_id' => $key,
                 'title' => $item['title'],
-                'description' => $item['description']
+                'description' => $item['description'],
+                'editor_id' => Auth::id()
             ]);
         }
 

@@ -16,7 +16,32 @@ class FeedbackController extends Controller
      */
     public function index(Request $request)
     {
-        $feedbacks = Feedbacks::OrderBy('id', 'desc')->paginate(6);
+        $started_status = '';
+        $user_role_status = Auth::user()->isAdmin();
+
+        if (!$user_role_status) {
+            $started_status = 'draft';
+        }
+
+        $feedbacks = Feedbacks::where('status', '!=', $started_status)->OrderBy('id', 'desc');
+
+        if ($request->full_name) {
+            $feedbacks = $feedbacks->where('full_name', 'like', '%' . $request->full_name . '%');
+        }
+
+        if ($request->email) {
+            $feedbacks = $feedbacks->where('email', $request->email);
+        }
+
+        if ($request->type) {
+            $feedbacks = $feedbacks->where('type', $request->type);
+        }
+
+        if ($request->status) {
+            $feedbacks = $feedbacks->where('status', $request->status);
+        }
+
+        $feedbacks = $feedbacks->paginate(6);
 
         return view("feedback.index", compact('feedbacks'))->with('i', ($request->input('page', 1) - 1) * 6);
     }
@@ -92,6 +117,8 @@ class FeedbackController extends Controller
                 'status' => 'draft'
             ]);
         }
+
+        return redirect('feedback');
     }
 
     /**
