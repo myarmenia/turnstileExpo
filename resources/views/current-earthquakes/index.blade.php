@@ -65,7 +65,7 @@
 
                     <div class="col-2">
                         <select id="inputStatus" name="status" class="form-select">
-                            {{-- <option selected>Status</option> --}}
+                            <option value="" selected>Status</option>
                             <option value="new" {{ request()->input('status') == 'new' ? 'selected' : ''}}>New</option>
                             <option value="confirmed" {{ request()->input('status') == 'confirmed' ? 'selected' :
                                 ''}}>Confirmed</option>
@@ -101,17 +101,19 @@
             <tbody>
                 @foreach($current_earthquakes as $current_earthquake)
                 <tr>
+
+
                     <th scope="row">{{++$i}}</th>
-                    <td>{{ $current_earthquake->title_en }}</td>
+                    <td>{{ $current_earthquake->current_earthquakes_translations[0]->title }}</td>
                     <td style="max-width: 300px !important">
-                        {!! $current_earthquake->description_en !!}
+                        {!! $current_earthquake->current_earthquakes_translations[0]->description !!}
                     </td>
                     <td>{{ $current_earthquake->magnitude }}</td>
                     <td>{{ $current_earthquake->date }}</td>
                     <td>{{ $current_earthquake->time }}</td>
                     <td>{{ $current_earthquake->status }}</td>
                     <td class="px-0">
-                        <div style="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between">
                             <a href="{{ route('current-earthquakes.edit', $current_earthquake->id) }}">
                                 <i class="bi bi-pencil-square action_i"></i>
                             </a>

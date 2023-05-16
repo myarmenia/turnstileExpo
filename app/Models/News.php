@@ -10,16 +10,22 @@ class News extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title_en',
-        'title_am',
-        'title_ru',
-        'description_en',
-        'description_am',
-        'description_ru',
+        'editor_id',
         'image',
         'button_link',
-        'button_text_en',
-        'button_text_am',
-        'button_text_ru',
+        'status'
+
     ];
+    public function news_translations()
+    {
+        return $this->hasOne(NewsTranslation::class);
+    }
+    public function translation($lng_id){
+        return $this->hasOne(NewsTranslation::class)->where('language_id', $lng_id)->first();
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'editor_id');
+    }
 }

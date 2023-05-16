@@ -75,27 +75,29 @@
                 <a href="{{route('admin.users.create')}}"><button type="button" class="btn btn-primary">Create User</button></a>
             </div>
             <div>
-                <form action="{{route('press-release.index')}}" method="get" class="row g-3 mt-2" style="display: flex">
-                    <div class="mb-3" style="display: flex; gap: 8px">
+                <form action="{{route('admin.users.index')}}" method="get" class="row g-3 mt-2" style="display: flex">
+                    <div class="mb-3 justify-content-end" style="display: flex; gap: 8px">
                         <div class="col-2">
-                            <input type="text" class="form-control" id="inputNanme4" placeholder="Title" name="title" value="{{ request()->input('title') }}">
-                        </div>
-                        <div class="col-2 pt-2 text-end">Date interval: </div>
-                        <div class="col-2">
-                            <input type="text" class="form-control" placeholder="From" onfocus="(this.type='date')" name="from" value="{{ request()->input('from') ? date('d-m-Y', strtotime(request()->input('from'))) : '' }}">
+                            <input type="text" class="form-control" id="inputNanme4" placeholder="Name/Second Name" name="name" value="{{ request()->input('name') }}">
                         </div>
                         <div class="col-2">
-                            <input type="text" class="form-control" placeholder="To" onfocus="(this.type='date')" name="to" value="{{ request()->input('to') ? date('d-m-Y', strtotime(request()->input('to'))) : '' }}">
-                        </div>
-                        <div class="col-2">
-                            <select id="inputState" class="form-select" name="status">
-                                <option value="new" {{ request()->input('status') == 'new' ? 'selected' : ''}}>New</option>
-                                <option value="confirmed" {{ request()->input('status') == 'confirmed' ? 'selected' : ''}}>Confirmed</option>
-                                <option value="hidden" {{ request()->input('status') == 'hidden' ? 'selected' : ''}}>Hidden</option>
-                                <option value="reditab" {{ request()->input('status') == 'reditab' ? 'selected' : ''}}>Reditab</option>
+                            <select id="select_role" class="form-select" name="role" >
+                                <option selected disabled>Select role</option>
+
+                                @foreach ($roles as $role)
+                                    <option value="{{$role}}" {{ request()->input('role') == $role ? 'selected' : ''}}>{{$role}}</option>
+                                @endforeach
+
                             </select>
                         </div>
-                        <button class="btn btn-primary w-100">Search</button>
+                        <div class="col-2">
+                            <select id="inputStatus" class="form-select" name="status">
+                                <option selected disabled>Select status</option>
+                                <option value="1" {{ request()->input('status') == '1' ? 'selected' : ''}}>Active</option>
+                                <option value="0" {{ request()->input('status') == '0' ? 'selected' : ''}}>Unactive</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary col-2">Search</button>
                     </div>
                 </form>
             </div>
@@ -116,24 +118,24 @@
                     <tr>
                         <th scope="row">{{++$i}}</th>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->name }} </td>
+                        <td>{{ $user->second_name }} </td>
                         <td>{{ $user->email}}</td>
                         <td>
                             @if(!empty($user->getRoleNames()))
                                 @foreach($user->getRoleNames() as $v)
-                                    <label class="badge badge-success">{{ $v }}</label>
+                                    <label class="badge bg-info text-dark">{{ $v }}</label>
                                 @endforeach
                             @endif
                         </td>
-                        <td>status</td>
+                        <td class="{{ $user->status ? 'text-success' : 'text-danger'}}">{{ $user->status ? 'Active' : 'Unactive'}}</td>
                         <td class="px-0">
                             <div style="d-flex justify-content-between">
                                 <a href="{{ route('admin.users.edit',$user->id) }}">
                                     <i class="bi bi-pencil-square action_i"></i>
                                 </a>
-                                <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"  onclick="create_request_route(`press-release`, {{$user->id}})"></i>
-                                <a href="{{ route('change_status', [$user->id, 'users', 'confirmed']) }}">
-                                    <i class="bi bi-check-circle action_i"  data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title=""> </i>
+                                <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"  onclick="create_request_route(`users`, {{$user->id}})"></i>
+                                <a href="{{ route('change_status', [$user->id, 'users', $user->status ? 0 : 1]) }}">
+                                    <i class="bi bi-check-circle action_i" style="color:{{ $user->status == '1' ? '#0d6efd' : ''}}" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="{{ $user->status == '1' ? 'Change status to unactive' : 'Change status to active'}}"> </i>
                                 </a>
                             </div>
                         </td>
@@ -141,6 +143,12 @@
                     @endforeach
                 </tbody>
             </table>
+            @if ($data->total() == 0)
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Nothing found
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <!-- End Primary Color Bordered Table -->
         </div>
     </div>

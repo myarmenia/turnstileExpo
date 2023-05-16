@@ -15,17 +15,14 @@ class PressReleaseResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+
     public function toArray($request)
     {
 
         return $data =  [
             'id' => $this->id,
-            'title_en' => $this->title_en,
-            'title_am' => $this->title_am,
-            'title_ru' => $this->title_am,
-            'description_en' => $this->description_en,
-            'description_am' => $this->description_am,
-            'description_ru' => $this->description_am,
+            'title' => $this->translation($request->lng_id)->title,
+            'description' => $this->translation($request->lng_id)->description,
             'date' => $this->date,
             'time' => $this->time,
             'logo' => Storage::path($this->logo),

@@ -14,7 +14,7 @@ class DeleteItemService
         $item = DB::table($table)->where('id', $id);
 
         if($type == 'file'){
-            Storage::delete($item->first()->path);
+            // Storage::delete($item->first()->path);
         }
         $deleted = $item->delete();
         return $deleted ? true : false;

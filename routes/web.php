@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\Profile\DashboardController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\News\NewsController;
 use App\Http\Controllers\PressReleases\PressReleaseController;
@@ -11,6 +12,9 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
 use App\Http\Controllers\DeleteFileController;
+use App\Http\Controllers\Feedback\FeedbackController;
+use App\Http\Controllers\GlobalMonitoring\GlobalMonitoringController;
+use App\Http\Controllers\ScientificPublications\ScientificPublicationsController;
 use App\Services\ChangeStatusService;
 use App\Services\DeleteItemService;
 use App\Services\FileUploadService;
@@ -30,12 +34,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify'=>true]);
-
+Auth::routes(['register' => false, 'verify' => false,]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     Route::name('admin.')->group(function () {
         Route::prefix('admin')->group(function () {
 
@@ -44,19 +47,22 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('/permissions', PermissionController::class);
             route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         });
-
     });
 
     Route::resource('press-release', PressReleaseController::class);
 
     Route::resource('news', NewsController::class);
-   
+
+    Route::resource('global-monitoring', GlobalMonitoringController::class);
+
     Route::resource('current-earthquakes', CurrentEarthquakesController::class);
 
-    Route::get('delete_item/{id}/{table}/{type}',[DeleteItemService::class, 'delete_item'])->name('delete_item');
-    Route::get('change_status/{id}/{table}/{status}',[ChangeStatusService::class,'change_status'])->name('change_status');
+    Route::resource('scientific-publications', ScientificPublicationsController::class);
 
+    Route::resource('feedback', FeedbackController::class);
 
+    Route::get('delete_item/{id}/{table}/{type}', [DeleteItemService::class, 'delete_item'])->name('delete_item');
+    Route::get('change_status/{id}/{table}/{status}', [ChangeStatusService::class, 'change_status'])->name('change_status');
 });
 
 

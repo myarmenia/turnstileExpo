@@ -15,16 +15,12 @@ return new class extends Migration
     {
         Schema::create('press_releases', function (Blueprint $table) {
             $table->id();
-            $table->string('title_en');
-            $table->string('title_am');
-            $table->string('title_ru');
+            $table->bigInteger('editor_id')->unsigned();
+            $table->foreign('editor_id')->references('id')->on('users');
             $table->string('banner')->nullable();
             $table->date('date');
             $table->time('time');
             $table->string('logo');
-            $table->longText('description_en');
-            $table->longText('description_am');
-            $table->longText('description_ru');
             $table->string('status')->default('new');
             $table->timestamps();
         });

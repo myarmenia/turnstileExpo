@@ -179,6 +179,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'translations.*.title' => ' ',
+        'translations.*.button_text' => ' ',
+        'translations.*.description' => ' '
+
+    ],
 
 ];

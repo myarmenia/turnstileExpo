@@ -59,9 +59,9 @@
             @foreach ($news as $item )
                 <tr>
                 <th scope="row">{{++$i}}</th>
-                <td>{!!$item->title_en!!}</td>
+                <td>{!! $item->news_translations->title !!}</td>
                 <td style="max-width: 300px !important">
-                    {!! $item->description_en !!}
+                    {!! $item->news_translations->description !!}
                 </td>
                 <td><img src="{{ route('get-file',['path'=>$item->image])}}" style="height:70px;width:70px"> </td>
                 <td>{{ $item->status }}</td>

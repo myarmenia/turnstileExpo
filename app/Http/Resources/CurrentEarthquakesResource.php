@@ -17,14 +17,10 @@ class CurrentEarthquakesResource extends JsonResource
     {
         return $data =  [
             'id' => $this->id,
-            'title_en' => $this->title_en,
-            'title_am' => $this->title_am,
-            'title_ru' => $this->title_ru,
+            'title' => $this->translation($request->lng_id)->title,
+            'description' => $this->translation($request->lng_id)->description,
             'date' => $this->date,
             'time' => $this->time,
-            'description_en' => $this->description_en,
-            'description_am' => $this->description_am,
-            'description_ru' => $this->description_am,
             "files" => FileResource::collection($this->files),
             "links" => LinkResource::collection($this->links),
 

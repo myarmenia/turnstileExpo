@@ -4,6 +4,7 @@ namespace App\Http\Controllers\News;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Models\NewsTranslation;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,24 +20,22 @@ class NewsController extends Controller
     public function index(Request $request)
     {
 
+        // dd($request->all());
         $paginate=2;
         $i=$request['page'] ? ($request['page']-1)*$paginate : 0;
         $query=News::latest();
         if($request->has('title')){
             $title = $request->title;
-            $news = $query->where(function ($query) use ($title){
-                $query->where('title_en', 'like', '%' . $title . '%')
-                        ->orWhere('title_ru', 'like', '%' . $title . '%')
-                        ->orWhere('title_am', 'like', '%' . $title . '%');
-            });
+            $news_translation=NewsTranslation::latest()
+                                ->where('title', 'like', '%' . $title . '%')
+                                ->pluck('news_id')->toArray();
+                                $query=$query->whereIn('id', $news_translation);
+
 
         }
         if($request->has('status')){
             $query = $query->where('status', $request->status);
         }
-
-
-
         $news=$query->paginate(2)->withQueryString();
 
         return view('news.index',compact('news','i'));
@@ -65,39 +64,63 @@ class NewsController extends Controller
 
 
         $validate = [
-                    "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
-                    "title_en" => "required",
-                    "title_am" => "required",
-                    "title_ru" => "required",
-                    "description_en" => "required",
-                    "description_am" => "required",
-                    "description_ru" => "required",
-        ];
-        if($request->button_link!=null || $request->button_text_en!=null || $request->button_text_am!=null || $request->button_text_ru!=null){
-            $validate['button_link']="required|url";
-            $validate['button_text_en']="required";
-            $validate['button_text_am']="required";
-            $validate['button_text_ru']="required";
 
+                    "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
+                    "translations.*.title"=> "required",
+                    "translations.*.description"=> "required",
+
+        ];
+        if($request->button_link!=null || $request['translations.*.button_text']!=null ){
+
+            $validate['button_link']="required|url";
+            $validate["translations.*.button_text"]="required";
         }
 
         $validator = Validator::make($request->all(), $validate);
-        if ($validator->fails()) {
+        if($validator->fails()) {
+
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
         // dd($request->all());
-        $news = News::create($request->all());
-        if($request->image!=null){
+        $news = News::create([
+            'image'=>'',
+
+
+        ]);
+        if($news){
             $path=FileUploadService::upload($request->image,'news/'.$news->id);
             $news->image=$path;
             $news->save();
 
+            foreach($request->translations as $key=>$item){
 
-        }
-        if($news){
+                $news_translate = NewsTranslation::create([
+                    "news_id"=>$news->id,
+                    "language_id"=>$key,
+                    "title"=>$item['title'],
+                    "description"=>$item['description'],
+                ]);
+                if($item['button_text']!=null){
+                    $update_news_translate=NewsTranslation::where('id',$news_translate->id)->first();
+                    $update_news_translate->button=$item['button_text'];
+                    $update_news_translate->save();
+
+                }
+
+            }
+            if($request->button_link!=null || $request['translations.*.button_text']!=null ){
+                $news_update=News::where('id',$news->id)->first();
+                $news_update->button_link=$request->button_link;
+                $news_update->save();
+
+
+            }
+
+
             return redirect('/news');
         }
+
 
 
 
@@ -122,8 +145,9 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $news=News::where('id',$id)->first();
-        return view('news.edit',compact('news'));
+        $news=News::where('id',$id)->with('news_translations')->first();
+        $news_translation=NewsTranslation::where('news_id',$id)->with('languages')->get();
+        return view('news.edit',compact('news','news_translation'));
     }
 
     /**
@@ -135,46 +159,32 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
-        $validate = [
+// dd($request->all());
+            $validate = [
 
-            "title_en" => "required",
-            "title_am" => "required",
-            "title_ru" => "required",
-            "description_en" => "required",
-            "description_am" => "required",
-            "description_ru" => "required",
+                // "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
+                "translations.*.title"=> "required",
+                "translations.*.description"=> "required",
 
-        ];
-        if($request->button_link!=null || $request->button_text_en!=null || $request->button_text_am!=null || $request->button_text_ru!=null){
-            $validate['button_link']="required|url";
-            $validate['button_text_en']="required";
-            $validate['button_text_am']="required";
-            $validate['button_text_ru']="required";
+            ];
+            if($request->button_link!=null || $request['translations.*.button_text']!=null ){
 
-        }
-        if($request->has('image')){
-            $validate['image']="required | mimes:jpeg,jpg,png,PNG | max:10000";
-        }
+                $validate['button_link']="required|url";
+                $validate["translations.*.button_text"]="required";
+            }
+            if($request->has('image')){
+                $validate['image']="required | mimes:jpeg,jpg,png,PNG | max:10000";
+            }
+
+            $validator = Validator::make($request->all(), $validate);
+
+
+            if($validator->fails()) {
+                // dd($validator->messages());
+
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
         $news=News::where('id',$id)->first();
-        if($news->image==null){
-
-            $validate['image']="required | mimes:jpeg,jpg,png,PNG | max:10000";
-        }
-
-        $validator = Validator::make($request->all(), $validate);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $news_update = News::where('id',$id)->update([
-            "title_en" => $request->title_en,
-            "title_am" => $request->title_am,
-            "title_ru" => $request->title_ru,
-            "description_en" =>$request->description_en,
-            "description_am" =>$request->description_am,
-            "description_ru" =>$request->description_ru,
-        ]);
 
         if($request->has('image')){
             Storage::delete($news->image);
@@ -183,21 +193,41 @@ class NewsController extends Controller
             $news->save();
 
         }
-
-        if($request->button_link!=null || $request->button_text_en!=null || $request->button_text_am!=null || $request->button_text_ru!=null){
+        if($request->has('button_link')){
             $news->button_link=$request->button_link;
-            $news->button_text_en=$request->button_text_en;
-            $news->button_text_am=$request->button_text_am;
-            $news->button_text_ru=$request->button_text_ru;
             $news->save();
         }
 
-        if($news){
+
+        foreach($request->translations as $key=>$item){
+            $news_translation = NewsTranslation::where(['news_id'=>$id,'language_id' =>$key])->first();
+            // dd($item);
+            if($item['title']!=null){
+                $news_translation->title=$item['title'];
+                $news_translation->save();
+
+            }
+            if($item['description']!=null){
+                $news_translation->description=$item['description'];
+                $news_translation->save();
+
+            }
+            if($item['button_text']!=null){
+                $news_translation->button=$item['button_text'];
+                $news_translation->save();
+
+            }
+        }
+
+
+
+        // if($news){
 
             $news=News::where('id',$id)->first();
-            return view('news.edit',compact('news'));
+            $news_translation=NewsTranslation::where('news_id',$id)->with('languages')->get();
+            return view('news.edit',compact('news','news_translation'));
 
-        }
+        // }
     }
 
 

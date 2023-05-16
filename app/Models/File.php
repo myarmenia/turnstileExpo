@@ -24,4 +24,9 @@ class File extends Model
     {
         return $this->morphedByMany(CurrentEarthquake::class, 'fileable');
     }
+    public function region_infos()
+    {
+        
+        return $this->morphedByMany(CurrentEarthquake::class, 'fileable');
+    }
 }

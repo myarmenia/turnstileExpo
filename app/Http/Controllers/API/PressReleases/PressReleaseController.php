@@ -5,11 +5,23 @@ namespace App\Http\Controllers\API\PressReleases;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PressReleaseResource;
+use App\Models\Language;
 use App\Models\PressRelease;
 use Illuminate\Http\Request;
 
 class PressReleaseController extends BaseController
 {
+    public function __construct(Request $request)
+    {
+        $lng = 'en';
+
+        if($request->lng){
+            $lng = $request->lng;
+        }
+
+        $lng_id = Language::where('name', $lng)->first()->id;
+        $request['lng_id'] = $lng_id;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +30,6 @@ class PressReleaseController extends BaseController
     public function index(Request $request)
     {
         $press_releases = PressRelease::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
-        // dd($book_latest);
 
         return is_null($press_releases) ? $this->sendError('error message') :
                $this->sendResponse( PressReleaseResource::collection($press_releases), 'success');

@@ -6,10 +6,25 @@ use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CurrentEarthquakesResource;
 use App\Models\CurrentEarthquake;
+use App\Models\Language;
 use Illuminate\Http\Request;
 
 class CurrentEarthquakeController extends BaseController
 {
+
+    public function __construct(Request $request)
+    {
+        $lng = 'en';
+
+        if ($request->lng) {
+            $lng = $request->lng;
+        }
+
+        $lng_id = Language::where('name', $lng)->first()->id;
+        $request['lng_id'] = $lng_id;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -18,10 +33,9 @@ class CurrentEarthquakeController extends BaseController
     public function index(Request $request)
     {
         $current_earthquakes = CurrentEarthquake::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
-        // dd($book_latest);
 
         return is_null($current_earthquakes) ? $this->sendError('error message') :
-               $this->sendResponse( CurrentEarthquakesResource::collection($current_earthquakes), 'success');
+            $this->sendResponse(CurrentEarthquakesResource::collection($current_earthquakes), 'success');
     }
 
     /**
