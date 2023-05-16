@@ -10,7 +10,7 @@ class News extends Model
     use HasFactory;
 
     protected $fillable = [
-
+        'editor_id',
         'image',
         'button_link',
         'status'
@@ -19,5 +19,13 @@ class News extends Model
     public function news_translations()
     {
         return $this->hasOne(NewsTranslation::class);
+    }
+    public function translation($lng_id){
+        return $this->hasOne(NewsTranslation::class)->where('language_id', $lng_id)->first();
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'editor_id');
     }
 }

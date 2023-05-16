@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('editor_id')->unsigned();
+            $table->foreign('editor_id')->references('id')->on('users');
             $table->string('image');
             $table->string('button_link')->nullable();
             $table->string('status')->default('new');
