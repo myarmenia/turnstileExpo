@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
 use App\Http\Controllers\DeleteFileController;
+use App\Http\Controllers\Feedback\FeedbackController;
 use App\Http\Controllers\GlobalMonitoring\GlobalMonitoringController;
 use App\Http\Controllers\ScientificPublications\ScientificPublicationsController;
 use App\Services\ChangeStatusService;
@@ -33,11 +34,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['register' => false, 'verify' => false, ]);
+Auth::routes(['register' => false, 'verify' => false,]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     Route::name('admin.')->group(function () {
         Route::prefix('admin')->group(function () {
 
@@ -46,7 +47,6 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('/permissions', PermissionController::class);
             route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         });
-
     });
 
     Route::resource('press-release', PressReleaseController::class);
@@ -59,12 +59,10 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('scientific-publications', ScientificPublicationsController::class);
 
-    // Route::resource('feedback', ScientificPublicationsController::class);
+    Route::resource('feedback', FeedbackController::class);
 
-    Route::get('delete_item/{id}/{table}/{type}',[DeleteItemService::class, 'delete_item'])->name('delete_item');
-    Route::get('change_status/{id}/{table}/{status}',[ChangeStatusService::class,'change_status'])->name('change_status');
-
-
+    Route::get('delete_item/{id}/{table}/{type}', [DeleteItemService::class, 'delete_item'])->name('delete_item');
+    Route::get('change_status/{id}/{table}/{status}', [ChangeStatusService::class, 'change_status'])->name('change_status');
 });
 
 

@@ -36,4 +36,8 @@ class CurrentEarthquake extends Model
     {
         return $this->hasMany(CurrentEarthquakesTranslations::class);
     }
+
+    public function translation($lng_id){
+        return $this->hasOne(CurrentEarthquakesTranslations::class)->where('language_id', $lng_id)->first();
+    }
 }
