@@ -24,26 +24,31 @@
                         <div class="w-50">
                             <h5 class="card-title">Edit Press Release</h5>
                         </div>
-                        <div class="d-flex flex-column w-50 justify-content-end pt-3">
-                            <div class="text-end">
-                                <label>Moderator:</label>
-                                <span class="text-primary ont-weight-bold text-end"> moderator name</span>
-                            </div>
-                            <div class="text-end">
-                                <label>Status:</label>
-                                <span class="text-primary ont-weight-bold text-end"> {{ $press_release->status}}</span>
-                            </div>
-                            <div class="d-flex text-end justify-content-end ">
-                                <label for="select_status" class="form-label pt-2 mx-2">Change status to: </label>
+                        @role('Admin')
+                            <div class="d-flex flex-column w-50 justify-content-end pt-3">
+                                <div class="text-end">
+                                    <label>Moderator:</label>
+                                    <span class="text-primary ont-weight-bold text-end"> moderator name</span>
+                                </div>
+                                <div class="text-end">
+                                    <label>Status:</label>
+                                    <span class="text-primary ont-weight-bold text-end"> {{ $press_release->status}}</span>
+                                </div>
+                                <form>
+                                <div class="d-flex text-end justify-content-end ">
 
-                                <select id="select_status" class="form-select w-50">
-                                    <option value="confirmed">Confirmed</option>
-                                    <option value="hidden">Hidden</option>
-                                    <option value="reditab">Reditab</option>
-                                    <option value="delete">Delete</option>
-                                </select>
+                                        <label for="select_status" class="form-label pt-2 mx-2">Change status to: </label>
+
+                                        <select id="select_status" class="form-select w-50">
+                                            <option value="confirmed">Confirmed</option>
+                                            <option value="hidden">Hidden</option>
+                                            <option value="reditab">Reditab</option>
+                                            <option value="delete">Delete</option>
+                                        </select>
+
+                                </div> </form>
                             </div>
-                        </div>
+                        @endrole
                     </div>
 
                     <form class="row g-3" action="{{ route('press-release.update', $press_release->id) }}" method="POST"
@@ -221,6 +226,8 @@
 @section('js-scripts')
 <script src="{{ asset('assets/back/js/press-releases.js') }}"></script>
 <script src="{{ asset('assets/back/js/delete_item.js') }}"></script>
+{{-- <script src="{{ asset('assets/back/js/edit-status-item.js') }}"></script> --}}
+
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 
 @endsection

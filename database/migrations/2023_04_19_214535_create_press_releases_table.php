@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('press_releases', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('editor_id')->unsigned();
+            $table->foreign('editor_id')->references('id')->on('users');
             $table->string('banner')->nullable();
             $table->date('date');
             $table->time('time');

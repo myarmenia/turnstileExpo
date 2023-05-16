@@ -1,27 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\API\PressReleases;
+namespace App\Http\Controllers\Feedback;
 
-use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PressReleaseResource;
-use App\Models\Language;
-use App\Models\PressRelease;
+use App\Models\Feedbacks;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class PressReleaseController extends BaseController
+class FeedbackController extends Controller
 {
-    public function __construct(Request $request)
-    {
-        $lng = 'en';
-
-        if($request->lng){
-            $lng = $request->lng;
-        }
-
-        $lng_id = Language::where('name', $lng)->first()->id;
-        $request['lng_id'] = $lng_id;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -29,11 +16,9 @@ class PressReleaseController extends BaseController
      */
     public function index(Request $request)
     {
-        $press_releases = PressRelease::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
+        $feedbacks = Feedbacks::OrderBy('id', 'desc')->paginate(6);
 
-        return is_null($press_releases) ? $this->sendError('error message') :
-               $this->sendResponse( PressReleaseResource::collection($press_releases), 'success');
-
+        return view("feedback.index", compact('feedbacks'))->with('i', ($request->input('page', 1) - 1) * 6);
     }
 
     /**
@@ -76,7 +61,13 @@ class PressReleaseController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $feedback = Feedbacks::where('id', $id)->first();
+
+        if ($feedback->status == 'new') {
+            $feedback->update(['status' => 'read']);
+        }
+
+        return view("feedback.read", compact('feedback'));
     }
 
     /**
@@ -88,7 +79,19 @@ class PressReleaseController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        // true -- Admin, false -- other user
+        $user_role_status = Auth::user()->isAdmin();
+
+        $feedback = Feedbacks::find($id);
+
+        if ($user_role_status) {
+        } else {
+            $feedback->update([
+                'editor_id' => Auth::id(),
+                'answer_content' => $request->answer_content,
+                'status' => 'draft'
+            ]);
+        }
     }
 
     /**

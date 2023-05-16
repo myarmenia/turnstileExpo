@@ -181,7 +181,7 @@ return [
 
     'attributes' => [
         'translations.*.title' => ' ',
-        'translations.*.button_text' => ' '
+        'translations.*.button_text' => ' ',
         'translations.*.description' => ' '
 
     ],
