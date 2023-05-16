@@ -19,4 +19,8 @@ class Feedbacks extends Model
         'answer_content'
     ];
 
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'editor_id');
+    }
 }
