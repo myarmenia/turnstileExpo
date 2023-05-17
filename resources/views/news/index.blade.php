@@ -25,7 +25,7 @@
 
         <div>
             <form action="{{route('news.index')}}" method="get" class="row g-3 mt-2" style="display: flex">
-                <div class="mb-3" style="display: flex; gap: 8px">
+                <div class="mb-3" style="display: flex; gap: 8px;justify-content:end">
                 <div class="col-2">
                     <!-- <label for="inputNanme4" class="form-label">Title</label> -->
                     <input type="text" class="form-control" id="inputNanme4"  name="title" placeholder="Title" value="{{ request()->input('title') }}" />
@@ -52,6 +52,7 @@
               <th scope="col">Description</th>
               <th scope="col">Image</th>
               <th scope="col">Status</th>
+              <th scope="col">Editor name</th>
               <th scope="col" style="width: 60px !important">Actions</th>
             </tr>
           </thead>
@@ -65,6 +66,7 @@
                 </td>
                 <td><img src="{{ route('get-file',['path'=>$item->image])}}" style="height:70px;width:70px"> </td>
                 <td>{{ $item->status }}</td>
+                <td>{{ $item->editor->name}}</td>
                 <td>
                     <div style="display: flex !important">
                         <a href="{{route('news.edit',$item->id)}}"><i class="bi bi-pencil-square action_i"></i></a>

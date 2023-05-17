@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('region_info_id')->references('id')->on('region_infos')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('language_id')->unsigned();
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('title');
+            $table->string('description');
             $table->timestamps();
         });
     }
