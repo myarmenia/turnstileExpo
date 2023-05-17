@@ -1,6 +1,6 @@
-console.log(11)
 if(document.getElementById('select_status') != null){
     document.getElementById('select_status').addEventListener('change', function(){
+
         let status = this.options[this.selectedIndex].value
         let item_id = this.getAttribute('data-id')
         let table = this.getAttribute('data-table')
@@ -9,13 +9,13 @@ if(document.getElementById('select_status') != null){
         csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         if(status == 'delete'){
-            
+
             fetch('/'+delete_url+'/'+item_id,{
                 method: 'DELETE',
-                headers: {'X-CSRF-TOKEN':csrf },
+                headers: {'X-CSRF-TOKEN':csrf }
             }).then(async response => {
                     if (response.ok) {
-                        window.location.href('press-release')
+                        window.location.href = '/press-release'
                     }
                 })
         }
@@ -29,8 +29,6 @@ if(document.getElementById('select_status') != null){
                     }
                 })
         }
-
-
 
     })
 }
