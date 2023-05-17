@@ -47,7 +47,6 @@
                         @enderror
                     @endforeach
 
-
                   <div class="flex mb-3">
                     <label for="inputNumber" class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
