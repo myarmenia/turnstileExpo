@@ -84,6 +84,7 @@ class CurrentEarthquakesController extends Controller
             "links.*" => "required"
         ];
 
+        $request['editor_id'] = Auth::id();
 
         $validator = Validator::make($request->all(), $validate);
 
@@ -107,7 +108,6 @@ class CurrentEarthquakesController extends Controller
                 'language_id' => $key,
                 'title' => $item['title'],
                 'description' => $item['description'],
-                'editor_id' => Auth::id()
             ]);
         }
 
