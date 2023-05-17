@@ -30,9 +30,10 @@ class PressReleaseController extends BaseController
     public function index(Request $request)
     {
         $press_releases = PressRelease::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
-
+        $press_releases->lp = $press_releases->lastPage();
+       
         return is_null($press_releases) ? $this->sendError('error message') :
-               $this->sendResponse( PressReleaseResource::collection($press_releases), 'success');
+               $this->sendResponse( PressReleaseResource::collection($press_releases), 'success', $press_releases->lastPage());
 
     }
 

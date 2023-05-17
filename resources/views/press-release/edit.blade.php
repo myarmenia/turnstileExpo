@@ -28,7 +28,7 @@
                             <div class="d-flex flex-column w-50 justify-content-end pt-3">
                                 <div class="text-end">
                                     <label>Moderator:</label>
-                                    <span class="text-primary ont-weight-bold text-end"> moderator name</span>
+                                    <span class="text-primary ont-weight-bold text-end"> {{$press_release->editor->name}}</span>
                                 </div>
                                 <div class="text-end">
                                     <label>Status:</label>
