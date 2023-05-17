@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Feedback;
 
 use App\Http\Controllers\Controller;
 use App\Models\Feedbacks;
+use App\Notifications\Feedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -110,6 +111,25 @@ class FeedbackController extends Controller
         $feedback = Feedbacks::find($id);
 
         if ($user_role_status) {
+
+            $feedback->update([
+                'answer_content' => $request->answer_content,
+                'status' => 'answerd'
+            ]);
+
+            // $details = [
+            //     'body' => "Ваш аккаунт заблокирован до $blocking_p",
+            //     'reason_for_blocking' => $request->reason_for_blocking,
+            //     'name' => 'BusinessFox'
+            // ];
+
+            // try{
+            //     $user->notify(new BlockedUser($details));
+            // }
+            // catch(Exception){
+            //     return redirect()->back()->with('invald_email', 'Электронная почта пользователя недействительна.');
+            // }
+
         } else {
             $feedback->update([
                 'editor_id' => Auth::id(),
