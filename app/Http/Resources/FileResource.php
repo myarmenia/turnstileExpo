@@ -17,7 +17,7 @@ class FileResource extends JsonResource
     {
         $files = [
             'type' => $this->type,
-            "path" => $this->path,
+            "path" => Storage::disk('public')->url($this->path),
         ];
 
         return $files;

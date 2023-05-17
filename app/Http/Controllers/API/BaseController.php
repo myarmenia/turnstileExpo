@@ -12,12 +12,16 @@ class BaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function sendResponse($result, $message){
+    public function sendResponse($result, $message, $count_page = null){
     	$response = [
             'success' => true,
             'data'    => $result,
             'message' => $message,
         ];
+
+        if($count_page != null){
+            $response['cont_page'] = $count_page;
+        }
 
 
         return response()->json($response, 200);
