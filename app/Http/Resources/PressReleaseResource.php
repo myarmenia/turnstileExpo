@@ -25,9 +25,14 @@ class PressReleaseResource extends JsonResource
             'description' => $this->translation($request->lng_id)->description,
             'date' => $this->date,
             'time' => $this->time,
-            // 'logo' => Storage::path($this->logo),
+            'logo' => Storage::path($this->logo),
             // 'logo' => Storage::url($this->logo),
-            'logo' =>Storage::disk('local')->path($this->logo),
+            'logo1' => Storage::disk('local')->path($this->logo),
+            'logo2' => Storage::disk('local')->url($this->logo),
+
+            // 'logo3' => Storage::get($this->logo),
+            // 'logo4' => Storage::disk('local')->path($this->logo),
+            // 'logo5' =>File::get($this->logo),
 
             "files" => FileResource::collection($this->files),
             "links" => LinkResource::collection($this->links),
