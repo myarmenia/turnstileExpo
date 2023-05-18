@@ -81,16 +81,20 @@ class CurrentEarthquakesController extends Controller
             "time" => "required",
             "magnitude" => "required",
             "items" => "required",
+            "items.*" => "mimes:mp4,mov,ogg,jpeg,jpg,png,PNG,JPG,JPEG | max:20000",
             "links.*" => "required"
         ];
 
-        $request['editor_id'] = Auth::id();
 
         $validator = Validator::make($request->all(), $validate);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        $request['editor_id'] = Auth::id();
+
+        dd($request->all());
 
         $current_earthquakes = CurrentEarthquake::create($request->all());
 

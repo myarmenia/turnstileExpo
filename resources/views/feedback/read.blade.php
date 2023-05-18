@@ -42,11 +42,19 @@
                         class="w-100 d-flex flex-column">
                         @csrf
                         @method('patch')
-                        <textarea class="w-100 ps-2" id="" name="answer_content"
-                            rows="3">{{ $feedback->answer_content ?? "" }}</textarea>
-
+                        @if (!$feedback->status == 'answerd')
+                        <textarea class="w-100 ps-2 @error('answer_content') _incorrectly @enderror" id=""
+                            name='answer_content' rows=" 3">{{ $feedback->answer_content ?? "" }}</textarea>
+                        @error('answer_content')
+                        <div class="error_message"> {{ $message }} </div>
+                        @enderror
+                        @else
+                        <div>{{ $feedback->answer_content ?? "" }}</div>
+                        @endif
                         @role('Admin')
+                        @if($feedback->status != 'answerd')
                         <button class="btn btn-primary mt-3" style="width: 10%">Send</button>
+                        @endif
                         @else
                         @if($feedback->status == 'new' || $feedback->status == 'read')
                         <button class="btn btn-primary mt-3" style="width: 10%">Send</button>

@@ -90,37 +90,33 @@
                         <div class="col-lg-12">
                             <label for="description_ru" class="form-label">Links </label>
                             <div class="links_div">
-                                @error('links.*')
+
+                                {{-- @error('links.*') --}}
+                                {{-- {{ dd(count(old('links')) ) }} --}}
+
                                 @foreach (old('links') as $key => $item)
                                 <div>
                                     <div class=" col-lg-6 mr-3 d-flex mt-2">
                                         <input type="url" class="form-control {{ $item == null ? '_incorrectly' : ''}}"
                                             name="links[]" value="{{$item ?? ''}}">
-                                        <i class="icon ri-delete-bin-2-line delete_link"
-                                            onclick="removeElemnet(this)"></i>
+                                        <i class="icon ri-delete-bin-2-line remove_link"></i>
                                     </div>
                                     @if ($item == null)
                                     <div class="error_message">The link field is required. </div>
                                     @endif
                                 </div>
                                 @endforeach
-                                @else
+                                {{-- @else
                                 <div>
                                     <div class=" col-lg-6 mr-3 d-flex">
                                         <input type="url" class="form-control @error('links.*') _incorrectly @enderror"
                                             name="links[]">
-                                        <i class="icon ri-delete-bin-2-line delete_link"
-                                            onclick="removeElemnet(this)"></i>
+                                        <i class="icon ri-delete-bin-2-line remove_link"></i>
                                     </div>
                                 </div>
-                                @enderror
-                                <div>
-
-                                </div>
-                                @error('links')
-                                <div class="error_message"> {{ $message }} </div>
-                                @enderror
+                                @enderror --}}
                             </div>
+
                             <div class="col-lg-12">
                                 <label for="description_ru" class="form-label">Add Link</label>
                                 <i class="icon  ml-3 ri-add-box-line" id="add_link"></i>
