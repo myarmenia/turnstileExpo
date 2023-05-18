@@ -17,10 +17,18 @@ class FileResource extends JsonResource
     {
         $files = [
             'type' => $this->type,
-            // "path" => Storage::disk('public')->url($this->path),
             "path" => route('get-file',['path'=>$this->path])
         ];
 
         return $files;
+    }
+
+    public static function getFirstImage($files){
+
+        foreach ($files as $key => $value) {
+           if($value->type == 'image'){
+               return $value->path;
+           }
+        }
     }
 }
