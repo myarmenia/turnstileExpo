@@ -30,7 +30,7 @@ class PressReleaseResource extends JsonResource
             'logo1' => Storage::disk('local')->path($this->logo),
             'logo2' => Storage::disk('local')->url($this->logo),
 
-            // 'logo3' => Storage::get($this->logo),
+            'logo3' => url(Storage::url($this->logo)),
             // 'logo4' => Storage::disk('local')->path($this->logo),
             // 'logo5' =>File::get($this->logo),
 
