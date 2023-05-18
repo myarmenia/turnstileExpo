@@ -18,22 +18,14 @@ class PressReleaseResource extends JsonResource
 
     public function toArray($request)
     {
-
+        // dd( file(Storage::path($this->logo)));
         return $data =  [
             'id' => $this->id,
             'title' => $this->translation($request->lng_id)->title,
             'description' => $this->translation($request->lng_id)->description,
             'date' => $this->date,
             'time' => $this->time,
-            'logo' => Storage::path($this->logo),
-            // 'logo' => Storage::url($this->logo),
-            'logo1' => Storage::disk('local')->path($this->logo),
-            'logo2' => Storage::disk('local')->url($this->logo),
-
-            'logo3' => url(Storage::url($this->logo)),
-            // 'logo4' => Storage::disk('local')->path($this->logo),
-            // 'logo5' =>File::get($this->logo),
-
+            'logo' => route('get-file',['path'=>$this->logo]),
             "files" => FileResource::collection($this->files),
             "links" => LinkResource::collection($this->links),
 

@@ -15,6 +15,6 @@ class LinkResource extends JsonResource
      */
     public function toArray($request)
     {
-        return Storage::path($this->link);
+        return $this->link;
     }
 }
