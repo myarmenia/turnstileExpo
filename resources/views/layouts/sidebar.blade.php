@@ -23,7 +23,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('news.*') ? '' : ' collapsed' }}" href="{{route('global-monitoring.index')}}">
+            <a class="nav-link {{ request()->routeIs('news.*') ? '' : ' collapsed' }}"
+                href="{{route('global-monitoring.index')}}">
                 <i class="bx bx-news"></i>
                 <span>Global Monitoring</span>
             </a>
@@ -43,21 +44,40 @@
                 <span>Scientific Publications</span>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('feedback.*') ? '' : ' collapsed' }}"
+                href="{{route('feedback.index')}}">
+                <i class="ri-earthquake-line"></i>
+                <span>Feedbacks</span>
+            </a>
+        </li>
+
+        @role('Admin')
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('contact-informations.*') ? '' : ' collapsed' }}"
+                href="{{route('contact_informations')}}">
+                <i class="ri-earthquake-line"></i>
+                <span>Contact Informations</span>
+            </a>
+        </li>
+        @endrole
+
         @role('Admin|moderator')
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.users.*') ? '' : ' collapsed' }}"
-                    href="{{route('admin.users.index')}}">
-                    <i class="ri-file-list-2-line"></i>
-                    <span>Users</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.roles.*') ? '' : ' collapsed' }}"
-                    href="{{route('admin.roles.index')}}">
-                    <i class="ri-file-list-2-line"></i>
-                    <span>Roles</span>
-                </a>
-            </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('admin.users.*') ? '' : ' collapsed' }}"
+                href="{{route('admin.users.index')}}">
+                <i class="ri-file-list-2-line"></i>
+                <span>Users</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('admin.roles.*') ? '' : ' collapsed' }}"
+                href="{{route('admin.roles.index')}}">
+                <i class="ri-file-list-2-line"></i>
+                <span>Roles</span>
+            </a>
+        </li>
         @endrole
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">

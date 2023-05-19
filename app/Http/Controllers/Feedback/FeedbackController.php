@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Feedback;
 
 use App\Http\Controllers\Controller;
+use App\Mail\FeedbackMail;
 use App\Models\Feedbacks;
+use App\Models\User;
 use App\Notifications\Feedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class FeedbackController extends Controller
 {
@@ -105,31 +109,40 @@ class FeedbackController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // true -- Admin, false -- other user
+
+        $validate = [
+            "answer_content" => "required",
+        ];
+
+        $validator = Validator::make($request->all(), $validate);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
         $user_role_status = Auth::user()->isAdmin();
 
         $feedback = Feedbacks::find($id);
 
+        $editor_id = 0;
+
         if ($user_role_status) {
 
-            $feedback->update([
+            if ($feedback->editor_id != null) {
+                $editor_id = $feedback->editor_id;
+            } else {
+                $editor_id = Auth::id();
+            }
+
+            $feedback_updated = $feedback->update([
+                'editor_id' => $editor_id,
                 'answer_content' => $request->answer_content,
                 'status' => 'answerd'
             ]);
 
-            // $details = [
-            //     'body' => "Ваш аккаунт заблокирован до $blocking_p",
-            //     'reason_for_blocking' => $request->reason_for_blocking,
-            //     'name' => 'BusinessFox'
-            // ];
-
-            // try{
-            //     $user->notify(new BlockedUser($details));
-            // }
-            // catch(Exception){
-            //     return redirect()->back()->with('invald_email', 'Электронная почта пользователя недействительна.');
-            // }
-
+            if ($feedback_updated) {
+                Mail::to('kirakosyan.suren@inbox.ru')->send(new FeedbackMail($feedback->type, $request->answer_content));
+            }
         } else {
             $feedback->update([
                 'editor_id' => Auth::id(),

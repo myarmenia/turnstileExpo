@@ -19,8 +19,10 @@ class CurrentEarthquake extends Model
         'description_en',
         'description_am',
         'description_ru',
-        'magnitude'
+        'magnitude',
+        'editor_id'
     ];
+
 
     public function files()
     {
@@ -37,7 +39,8 @@ class CurrentEarthquake extends Model
         return $this->hasMany(CurrentEarthquakesTranslations::class);
     }
 
-    public function translation($lng_id){
+    public function translation($lng_id)
+    {
         return $this->hasOne(CurrentEarthquakesTranslations::class)->where('language_id', $lng_id)->first();
     }
 }

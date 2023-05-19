@@ -42,10 +42,10 @@
                             <label for="title_{{$lng->name}}" class="form-label">Title {{ Str::upper($lng->name)
                                 }}</label>
                             <input type="text"
-                                class='form-control @error("tanslations.$lng->id.title") _incorrectly @enderror'
-                                id="title_{{$lng->name}}" name="tanslations[{{$lng->id}}][title]"
-                                value='{{ old("tanslations.$lng->id.title")}}'>
-                            @error("tanslations.$lng->id.title")
+                                class='form-control @error("translations.$lng->id.title") _incorrectly @enderror'
+                                id="title_{{$lng->name}}" name="translations[{{$lng->id}}][title]"
+                                value='{{ old("translations.$lng->id.title")}}'>
+                            @error("translations.$lng->id.title")
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
                         </div>
@@ -79,10 +79,10 @@
                             <label for="description_{{$lng->name}}" class="form-label">Description {{
                                 Str::upper($lng->name) }}</label>
                             <textarea
-                                class='ckeditor form-control @error("tanslations.$lng->id.description") _incorrectly @enderror'
-                                name="tanslations[{{$lng->id}}][description]"
-                                id="description_en">{{ old("tanslations.$lng->id.description")}}</textarea>
-                            @error("tanslations.$lng->id.description")
+                                class='ckeditor form-control @error("translations.$lng->id.description") _incorrectly @enderror'
+                                name="translations[{{$lng->id}}][description]"
+                                id="description_en">{{ old("translations.$lng->id.description")}}</textarea>
+                            @error("translations.$lng->id.description")
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
                         </div>
@@ -90,14 +90,14 @@
                         <div class="col-lg-12">
                             <label for="description_ru" class="form-label">Links </label>
                             <div class="links_div">
-                                @error('links.*')
+
+                                @if (is_array(old('links')) || is_object(old('links')))
                                 @foreach (old('links') as $key => $item)
                                 <div>
                                     <div class=" col-lg-6 mr-3 d-flex mt-2">
                                         <input type="url" class="form-control {{ $item == null ? '_incorrectly' : ''}}"
                                             name="links[]" value="{{$item ?? ''}}">
-                                        <i class="icon ri-delete-bin-2-line delete_link"
-                                            onclick="removeElemnet(this)"></i>
+                                        <i class="icon ri-delete-bin-2-line remove_link"></i>
                                     </div>
                                     @if ($item == null)
                                     <div class="error_message">The link field is required. </div>
@@ -105,22 +105,14 @@
                                 </div>
                                 @endforeach
                                 @else
-                                <div>
-                                    <div class=" col-lg-6 mr-3 d-flex">
-                                        <input type="url" class="form-control @error('links.*') _incorrectly @enderror"
-                                            name="links[]">
-                                        <i class="icon ri-delete-bin-2-line delete_link"
-                                            onclick="removeElemnet(this)"></i>
-                                    </div>
+                                <div class=" col-lg-6 mr-3 d-flex">
+                                    <input type="url" class="form-control @error('links.*') _incorrectly @enderror"
+                                        name="links[]">
+                                    <i class="icon ri-delete-bin-2-line remove_link"></i>
                                 </div>
-                                @enderror
-                                <div>
-
-                                </div>
-                                @error('links')
-                                <div class="error_message"> {{ $message }} </div>
-                                @enderror
+                                @endif
                             </div>
+
                             <div class="col-lg-12">
                                 <label for="description_ru" class="form-label">Add Link</label>
                                 <i class="icon  ml-3 ri-add-box-line" id="add_link"></i>
