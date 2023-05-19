@@ -75,8 +75,8 @@ class CurrentEarthquakesController extends Controller
 
         $validate = [
             // "banner" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
-            "tanslations.*.title" => "required",
-            "tanslations.*.description" => "required",
+            "translations.*.title" => "required",
+            "translations.*.description" => "required",
             "date" => "required",
             "time" => "required",
             "magnitude" => "required",
@@ -176,8 +176,8 @@ class CurrentEarthquakesController extends Controller
 
         $validate = [
             // "banner" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
-            "tanslations.*.title" => "required",
-            "tanslations.*.description" => "required",
+            "translations.*.title" => "required",
+            "translations.*.description" => "required",
             "date" => "required",
             "time" => "required",
             "magnitude" => "required",

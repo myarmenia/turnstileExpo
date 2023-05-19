@@ -70,10 +70,10 @@
                             <label for="title_{{$lng->name}}" class="form-label">Title {{ Str::upper($lng->name)
                                 }}</label>
                             <input type="text"
-                                class='form-control @error("tanslations.$lng->id.title") _incorrectly @enderror'
-                                id="title_{{$lng->name}}" name="tanslations[{{$lng->id}}][title]"
-                                value='{{ old("tanslations.$lng->id.title") ?? $current_earthquake->current_earthquakes_translations[$index]->title }}'>
-                            @error("tanslations.$lng->id.title")
+                                class='form-control @error("translations.$lng->id.title") _incorrectly @enderror'
+                                id="title_{{$lng->name}}" name="translations[{{$lng->id}}][title]"
+                                value='{{ old("translations.$lng->id.title") ?? $current_earthquake->current_earthquakes_translations[$index]->title }}'>
+                            @error("translations.$lng->id.title")
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
                         </div>
@@ -111,10 +111,10 @@
                             <label for="description_{{$lng->name}}" class="form-label">Description {{
                                 Str::upper($lng->name) }}</label>
                             <textarea
-                                class='ckeditor form-control @error("tanslations.$lng->id.description") _incorrectly @enderror'
-                                name="tanslations[{{$lng->id}}][description]"
-                                id="description_en">{{ old("tanslations.$lng->id.description") ?? $current_earthquake->current_earthquakes_translations[$index]->description }}</textarea>
-                            @error("tanslations.$lng->id.description")
+                                class='ckeditor form-control @error("translations.$lng->id.description") _incorrectly @enderror'
+                                name="translations[{{$lng->id}}][description]"
+                                id="description_en">{{ old("translations.$lng->id.description") ?? $current_earthquake->current_earthquakes_translations[$index]->description }}</textarea>
+                            @error("translations.$lng->id.description")
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
                         </div>
@@ -153,32 +153,49 @@
                             <div class="links_div">
 
                                 @error('links.*')
-                                @foreach (old('links') as $key => $item)
-                                <div>
-                                    <div class=" col-lg-6 mr-3 d-flex mt-2">
-                                        <input type="url"
-                                            class="form-control link {{ $item == null ? '_incorrectly' : ''}}"
-                                            name="links[]" value="{{$item ?? ''}}">
-                                        <i class="icon ri-delete-bin-2-line delete_link"
-                                            onclick="removeElemnet(this)"></i>
-                                    </div>
-                                    @if ($item == null)
-                                    <div class="error_message">The link field is required. </div>
-                                    @endif
-                                </div>
-                                @endforeach
+                                    @foreach (old('links') as $key => $item)
+                                        <div>
+                                            <div class=" col-lg-6 mr-3 d-flex mt-2">
+                                                <input type="url"
+                                                    class="form-control link {{ $item == null ? '_incorrectly' : ''}}"
+                                                    name="links[]" value="{{$item ?? ''}}">
+                                                <i class="icon ri-delete-bin-2-line delete_link"
+                                                    onclick="removeElemnet(this)"></i>
+                                            </div>
+                                            @if ($item == null)
+                                                <div class="error_message">The link field is required. </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
                                 @else
-                                @foreach ($current_earthquake->links as $link)
-                                <div>
-                                    <div class="col-lg-6 mr-3 d-flex">
-                                        <input type="url"
-                                            class="mt-2 form-control link @error('links.*') _incorrectly @enderror"
-                                            name="links[]" value="{{ $link->link  }}">
-                                        <i class="icon ri-delete-bin-2-line delete_item" data-id="{{$link->id}}"
-                                            data-table="links" data-type="link"></i>
-                                    </div>
-                                </div>
-                                @endforeach
+
+                                    @if (is_array(old('links')) || is_object(old('links')))
+                                        @foreach (old('links') as $key => $item)
+                                            <div>
+                                                <div class=" col-lg-6 mr-3 d-flex mt-2">
+                                                    <input type="url" class="form-control {{ $item == null ? '_incorrectly' : ''}}"
+                                                        name="links[]" value="{{$item ?? ''}}">
+                                                    <i class="icon ri-delete-bin-2-line remove_link"></i>
+                                                </div>
+                                                @if ($item == null)
+                                                <div class="error_message">The link field is required. </div>
+                                                @endif
+                                            </div>
+                                        @endforeach
+                                    @else
+
+                                        @foreach ($current_earthquake->links as $link)
+                                            <div>
+                                                <div class="col-lg-6 mr-3 d-flex">
+                                                    <input type="url"
+                                                        class="mt-2 form-control link @error('links.*') _incorrectly @enderror"
+                                                        name="links[]" value="{{ $link->link  }}">
+                                                    <i class="icon ri-delete-bin-2-line delete_item" data-id="{{$link->id}}"
+                                                        data-table="links" data-type="link"></i>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 @enderror
 
                             </div>

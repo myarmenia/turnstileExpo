@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::create('contact_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('address');
             $table->string('email');
             $table->string('phone');
-            $table->string('map_iframe');
-            $table->string('map_image');
+            $table->string('map_iframe')->nullable();
+            $table->string('map_image')->nullable();
             $table->timestamps();
         });
     }
