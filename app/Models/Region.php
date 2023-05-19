@@ -19,6 +19,12 @@ class Region extends Model
     {
         return $this->hasOne(RegionTranslation::class);
     }
+
+
+    public function translation($lng_id){
+        return $this->hasOne(RegionTranslation::class)->where('language_id', $lng_id)->first();
+    }
+
     public function children()
     {
         return $this->hasMany(self::class, 'parent_id');

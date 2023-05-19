@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PermissionTableSeeder::class,
             CreateAdminUserSeeder::class,
-            LanguageSeeder::class
+            LanguageSeeder::class,
+            RegionSeeder::class,
+            RegionTranslationSeeder::class,
         ]);
     }
 }
