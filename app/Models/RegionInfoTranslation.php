@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class RegionInfoTranslation extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'region_id',
+        'language_id',
+        'name'
+    ];
 
     public function region_infos()
     {
