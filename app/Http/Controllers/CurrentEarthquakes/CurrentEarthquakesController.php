@@ -75,22 +75,25 @@ class CurrentEarthquakesController extends Controller
 
         $validate = [
             // "banner" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
-            "tanslations.*.title" => "required",
-            "tanslations.*.description" => "required",
+            "translations.*.title" => "required",
+            "translations.*.description" => "required",
             "date" => "required",
             "time" => "required",
             "magnitude" => "required",
             "items" => "required",
+            "items.*" => "mimes:mp4,mov,ogg,jpeg,jpg,png,PNG,JPG,JPEG | max:20000",
             "links.*" => "required"
         ];
 
-        $request['editor_id'] = Auth::id();
 
         $validator = Validator::make($request->all(), $validate);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        $request['editor_id'] = Auth::id();
+
 
         $current_earthquakes = CurrentEarthquake::create($request->all());
 
@@ -101,7 +104,7 @@ class CurrentEarthquakesController extends Controller
         // }
 
 
-        foreach ($request->tanslations as $key => $item) {
+        foreach ($request->translations as $key => $item) {
             // dd($item['title']);
             CurrentEarthquakesTranslations::create([
                 'current_earthquake_id' => $current_earthquakes->id,
@@ -172,8 +175,8 @@ class CurrentEarthquakesController extends Controller
 
         $validate = [
             // "banner" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
-            "tanslations.*.title" => "required",
-            "tanslations.*.description" => "required",
+            "translations.*.title" => "required",
+            "translations.*.description" => "required",
             "date" => "required",
             "time" => "required",
             "magnitude" => "required",
@@ -196,7 +199,7 @@ class CurrentEarthquakesController extends Controller
 
         $current_earthquake->update($requestData);
 
-        foreach ($request->tanslations as $key => $item) {
+        foreach ($request->translations as $key => $item) {
 
             $current_earthquakes_translations = $current_earthquake->current_earthquakes_translations;
 

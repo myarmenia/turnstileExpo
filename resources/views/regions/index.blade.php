@@ -25,14 +25,14 @@
                 @foreach($regions as $item)
 
                     <div class="accordion-item">
-                        <a href="{{route('global-monitoring.edit', $item->id }}">
+                        {{-- <a href="{{route('global-monitoring.edit', $item->id)}}"> --}}
                          <h2 class="accordion-header" id="heading{{$item->region_translations->name}}">
 
                             <button
                                 class="accordion-button collapsed"
                                 type="button"
                                 data-bs-toggle="collapse"
-                                data-bs-target="kkk"
+                                data-bs-target="{{$item->region_translations->name}}"
                                 aria-expanded="false"
                                 aria-controls="{{$item->region_translations->name}}"
                             >
@@ -51,7 +51,7 @@
                             </div>
                             </div>
                         @endif
-                        </a>
+                        {{-- </a> --}}
                     </div>
                 @endforeach
 

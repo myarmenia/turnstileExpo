@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
-class NewsResource extends JsonResource
+class SingleCurrentEarthquakesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,14 +14,15 @@ class NewsResource extends JsonResource
      */
     public function toArray($request)
     {
-            return $data =  [
+        return $data =  [
             'id' => $this->id,
             'title' => $this->translation($request->lng_id)->title,
             'description' => $this->translation($request->lng_id)->description,
-            'image' => route('get-file',['path'=>$this->image]),
-            'button_text' => $this->translation($request->lng_id)->button,
-            "button_link" => $this->button_link,
-            "status" => $this->status,
+            'date' => $this->date,
+            'time' => $this->time,
+            'magnitude' => $this->magnitude,
+            "files" => FileResource::collection($this->files),
+            "links" => LinkResource::collection($this->links),
         ];
     }
 }

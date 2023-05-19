@@ -30,9 +30,9 @@ class HomeController extends BaseController
 
     public function index(){
 
-        $press_releases = PressRelease::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
-        $current_earthquake = CurrentEarthquake::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
-        $news = News::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
+        $press_releases = PressRelease::where('status', 'confirmed')->orderBy('id', 'desc')->get()->take(12);
+        $current_earthquake = CurrentEarthquake::where('status', 'confirmed')->orderBy('id', 'desc')->get()->take(12);
+        $news = News::where('status', 'confirmed')->orderBy('id', 'desc')->get()->take(12);
 
         $data = [
             'press_releases' => PressReleaseResource::collection($press_releases),

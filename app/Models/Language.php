@@ -16,4 +16,8 @@ class Language extends Model
     {
         return $this->hasMany(NewsTranslation::class);
     }
+    public function region_translations()
+    {
+        return $this->hasMany(RegionTranslation::class);
+    }
 }

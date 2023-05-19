@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class HomeResource extends JsonResource
+class ChildRegionsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,10 @@ class HomeResource extends JsonResource
      */
     public function toArray($request)
     {
-       //
+
+        return [
+            'id' => $this->id,
+            "name"=>$this->translation($request->lng_id)->name,
+        ];
     }
 }

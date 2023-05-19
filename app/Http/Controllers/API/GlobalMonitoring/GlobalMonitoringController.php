@@ -1,42 +1,42 @@
 <?php
 
-namespace App\Http\Controllers\API\CurrentEarthquake;
+namespace App\Http\Controllers\API\GlobalMonitoring;
 
 use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CurrentEarthquakesResource;
-use App\Http\Resources\SingleCurrentEarthquakesResource;
-use App\Models\CurrentEarthquake;
+use App\Http\Resources\GlobalMonitoringResource;
 use App\Models\Language;
+use App\Models\Region;
 use Illuminate\Http\Request;
 
-class CurrentEarthquakeController extends BaseController
-{
 
+class GlobalMonitoringController extends  BaseController
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function __construct(Request $request)
     {
         $lng = 'en';
 
-        if ($request->lng) {
+        if($request->lng){
             $lng = $request->lng;
         }
 
         $lng_id = Language::where('name', $lng)->first()->id;
         $request['lng_id'] = $lng_id;
     }
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
-        $current_earthquakes = CurrentEarthquake::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(12);
+      
+        $query = Region::where('parent_id',null)->with('region_translations')->get();
 
-        return is_null($current_earthquakes) ? $this->sendError('error message') :
-            $this->sendResponse(CurrentEarthquakesResource::collection($current_earthquakes), 'success');
+        return is_null($query)? $this->sendError('error message'):
+                $this->sendResponse(GlobalMonitoringResource::collection($query), 'success');
+
+
     }
 
     /**
@@ -68,10 +68,7 @@ class CurrentEarthquakeController extends BaseController
      */
     public function show($id)
     {
-        $current_earthquakes = CurrentEarthquake::find($id);
-
-        return is_null($current_earthquakes) ? $this->sendError('error') :
-               $this->sendResponse(new SingleCurrentEarthquakesResource($current_earthquakes), 'success');
+        //
     }
 
     /**

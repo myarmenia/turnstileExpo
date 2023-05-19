@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class RegionTranslation extends Model
 {
     use HasFactory;
-    
+
     public function regions()
     {
         return $this->belongsTo(Region::class,'region_id');
+    }
+    public function languages()
+    {
+        return $this->belongsTo(Language::class,'language_id');
     }
 }
