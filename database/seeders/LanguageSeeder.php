@@ -16,18 +16,21 @@ class LanguageSeeder extends Seeder
     public function run()
     {
         Language::create( [
+            'id'=>1,
             'name'=>'en',
             'created_at'=>NULL,
             'updated_at'=>NULL
         ] );
 
         Language::create( [
+            'id'=>2,
             'name'=>'ru',
             'created_at'=>NULL,
             'updated_at'=>NULL
         ] );
 
         Language::create( [
+            'id'=>3,
             'name'=>'am',
             'created_at'=>NULL,
             'updated_at'=>NULL
