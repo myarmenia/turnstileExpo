@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\PressReleases;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PressReleaseResource;
+use App\Http\Resources\SinglePressReleaseResource;
 use App\Models\Language;
 use App\Models\PressRelease;
 use Illuminate\Http\Request;
@@ -27,11 +28,12 @@ class PressReleaseController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $press_releases = PressRelease::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
+
+        $press_releases = PressRelease::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(12);
         $press_releases->lp = $press_releases->lastPage();
-       
+
         return is_null($press_releases) ? $this->sendError('error message') :
                $this->sendResponse( PressReleaseResource::collection($press_releases), 'success', $press_releases->lastPage());
 
@@ -66,7 +68,11 @@ class PressReleaseController extends BaseController
      */
     public function show($id)
     {
-        //
+        $press_release = PressRelease::find($id);
+
+        return is_null($press_release) ? $this->sendError('error') :
+               $this->sendResponse(new SinglePressReleaseResource($press_release), 'success');
+
     }
 
     /**

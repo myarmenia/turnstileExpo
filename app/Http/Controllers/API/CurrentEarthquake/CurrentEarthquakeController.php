@@ -32,7 +32,7 @@ class CurrentEarthquakeController extends BaseController
      */
     public function index(Request $request)
     {
-        $current_earthquakes = CurrentEarthquake::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(4);
+        $current_earthquakes = CurrentEarthquake::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(12);
 
         return is_null($current_earthquakes) ? $this->sendError('error message') :
             $this->sendResponse(CurrentEarthquakesResource::collection($current_earthquakes), 'success');

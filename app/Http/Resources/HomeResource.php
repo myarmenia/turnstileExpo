@@ -14,11 +14,6 @@ class HomeResource extends JsonResource
      */
     public function toArray($request)
     {
-        dd($request->press_releases);
-        return $data =  [
-            'press_releases' => PressReleaseResource::collection($this->press_releases),
-
-
-        ];
+       //
     }
 }
