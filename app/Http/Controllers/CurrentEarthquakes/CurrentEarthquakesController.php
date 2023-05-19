@@ -94,7 +94,6 @@ class CurrentEarthquakesController extends Controller
 
         $request['editor_id'] = Auth::id();
 
-        dd($request->all());
 
         $current_earthquakes = CurrentEarthquake::create($request->all());
 
@@ -105,7 +104,7 @@ class CurrentEarthquakesController extends Controller
         // }
 
 
-        foreach ($request->tanslations as $key => $item) {
+        foreach ($request->translations as $key => $item) {
             // dd($item['title']);
             CurrentEarthquakesTranslations::create([
                 'current_earthquake_id' => $current_earthquakes->id,
@@ -200,7 +199,7 @@ class CurrentEarthquakesController extends Controller
 
         $current_earthquake->update($requestData);
 
-        foreach ($request->tanslations as $key => $item) {
+        foreach ($request->translations as $key => $item) {
 
             $current_earthquakes_translations = $current_earthquake->current_earthquakes_translations;
 

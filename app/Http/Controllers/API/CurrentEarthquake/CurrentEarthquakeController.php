@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\CurrentEarthquake;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CurrentEarthquakesResource;
+use App\Http\Resources\SingleCurrentEarthquakesResource;
 use App\Models\CurrentEarthquake;
 use App\Models\Language;
 use Illuminate\Http\Request;
@@ -67,7 +68,10 @@ class CurrentEarthquakeController extends BaseController
      */
     public function show($id)
     {
-        //
+        $current_earthquakes = CurrentEarthquake::find($id);
+
+        return is_null($current_earthquakes) ? $this->sendError('error') :
+               $this->sendResponse(new SingleCurrentEarthquakesResource($current_earthquakes), 'success');
     }
 
     /**
