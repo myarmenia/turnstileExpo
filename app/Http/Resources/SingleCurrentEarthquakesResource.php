@@ -20,9 +20,9 @@ class SingleCurrentEarthquakesResource extends JsonResource
             'description' => $this->translation($request->lng_id)->description,
             'date' => $this->date,
             'time' => $this->time,
+            'magnitude' => $this->magnitude,
             "files" => FileResource::collection($this->files),
             "links" => LinkResource::collection($this->links),
-
         ];
     }
 }
