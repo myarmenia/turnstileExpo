@@ -69,7 +69,7 @@
                 <td>{{ $item->editor->name}}</td>
                 <td>
                     <div style="display: flex !important">
-                        <a href="{{route('news.edit',$item->id)}}"><i class="bi bi-pencil-square action_i"></i></a>
+                        <a href="{{route('news.edit', $item->id)}}"><i class="bi bi-pencil-square action_i"></i></a>
                         <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"  onclick="create_request_route(`news`, {{$item->id}})"></i>
                         <a href="{{ route('change_status', [$item->id, 'news', 'confirmed']) }}">
                             <i class="bi bi-check-circle action_i" style="color:{{ $item->status == 'confirmed' ? '#0d6efd' : ''}}" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="{{ $item->status == 'confirmed' ? 'Confirmed' : 'Change status to confirmed'}}"> </i>
