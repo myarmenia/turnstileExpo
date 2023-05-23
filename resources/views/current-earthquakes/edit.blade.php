@@ -202,7 +202,7 @@
 
                         </div>
                         <div class="col-lg-12">
-                            <label for="description_ru" class="form-label">Add Link</label>
+                            <label for="" class="form-label">Add Link</label>
                             <i class="icon  ml-3 ri-add-box-line" id="add_link"></i>
                         </div>
 

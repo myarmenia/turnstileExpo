@@ -182,8 +182,9 @@ return [
     'attributes' => [
         'translations.*.title' => ' ',
         'translations.*.button_text' => ' ',
-        'translations.*.description' => ' '
-
+        'translations.*.description' => ' ',
+        'address.*' => 'address',
+        'map_iframe_image' => 'ifram or image'
     ],
 
 ];

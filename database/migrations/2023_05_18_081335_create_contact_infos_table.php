@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('email');
             $table->string('phone');
-            $table->string('map_iframe')->nullable();
+            $table->longText('map_iframe')->nullable();
             $table->string('map_image')->nullable();
             $table->timestamps();
         });

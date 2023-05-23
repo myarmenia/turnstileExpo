@@ -34,9 +34,9 @@ class CurrentEarthquakeController extends BaseController
     public function index(Request $request)
     {
         $current_earthquakes = CurrentEarthquake::where('status', 'confirmed')->orderBy('id', 'desc')->paginate(12);
-
+        $current_earthquakes->lp = $current_earthquakes->lastPage();
         return is_null($current_earthquakes) ? $this->sendError('error message') :
-            $this->sendResponse(CurrentEarthquakesResource::collection($current_earthquakes), 'success');
+            $this->sendResponse(CurrentEarthquakesResource::collection($current_earthquakes), 'success', $current_earthquakes->lastPage());
     }
 
     /**
@@ -68,10 +68,22 @@ class CurrentEarthquakeController extends BaseController
      */
     public function show($id)
     {
-        $current_earthquakes = CurrentEarthquake::find($id);
+        $single_current_earthquakes = CurrentEarthquake::where('status', 'confirmed')->where('id', $id)->first();
+        $lastes_current_earthquake = CurrentEarthquake::where('status', 'confirmed')->orderBy('id', 'desc')->get()->take(3);
 
-        return is_null($current_earthquakes) ? $this->sendError('error') :
-               $this->sendResponse(new SingleCurrentEarthquakesResource($current_earthquakes), 'success');
+        // dd($lastes_current_earthquake);
+
+        if (is_null($single_current_earthquakes)) {
+            return $this->sendError('error');
+        }
+
+        $data = [
+            'single_current_earthquakes' => new SingleCurrentEarthquakesResource($single_current_earthquakes),
+            'lastes_current_earthquake' => CurrentEarthquakesResource::collection($lastes_current_earthquake),
+        ];
+
+        return is_null($data) ? $this->sendError('error') :
+            $this->sendResponse($data, 'success');
     }
 
     /**

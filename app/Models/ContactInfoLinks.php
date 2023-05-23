@@ -9,4 +9,14 @@ class ContactInfoLinks extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'contact_info_id',
+        'logo',
+        'link',
+    ];
+
+    public function contact_info()
+    {
+        return $this->belongsTo(ContactInfo::class, 'contact_info_id');
+    }
 }

@@ -126,7 +126,6 @@
                                 @enderror
                             </div>
                             <div class="items_div d-flex flex-wrap justify-content-between mt-3 "> </div>
-
                             <div class="text-start mt-3">
                                 <button class="btn btn-primary">Submit</button>
                                 {{-- <button type="reset" class="btn btn-secondary">Reset</button> --}}

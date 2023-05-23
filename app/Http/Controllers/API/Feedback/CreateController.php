@@ -15,7 +15,7 @@ class CreateController extends BaseController
     {
         $validate = [
             "full_name" => "required",
-            "email" => "required",
+            "email" => "required|email",
             "type" => "required",
             "content" => "required|min:20",
         ];
