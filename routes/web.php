@@ -42,7 +42,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function () {
     Route::name('admin.')->group(function () {
         Route::prefix('admin')->group(function () {
-
             Route::resource('/roles', RoleController::class);
             Route::resource('/users', UserController::class);
             Route::resource('/permissions', PermissionController::class);
@@ -63,6 +62,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('feedback', FeedbackController::class);
 
     Route::get('contact-informations', [EditController::class, 'edit'])->name('contact_informations');
+    Route::post('contact-informations/{id}', [EditController::class, 'update'])->name('contact_informations_update');
 
     Route::get('delete_item/{id}/{table}/{type}', [DeleteItemService::class, 'delete_item'])->name('delete_item');
     Route::get('change_status/{id}/{table}/{status}', [ChangeStatusService::class, 'change_status'])->name('change_status');
