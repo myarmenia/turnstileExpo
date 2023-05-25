@@ -43,4 +43,9 @@ class CurrentEarthquake extends Model
     {
         return $this->hasOne(CurrentEarthquakesTranslations::class)->where('language_id', $lng_id)->first();
     }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'editor_id');
+    }
 }

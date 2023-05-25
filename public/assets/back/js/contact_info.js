@@ -67,20 +67,29 @@ const removeElemnet = (a) => {
 // })
 
 add_link.addEventListener('click', function(){
-    let content = `<div class="logo_link_div">
+    let number = this.getAttribute('data-number')
 
-    <div class="col-5 my-3">
-        <input type="file" class="form-control links_logo" name="links[logo]" onchange="add_link_image(this)">
-    </div>
+    number++
 
-    <div class="logo_view_div my-3">
+    this.setAttribute('data-number', number)
+    let content = `<div class="logo_link_div border rounded ps-2 my-2">
+                        <div class="text-end pe-2">
+                            <i class="icon ri-delete-bin-2-line delete_link" onclick="removeElemnet(this)"></i>
+                        </div>
+                       
+                        <div class="w-75 my-3">
+                            <input type="file" class="form-control links_logo" name="links[${number}][logo]" onchange="add_link_image(this)">
+                        </div>
 
-    </div>
+                        <div class="logo_view_div my-3">
 
-    <div class="col-5 my-3">
-        <input type="url" class="form-control" id="items" name="links[link]" multiple="">
-    </div>
-</div>`
+                        </div>
+
+                        <div class="w-75 my-3">
+                            <input type="url" class="form-control" id="items" name="links[${number}][link]"
+                                >
+                        </div>
+                    </div>`
 
     document.querySelector('.links_div').insertAdjacentHTML('beforeend',content)
 })
@@ -94,15 +103,14 @@ function add_link_image(e) {
     let type_arr = files[0].type.split('/')
     console.log(url)
     content += `<div class="d-flex file_div order-3">
-                    <img src="${url}" class="img-thumbnail">
-                    <i data-key="${files[0].lastModified}" class="item_remove ri-delete-bin-2-line"></i>
+                    <img src="${url}" class="img-thumbnail" style="width: 75px; height: 60px">
                 </div>`
 
 
     e.closest('.logo_link_div').querySelector('.logo_view_div').innerHTML = content;
     // logoRemove()
     document.querySelectorAll('.item_remove').forEach( el => {
-                    el.addEventListener('click', removeFile)
+                    el.addEventListener('click', removeElemnet)
 
             })
 }
@@ -131,32 +139,4 @@ function add_link_image(e) {
 
 //                 })
 //     })
-// })
-
-// logo.addEventListener("change", (e) => {
-//     // document.querySelector('.map_image_view').innerHTML=''
-//     console.log(e);
-
-//     let files = e.target.files;
-//     console.log(files)
-//     console.log(files.length)
-//     let content = ''
-//     for (var i = 0; i < files.length; i++){
-//         let url = URL.createObjectURL(files[i])
-//         let type_arr = files[i].type.split('/')
-//         console.log(url)
-//         content += `<div class="d-flex file_div order-3">
-//                         <img src="${url}" class="img-thumbnail">
-//                         <i data-key="${files[i].lastModified}" class="item_remove ri-delete-bin-2-line"></i>
-//                     </div>`
-
-//     }
-
-//     document.querySelector('.map_image_view').innerHTML = content;
-//     // logoRemove()
-//     document.querySelectorAll('.item_remove').forEach( el => {
-//                     el.addEventListener('click', removeFile)
-
-//             })
-//     // removeFile()
 // })

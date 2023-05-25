@@ -16,15 +16,19 @@ class ContactInfo extends Model
         'map_image',
     ];
 
-    public function contact_info_translations()
-    {
-        return $this->hasMany(ContactInfoTranslations::class);
-    }
-
     public function contact_info_links()
     {
         return $this->hasMany(ContactInfoLinks::class);
     }
 
+    public function contact_info_translations()
+    {
+        return $this->hasMany(ContactInfoTranslations::class);
+    }
+
+    public function translation($lng_id)
+    {
+        return $this->hasOne(ContactInfoTranslations::class)->where('language_id', $lng_id)->first();
+    }
 
 }

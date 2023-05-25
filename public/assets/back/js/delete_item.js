@@ -12,7 +12,10 @@ function deleteItemFromDB()
     let table = this.getAttribute('data-table')
     let that = this
 
+    console.log(type);
+
     if(document.querySelectorAll('.'+type).length > 1){
+        
         csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         fetch('/delete_item/'+item_id+'/'+table+'/'+type,{
@@ -20,7 +23,11 @@ function deleteItemFromDB()
             headers: {'X-CSRF-TOKEN':csrf },
         }).then(async response => {
                 if (response.ok) {
-                    that.parentNode.remove()
+                    if(type == 'link_logo') {
+                        that.parentNode.parentNode.remove() 
+                    }else {
+                        that.parentNode.remove()
+                    }
                 }
             })
     }
