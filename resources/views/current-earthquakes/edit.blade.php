@@ -28,27 +28,36 @@
                         <div class="w-50">
                             <h5 class="card-title">Edit Current Earthquakes</h5>
                         </div>
+                        @role('Admin')
                         <div class="d-flex flex-column w-50 justify-content-end pt-3">
                             <div class="text-end">
-                                <label>Moderator:</label>
-                                <span class="text-primary ont-weight-bold text-end"> moderator name</span>
+                                <label>Editor:</label>
+                                <span class="text-primary ont-weight-bold text-end">
+                                    {{$current_earthquake->editor->name}}</span>
                             </div>
                             <div class="text-end">
                                 <label>Status:</label>
-                                <span class="text-primary ont-weight-bold text-end"> {{
-                                    $current_earthquake->status}}</span>
+                                <span class="text-primary ont-weight-bold text-end"> {{ $current_earthquake->status}}</span>
                             </div>
-                            <div class="d-flex text-end justify-content-end ">
-                                <label for="select_status" class="form-label pt-2 mx-2">Change status to: </label>
+                         
+                                <div class="d-flex text-end justify-content-end ">
 
-                                <select id="select_status" class="form-select w-50">
-                                    <option value="confirmed">Confirmed</option>
-                                    <option value="hidden">Hidden</option>
-                                    <option value="reditab">Reditab</option>
-                                    <option value="delete">Delete</option>
-                                </select>
-                            </div>
+                                    <label for="select_status" class="form-label pt-2 mx-2">Change status to: </label>
+
+                                    <select id="select_status" class="form-select w-50" data-id="{{$current_earthquake->id}}"
+                                        data-table="current_earthquakes" data-delete-url="current-earthquakes">
+                                        <option selected disabled>Status</option>
+                                        <option value="confirmed">Confirmed</option>
+                                        <option value="hidden">Hidden</option>
+                                        <option value="reditab">Reditab</option>
+                                        <option value="delete">Delete</option>
+                                    </select>
+
+                                </div>
+                                {{--
+                            </form> --}}
                         </div>
+                        @endrole
                     </div>
 
                     <form class="row g-3" action="{{ route('current-earthquakes.update', $current_earthquake->id) }}"
@@ -171,16 +180,16 @@
 
                                     @if (is_array(old('links')) || is_object(old('links')))
                                         @foreach (old('links') as $key => $item)
-                                            <div>
-                                                <div class=" col-lg-6 mr-3 d-flex mt-2">
-                                                    <input type="url" class="form-control {{ $item == null ? '_incorrectly' : ''}}"
-                                                        name="links[]" value="{{$item ?? ''}}">
-                                                    <i class="icon ri-delete-bin-2-line remove_link"></i>
-                                                </div>
-                                                @if ($item == null)
-                                                <div class="error_message">The link field is required. </div>
-                                                @endif
+                                        <div>
+                                            <div class=" col-lg-6 mr-3 d-flex mt-2">
+                                                <input type="url" class="form-control {{ $item == null ? '_incorrectly' : ''}}"
+                                                    name="links[]" value="{{$item ?? ''}}">
+                                                <i class="icon ri-delete-bin-2-line remove_link"></i>
                                             </div>
+                                            @if ($item == null)
+                                                <div class="error_message">The link field is required. </div>
+                                            @endif
+                                        </div>
                                         @endforeach
                                     @else
 
@@ -243,5 +252,7 @@
 @section('js-scripts')
 <script src="{{ asset('assets/back/js/current_earthquakes_edit.js') }}"></script>
 <script src="{{ asset('assets/back/js/delete_item.js') }}"></script>
+<script src="{{ asset('assets/back/js/edit-status-item.js') }}"></script>
+
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 @endsection

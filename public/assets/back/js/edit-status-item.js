@@ -6,6 +6,8 @@ if(document.getElementById('select_status') != null){
         let table = this.getAttribute('data-table')
         let delete_url = this.getAttribute('data-delete-url')
 
+        console.log(status, item_id, table, delete_url);
+
         csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         if(status == 'delete'){
@@ -15,7 +17,7 @@ if(document.getElementById('select_status') != null){
                 headers: {'X-CSRF-TOKEN':csrf }
             }).then(async response => {
                     if (response.ok) {
-                        window.location.href = '/press-release'
+                        window.location.href = '/' + delete_url
                     }
                 })
         }

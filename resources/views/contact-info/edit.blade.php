@@ -18,6 +18,19 @@
 </div><!-- End Page Title -->
 
 <section class="section">
+
+
+    {{-- @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif --}}
+    {{-- {{ dd($errors->has('links.*.logo')) }} --}}
+
     <div class="row">
         <div class="col-lg-12">
 
@@ -100,37 +113,163 @@
                             @endif
                         </div>
 
+
+
+
                         <div class="col-lg-12">
                             <label for="" class="form-label">Links </label>
+                            <div class="links_div col-6">
 
-                            <div class="links_div">
-                                <div class="logo_link_div">
+                                {{-- @error('links.*')
+                                    @foreach (old('links') as $key => $item)
 
-                                    <div class="col-5 my-3">
-                                        <input type="file" class="form-control links_logo" name="links[logo]"
-                                            onchange="add_link_image(this)">
+                                        <div class="logo_link_div border rounded ps-2 my-3">
+                                            <div class="text-end pe-2">
+                                                <i class="icon ri-delete-bin-2-line delete_link"
+                                                    onclick="removeElemnet(this)"></i>
+                                            </div>
+                                            <div class="w-75 my-3">
+                                                <input type="file" class="form-control links_logo"
+                                                    name="links[{{ $key }}][logo]" onchange="add_link_image(this)">
+                                            </div>
+                                            @if ($errors->has("links.$key.logo"))
+                                                <div class="error_message">The logo field is required. </div>
+                                            @endif
+                                            <div class="logo_view_div my-3">
+
+                                            </div>
+
+                                            <div class="w-75 my-3">
+                                                <input type="url"
+                                                    class="form-control {{ $item['link'] == null ? '_incorrectly' : ''}}"
+                                                    value="{{ $item['link'] }}" id=" items" name="links[{{ $key }}][link]">
+                                            </div>
+                                            @if ($item['link'] == null)
+                                                <div class="error_message">The link field is required. </div>
+                                            @endif
+                                        </div>
+
+                                    @endforeach
+
+                                @else
+                                    <div class="logo_link_div border rounded ps-2 my-3">
+                                        <div class="text-end pe-2">
+                                            <i class="icon ri-delete-bin-2-line delete_link"
+                                                onclick="removeElemnet(this)"></i>
+                                        </div>
+                                        <div class="w-75 my-3">
+                                            <input type="file" class="form-control links_logo" name="links[1][logo]"
+                                                onchange="add_link_image(this)">
+                                        </div>
+
+                                        <div class="logo_view_div my-3">
+
+                                        </div>
+
+                                        <div class="w-75 my-3">
+                                            <input type="url" class="form-control" id="items" name="links[1][link]">
+                                        </div>
                                     </div>
+                                @enderror --}}
 
-                                    <div class="logo_view_div my-3">
 
-                                    </div>
 
-                                    <div class="col-5 my-3">
-                                        <input type="url" class="form-control" id="items" name="links[link]"
-                                            multiple="">
-                                    </div>
-                                </div>
+
+                                @error('links.*')
+                                    @foreach (old('links') as $key => $item)
+                                        <div class="logo_link_div border rounded ps-2 my-3">
+                                            <div class="text-end pe-2">
+                                                <i class="icon ri-delete-bin-2-line delete_link"
+                                                    onclick="removeElemnet(this)"></i>
+                                            </div>
+                                            <div class="w-75 my-3">
+                                                <input type="file" class="form-control links_logo"
+                                                    name="links[{{ $key }}][logo]" onchange="add_link_image(this)">
+                                            </div>
+                                            @if ($errors->has("links.$key.logo"))
+                                                <div class="error_message">The logo field is required. </div>
+                                            @endif
+                                            <div class="logo_view_div my-3">
+
+                                            </div>
+
+                                            <div class="w-75 my-3">
+                                                <input type="url"
+                                                    class="form-control {{ $item['link'] == null ? '_incorrectly' : ''}}"
+                                                    value="{{ $item['link'] }}" id=" items" name="links[{{ $key }}][link]">
+                                            </div>
+                                            @if ($item['link'] == null)
+                                                <div class="error_message">The link field is required. </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                @else
+
+                                    @if (is_array(old('links')) || is_object(old('links')))
+                                        @foreach (old('links') as $key => $item)
+                                            <div class="logo_link_div border rounded ps-2 my-3">
+                                                <div class="text-end pe-2">
+                                                    <i class="icon ri-delete-bin-2-line delete_link"
+                                                        onclick="removeElemnet(this)"></i>
+                                                </div>
+                                                <div class="w-75 my-3">
+                                                    <input type="file" class="form-control links_logo"
+                                                        name="links[{{ $key }}][logo]" onchange="add_link_image(this)">
+                                                </div>
+                                                @if ($errors->has("links.$key.logo"))
+                                                    <div class="error_message">The logo field is required. </div>
+                                                @endif
+                                                <div class="logo_view_div my-3">
+
+                                                </div>
+
+                                                <div class="w-75 my-3">
+                                                    <input type="url"
+                                                        class="form-control {{ $item['link'] == null ? '_incorrectly' : ''}}"
+                                                        value="{{ $item['link'] }}" id=" items" name="links[{{ $key }}][link]">
+                                                </div>
+                                                @if ($item['link'] == null)
+                                                    <div class="error_message">The link field is required. </div>
+                                                @endif
+                                            </div>
+                                        @endforeach
+                                    @else
+
+                                        @foreach ($contact_info->contact_info_links as $link)
+                                            <div class="logo_link_div border rounded ps-2 my-3 link_logo">
+                                                <div class="text-end pe-2">
+                                                    <i class="icon ri-delete-bin-2-line delete_item"
+                                                        data-id="{{$link->id}}"
+                                                        data-table="contact_info_links" data-type="link_logo"></i>
+                                                </div>
+                                                <div class="w-75 my-3">
+                                                    <input type="file" class="form-control links_logo"
+                                                        name="links[{{ $link->id }}][logo]" onchange="add_link_image(this)">
+                                                </div>
+                                            
+                                                <div class="logo_view_div my-3">
+                                                    <div class="d-flex file_div order-3">
+                                                        <img src="{{ route('get-file',['path'=>$link->logo]) }}" class="img-thumbnail" style="width: 75px; height: 60px">
+                                                    </div>
+                                                </div>
+
+                                                <div class="w-75 my-3">
+                                                    <input type="url"
+                                                        class="form-control" value="{{ $link->link }}"
+                                                        id=" items" name="links[{{ $link->id }}][link]">
+                                                </div>
+                                                
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                @enderror
 
                             </div>
-
-
-
-
                         </div>
 
                         <div class="col-lg-12">
                             <label for="" class="form-label">Add Link</label>
-                            <i class="icon  ml-3 ri-add-box-line" id="add_link"></i>
+                            <i class="icon  ml-3 ri-add-box-line" id="add_link" data-number="1"></i>
                         </div>
 
 

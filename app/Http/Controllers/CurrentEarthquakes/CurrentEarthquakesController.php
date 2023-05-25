@@ -5,6 +5,7 @@ namespace App\Http\Controllers\CurrentEarthquakes;
 use App\Http\Controllers\Controller;
 use App\Models\CurrentEarthquake;
 use App\Models\CurrentEarthquakesTranslations;
+use App\Services\DeleteItemService;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -243,11 +244,20 @@ class CurrentEarthquakesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $current_earthquake = CurrentEarthquake::find($id);
-        $current_earthquake->delete();
 
-        return redirect()->back();
+        $current_earthquake = CurrentEarthquake::find($id);
+
+        $deleted = DeleteItemService::deleteRowFromDb($id, $current_earthquake, "current-earthquakes/$id");
+
+
+        if ($deleted) {
+            if ($request->_method != null) {
+                return redirect()->back();
+            } else {
+                return response()->json(['result' => 1], 200);
+            }
+        }
     }
 }

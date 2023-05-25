@@ -48,18 +48,18 @@
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('feedback.*') ? '' : ' collapsed' }}"
                 href="{{route('feedback.index')}}">
-                <i class="ri-earthquake-line"></i>
+                <i class="ri-feedback-line"></i>
                 <span>Feedbacks</span>
             </a>
         </li>
 
         @role('Admin')
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('contact-informations.*') ? '' : ' collapsed' }}"
-                href="{{route('contact_informations')}}">
-                <i class="ri-earthquake-line"></i>
-                <span>Contact Informations</span>
-            </a>
+        <li class=" nav-item">
+                    <a class="nav-link {{ request()->routeIs('contact-informations.*') ? '' : ' collapsed' }}"
+                        href="{{route('contact_informations')}}">
+                        <i class="ri-earthquake-line"></i>
+                        <span>Contact Informations</span>
+                    </a>
         </li>
         @endrole
 
