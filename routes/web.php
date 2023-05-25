@@ -19,6 +19,7 @@ use App\Http\Controllers\PressReleases\PressReleaseController;
 use App\Http\Controllers\GlobalMonitoring\GlobalMonitoringController;
 use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
 use App\Http\Controllers\ScientificPublications\ScientificPublicationsController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------

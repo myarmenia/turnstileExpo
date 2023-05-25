@@ -27,7 +27,7 @@
                         @role('Admin')
                             <div class="d-flex flex-column w-50 justify-content-end pt-3">
                                 <div class="text-end">
-                                    <label>Moderator:</label>
+                                    <label>Editor:</label>
                                     <span class="text-primary ont-weight-bold text-end"> {{$press_release->editor->name}}</span>
                                 </div>
                                 <div class="text-end">
@@ -159,30 +159,49 @@
 
 
                                 @error('links.*')
-                                @foreach (old('links') as $key => $item)
-                                <div>
-                                    <div class=" col-lg-6 mr-3 d-flex mt-2">
-                                        <input type="url"
-                                            class="form-control link {{ $item == null ? '_incorrectly' : ''}}"
-                                            name="links[]" value="{{$item ?? ''}}">
-                                        <i class="icon ri-delete-bin-2-line remove_link"></i>
-                                    </div>
-                                    @if ($item == null)
-                                    <div class="error_message">The link field is required. </div>
-                                    @endif
-                                </div>
-                                @endforeach
+                                    @foreach (old('links') as $key => $item)
+                                        <div>
+                                            <div class=" col-lg-6 mr-3 d-flex mt-2">
+                                                <input type="url"
+                                                    class="form-control link {{ $item == null ? '_incorrectly' : ''}}"
+                                                    name="links[]" value="{{$item ?? ''}}">
+                                                <i class="icon ri-delete-bin-2-line delete_link"
+                                                    onclick="removeElemnet(this)"></i>
+                                            </div>
+                                            @if ($item == null)
+                                                <div class="error_message">The link field is required. </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
                                 @else
-                                @foreach ($press_release->links as $key => $item)
-                                <div>
-                                    <div class=" col-lg-6 mr-3 d-flex mt-2">
-                                        <input type="url" class="form-control link" name="links[]"
-                                            value="{{$item->link}}">
-                                        <i class="icon ri-delete-bin-2-line delete_item" data-id="{{$item->id}}"
-                                            data-table="links" data-type="link"></i>
-                                    </div>
-                                </div>
-                                @endforeach
+
+                                    @if (is_array(old('links')) || is_object(old('links')))
+                                        @foreach (old('links') as $key => $item)
+                                        <div>
+                                            <div class=" col-lg-6 mr-3 d-flex mt-2">
+                                                <input type="url" class="form-control {{ $item == null ? '_incorrectly' : ''}}"
+                                                    name="links[]" value="{{$item ?? ''}}">
+                                                <i class="icon ri-delete-bin-2-line remove_link"></i>
+                                            </div>
+                                            @if ($item == null)
+                                                <div class="error_message">The link field is required. </div>
+                                            @endif
+                                        </div>
+                                        @endforeach
+                                    @else
+
+                                        @foreach ($press_release->links as $link)
+                                            <div>
+                                                <div class="col-lg-6 mr-3 d-flex">
+                                                    <input type="url"
+                                                        class="mt-2 form-control link @error('links.*') _incorrectly @enderror"
+                                                        name="links[]" value="{{ $link->link  }}">
+                                                    <i class="icon ri-delete-bin-2-line delete_item" data-id="{{$link->id}}"
+                                                        data-table="links" data-type="link"></i>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 @enderror
 
                             </div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\ContactInfo;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContactInfo;
+use App\Models\ContactInfoLinks;
+use App\Services\DeleteItemService;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -22,8 +24,6 @@ class EditController extends Controller
     public function update($id, Request $request)
     {
 
-        dd($request->aLL());
-
         $contact_info = ContactInfo::find($id);
 
         $delete_image = $contact_info->map_image;
@@ -34,6 +34,8 @@ class EditController extends Controller
             "email" => "required|email",
             "address.*" => "required",
             "phone" => "required",
+            "links.*.logo" => "required",
+            "links.*.link" => "required",
         ];
 
         if ($request->map_iframe == null && $request->map_image == null) {
@@ -59,9 +61,6 @@ class EditController extends Controller
             $requestData['map_image'] = $f_path;
         }
 
-
-        // dd($requestData);
-
         $contact_info->update($requestData);
 
         foreach ($request->address as $key => $item) {
@@ -71,6 +70,29 @@ class EditController extends Controller
 
             $contact_info_translations->update([
                 'address' => $item
+            ]);
+        }
+
+        $current_contact_links = ContactInfoLinks::all();
+
+        if ($current_contact_links != null) {
+            foreach ($current_contact_links as $item) {
+                $delete_contact_links = ContactInfoLinks::find($item->id);
+
+                $delete_contact_links->delete();
+                $item->logo != null ? Storage::delete($item->logo) : null;
+            }
+        }
+
+        foreach ($request['links'] as $item) {
+
+            $f_extension = $item['logo']->getClientOriginalExtension();
+            $f_path = FileUploadService::upload($item['logo'], 'contact-info-links/' . $contact_info->id);
+
+            ContactInfoLinks::create([
+                'contact_info_id' => $contact_info->id,
+                'logo' => $f_path,
+                'link' => $item['link']
             ]);
         }
 
