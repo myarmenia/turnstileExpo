@@ -20,4 +20,8 @@ class Language extends Model
     {
         return $this->hasMany(RegionTranslation::class);
     }
+    public function region_info_translations()
+    {
+        return $this->hasMany(RegionInfoTranslation::class);
+    }
 }

@@ -30,7 +30,7 @@ class GlobalMonitoringController extends  BaseController
     }
     public function index(Request $request)
     {
-      
+
         $query = Region::where('parent_id',null)->with('region_translations')->get();
 
         return is_null($query)? $this->sendError('error message'):
@@ -68,7 +68,7 @@ class GlobalMonitoringController extends  BaseController
      */
     public function show($id)
     {
-        //
+        dd(444);
     }
 
     /**
