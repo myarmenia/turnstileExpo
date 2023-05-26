@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('feedback', FeedbackController::class);
 
     Route::get('contact-informations', [EditController::class, 'edit'])->name('contact_informations');
+    Route::post('contact-informations/create', [EditController::class, 'store'])->name('contact_informations_store');
     Route::post('contact-informations/{id}', [EditController::class, 'update'])->name('contact_informations_update');
 
     Route::get('delete_item/{id}/{table}/{type}', [DeleteItemService::class, 'delete_item'])->name('delete_item');

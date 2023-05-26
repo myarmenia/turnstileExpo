@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ContactInfo;
 use App\Http\Controllers\Controller;
 use App\Models\ContactInfo;
 use App\Models\ContactInfoLinks;
+use App\Models\ContactInfoTranslations;
 use App\Services\DeleteItemService;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
@@ -82,6 +83,62 @@ class EditController extends Controller
                 $delete_contact_links->delete();
                 $item->logo != null ? Storage::delete($item->logo) : null;
             }
+        }
+
+        foreach ($request['links'] as $item) {
+
+            $f_extension = $item['logo']->getClientOriginalExtension();
+            $f_path = FileUploadService::upload($item['logo'], 'contact-info-links/' . $contact_info->id);
+
+            ContactInfoLinks::create([
+                'contact_info_id' => $contact_info->id,
+                'logo' => $f_path,
+                'link' => $item['link']
+            ]);
+        }
+
+        return redirect()->back();
+    }
+
+    public function store(Request $request)
+    {
+        $validate = [
+            "email" => "required|email",
+            "address.*" => "required",
+            "phone" => "required",
+            "links.*.logo" => "required",
+            "links.*.link" => "required",
+        ];
+
+        if ($request->map_iframe == null && $request->map_image == null) {
+            $validate['map_iframe_image'] = 'required';
+        }
+
+        $validator = Validator::make($request->all(), $validate);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $contact_info = ContactInfo::create($request->all());
+
+        if ($request->map_image) {
+
+            $f_extension = $request->map_image->getClientOriginalExtension();
+            $f_path = FileUploadService::upload($request->map_image, 'contact-info/' . $contact_info->id);
+
+            $contact_info->update([
+                'map_image' => $f_path
+            ]);
+        }
+
+        foreach ($request->address as $key => $item) {
+
+            $contact_info_translations = ContactInfoTranslations::create([
+                'contact_info_id' => $contact_info->id,
+                'language_id' => $key,
+                'address' => $item
+            ]);
         }
 
         foreach ($request['links'] as $item) {

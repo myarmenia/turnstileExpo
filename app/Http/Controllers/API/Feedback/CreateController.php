@@ -27,5 +27,6 @@ class CreateController extends BaseController
         }
 
         $feedback = Feedbacks::create($request->all());
+
     }
 }
