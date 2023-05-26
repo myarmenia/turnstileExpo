@@ -85,7 +85,7 @@
                                 <div class="col-sm-12">
                                     <input type="text" class="form-control @error(" address.$lng->id") _incorrectly
                                     @enderror"
-                                    id="address.{{ $lng->id }}" name="address[4]"
+                                    id="address.{{ $lng->id }}" name="address[{{ $lng->id }}]"
                                     @if($contact_info != null && $contact_info->contact_info_translations[$index]->address != null) 
                                     value="{{old("address.$lng->id") ?? $contact_info->contact_info_translations[$index]->address
                                     }}" 
