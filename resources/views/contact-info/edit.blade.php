@@ -7,17 +7,30 @@
 @endsection
 @section('content')
 <div class="pagetitle">
-    <h1>Current Earthquakes</h1>
+    <h1>Contact Info</h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item">Current Earthquakes</li>
+            <li class="breadcrumb-item">Contact Info</li>
             <li class="breadcrumb-item active">Edit</li>
         </ol>
     </nav>
 </div><!-- End Page Title -->
 
 <section class="section">
+
+
+    {{-- @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif --}}
+    {{-- {{ dd($errors->has('links.*.logo')) }} --}}
+
     <div class="row">
         <div class="col-lg-12">
 
@@ -26,172 +39,235 @@
 
                     <div class="col-12 d-flex ">
                         <div class="w-50">
-                            <h5 class="card-title">Edit Current Earthquakes</h5>
+                            <h5 class="card-title">Edit Contact Info</h5>
                         </div>
                     </div>
-
-                    <form class="row g-3" action="{{ route('current-earthquakes.update', $current_earthquake->id) }}"
+                    {{-- action="{{ route('current-earthquakes.update', $current_earthquake->id) }}" --}}
+                    @if($contact_info != null)
+                    <form class="row g-3" action="{{ route('contact_informations_update', $contact_info->id) }}"
                         method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('patch')
-                        {{-- <div class="col-12">
-                            <label for="banner" class="form-label">Banner</label>
-                            <input type="file" files="kk1" class="form-control" id="banner" name="banner">
-                            @error('banner')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="banner_div "></div> --}}
-
-                        {{-- @foreach (languages() as $index => $lng)
-                        <div class="col-12">
-                            <label for="title_{{$lng->name}}" class="form-label">Title {{ Str::upper($lng->name)
-                                }}</label>
-                            <input type="text"
-                                class='form-control @error("tanslations.$lng->id.title") _incorrectly @enderror'
-                                id="title_{{$lng->name}}" name="tanslations[{{$lng->id}}][title]"
-                                value='{{ old("tanslations.$lng->id.title") ?? $current_earthquake->current_earthquakes_translations[$index]->title }}'>
-                            @error("tanslations.$lng->id.title")
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        @endforeach --}}
-
-
-                        <div class="col-4">
-                            <label for="date" class="form-label">Date</label>
-                            <input type="date" class="form-control @error('date') _incorrectly @enderror" id="date"
-                                name="date" value="{{ old('date') ?? $current_earthquake->date }}">
-                            @error('date')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="col-4">
-                            <label for="time" class="form-label">Time</label>
-                            <input type="time" class="form-control @error('time') _incorrectly @enderror" id="time"
-                                name="time" value="{{ old('time') ?? $current_earthquake->time }}">
-                            @error('time')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="col-4">
-                            <label for="magnitude" class="form-label">Magnitude</label>
-                            <input type="text" class="form-control @error('magnitude') _incorrectly @enderror"
-                                id="magnitude" name="magnitude"
-                                value="{{ old('magnitude') ?? $current_earthquake->magnitude }}">
-                            @error('magnitude')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-
-                        {{-- @foreach (languages() as $index => $lng)
-                        <div class="col-lg-12">
-                            <label for="description_{{$lng->name}}" class="form-label">Description {{
-                                Str::upper($lng->name) }}</label>
-                            <textarea
-                                class='ckeditor form-control @error("tanslations.$lng->id.description") _incorrectly @enderror'
-                                name="tanslations[{{$lng->id}}][description]"
-                                id="description_en">{{ old("tanslations.$lng->id.description") ?? $current_earthquake->current_earthquakes_translations[$index]->description }}</textarea>
-                            @error("tanslations.$lng->id.description")
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        @endforeach --}}
-
-                        {{-- <div class="col-lg-12">
-                            <label for="description_en" class="form-label">Description EN</label>
-                            <textarea class="ckeditor form-control @error('description_en') _incorrectly @enderror"
-                                name="description_en"
-                                id="description_en">{{ old('description_en') ?? $current_earthquake->description_en }}</textarea>
-                            @error('description_en')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="description_am" class="form-label">Description AM</label>
-                            <textarea class="ckeditor form-control @error('description_am') _incorrectly @enderror"
-                                name="description_am"
-                                id="description_am">{{ old('description_am') ?? $current_earthquake->description_am }}</textarea>
-                            @error('description_en')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="description_ru" class="form-label">Description RU</label>
-                            <textarea class="ckeditor form-control @error('description_ru') _incorrectly @enderror"
-                                name="description_ru"
-                                id="description_ru">{{ old('description_ru') ?? $current_earthquake->description_ru }}</textarea>
-                            @error('description_ru')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div> --}}
-
-                        <div class="col-lg-12">
-                            <label for="description_ru" class="form-label">Links </label>
-                            <div class="links_div">
-
-                                {{-- @error('links.*')
-                                @foreach (old('links') as $key => $item)
-                                <div>
-                                    <div class=" col-lg-6 mr-3 d-flex mt-2">
-                                        <input type="url"
-                                            class="form-control link {{ $item == null ? '_incorrectly' : ''}}"
-                                            name="links[]" value="{{$item ?? ''}}">
-                                        <i class="icon ri-delete-bin-2-line delete_link"
-                                            onclick="removeElemnet(this)"></i>
-                                    </div>
-                                    @if ($item == null)
-                                    <div class="error_message">The link field is required. </div>
-                                    @endif
-                                </div>
-                                @endforeach
-                                @else --}}
-                                {{-- @foreach ($current_earthquake->links as $link)
-                                <div>
-                                    <div class="col-lg-6 mr-3 d-flex">
-                                        <input type="url"
-                                            class="mt-2 form-control link @error('links.*') _incorrectly @enderror"
-                                            name="links[]" value="{{ $link->link  }}">
-                                        <i class="icon ri-delete-bin-2-line delete_item" data-id="{{$link->id}}"
-                                            data-table="links" data-type="link"></i>
-                                    </div>
-                                </div>
-                                @endforeach --}}
+                        @else
+                        <form class="row g-3" action="{{ route('contact_informations_store') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @endif
+                            @csrf
+                            <div class="col-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control @error('email') _incorrectly @enderror"
+                                    id="email" name="email" 
+                                    @if($contact_info !=null)
+                                        value="{{ old('email') ?? $contact_info->email }}" 
+                                    @else
+                                        value="{{ old('email') ?? '' }}" 
+                                    @endif />
+                                @error('email')
+                                <div class="error_message"> {{ $message }} </div>
                                 @enderror
-
                             </div>
 
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="description_ru" class="form-label">Add Link</label>
-                            <i class="icon  ml-3 ri-add-box-line" id="add_link"></i>
-                        </div>
-
-                        <div class="col-12">
-                            <label for="items" class="form-label">Files</label>
-                            <input type="file" class="form-control" id="items" name="items[]" multiple>
-                            @error('items')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="d-flex flex-wrap justify-content-between">
-                            {{-- @foreach ($current_earthquake->files as $item)
-                            <div class="d-flex file_div">
-                                <img src="{{ route('get-file',['path'=>$item->path]) }}" class="file">
-                                <i class="delete_item ri-delete-bin-2-line" data-id="{{$item->id}}" data-table="files"
-                                    data-type="file"></i>
+                            <div class="col-6">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="phone" class="form-control @error('phone') _incorrectly @enderror"
+                                    id="phone" name="phone" 
+                                    @if($contact_info !=null)
+                                    value="{{ old('phone') ?? $contact_info->phone }}" 
+                                    @else
+                                    value="{{ old('phone') ?? '' }}" 
+                                    @endif>
+                                @error('phone')
+                                <div class="error_message"> {{ $message }} </div>
+                                @enderror
                             </div>
-                            @endforeach --}}
-                        </div>
-                        <div class="items_div d-flex flex-wrap justify-content-between mt-3 ">
+                            @foreach (languages() as $index => $lng)
+                            <div class="flex mb-2 p-2 col-4">
+                                <label for="address.{{ $lng->id }}" class="form-label">Address {{ Str::upper($lng->name)
+                                    }}</label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control @error(" address.$lng->id") _incorrectly
+                                    @enderror"
+                                    id="address.{{ $lng->id }}" name="address[{{ $lng->id }}]"
+                                    @if($contact_info != null && $contact_info->contact_info_translations[$index]->address != null) 
+                                    value="{{old("address.$lng->id") ?? $contact_info->contact_info_translations[$index]->address
+                                    }}" 
+                                    @else
+                                    value="{{old("address.$lng->id") ?? ''
+                                    }}"
+                                    @endif>
+                                </div>
 
-                        </div>
+                                @error("address.$lng->id")
+                                <div class="error_message"> {{ $message }} </div>
+                                @enderror
+                            </div>
 
-                        <div class="text-start">
-                            <button class="btn btn-primary">Submit</button>
-                            {{-- <button type="reset" class="btn btn-secondary">Reset</button> --}}
-                        </div>
-                    </form><!-- Vertical Form -->
+                            @endforeach
+
+                            <div>
+                                <label for="map_image" class="form-label">Map image</label>
+                                <input type="file"
+                                    class="form-control @error('map_iframe_image') _incorrectly @enderror"
+                                    id="map_image" name="map_image">
+                            </div>
+                            <div class="map_image_view">
+                                @if ($contact_info != null && $contact_info->map_image != null)
+                                <div class="d-flex file_div order-3">
+                                    <img src="{{ route('get-file',['path'=>$contact_info->map_image]) }}">
+                                </div>
+                                @endif
+                            </div>
+
+                            <div>
+                                <label for="map_iframe" class="form-label">Map Iframe</label>
+                                <input type="text"
+                                    class="form-control @error('map_iframe_image') _incorrectly @enderror"
+                                    id="map_iframe" name="map_iframe" 
+                                    @if($contact_info !=null)
+                                        value="{{ old('map_iframe') ?? $contact_info->map_iframe }}" 
+                                    @else
+                                        value="{{ old('map_iframe') ?? '' }}" 
+                                    @endif>
+                                @error('map_iframe_image')
+                                <div class="error_message"> {{ $message }} </div>
+                                @enderror
+                            </div>
+
+                            <div class="map_iframe_view">
+                                @if ($contact_info != null && $contact_info->map_iframe != null)
+                                {!! $contact_info->map_iframe !!}
+                                @endif
+                            </div>
+
+
+
+
+                            <div class="col-lg-12">
+                                <label for="" class="form-label">Links </label>
+                                <div class="links_div col-6">
+
+                                    @error('links.*')
+                                    @foreach (old('links') as $key => $item)
+                                    <div class="logo_link_div border rounded ps-2 my-3">
+                                        <div class="text-end pe-2">
+                                            <i class="icon ri-delete-bin-2-line delete_link"
+                                                onclick="removeElemnet(this)"></i>
+                                        </div>
+                                        <div class="w-75 my-3">
+                                            <input type="file" class="form-control links_logo"
+                                                name="links[{{ $key }}][logo]" onchange="add_link_image(this)">
+                                        </div>
+                                        @if ($errors->has("links.$key.logo"))
+                                        <div class="error_message">The logo field is required. </div>
+                                        @endif
+                                        <div class="logo_view_div my-3">
+
+                                        </div>
+
+                                        <div class="w-75 my-3">
+                                            <input type="url"
+                                                class="form-control {{ $item['link'] == null ? '_incorrectly' : ''}}"
+                                                value="{{ $item['link'] }}" id=" items" name="links[{{ $key }}][link]">
+                                        </div>
+                                        @if ($item['link'] == null)
+                                        <div class="error_message">The link field is required. </div>
+                                        @endif
+                                    </div>
+                                    @endforeach
+                                    @else
+
+                                    @if (is_array(old('links')) || is_object(old('links')))
+                                    @foreach (old('links') as $key => $item)
+                                    <div class="logo_link_div border rounded ps-2 my-3">
+                                        <div class="text-end pe-2">
+                                            <i class="icon ri-delete-bin-2-line delete_link"
+                                                onclick="removeElemnet(this)"></i>
+                                        </div>
+                                        <div class="w-75 my-3">
+                                            <input type="file" class="form-control links_logo"
+                                                name="links[{{ $key }}][logo]" onchange="add_link_image(this)">
+                                        </div>
+                                        @if ($errors->has("links.$key.logo"))
+                                        <div class="error_message">The logo field is required. </div>
+                                        @endif
+                                        <div class="logo_view_div my-3">
+
+                                        </div>
+
+                                        <div class="w-75 my-3">
+                                            <input type="url"
+                                                class="form-control {{ $item['link'] == null ? '_incorrectly' : ''}}"
+                                                value="{{ $item['link'] }}" id=" items" name="links[{{ $key }}][link]">
+                                        </div>
+                                        @if ($item['link'] == null)
+                                        <div class="error_message">The link field is required. </div>
+                                        @endif
+                                    </div>
+                                    @endforeach
+                                    @else
+                                    @if($contact_info != null)
+                                    @foreach ($contact_info->contact_info_links as $link)
+                                    <div class="logo_link_div border rounded ps-2 my-3 link_logo">
+                                        <div class="text-end pe-2">
+                                            <i class="icon ri-delete-bin-2-line delete_item" data-id="{{$link->id}}"
+                                                data-table="contact_info_links" data-type="link_logo"></i>
+                                        </div>
+                                        <div class="w-75 my-3">
+                                            <input type="file" class="form-control links_logo"
+                                                name="links[{{ $link->id }}][logo]" onchange="add_link_image(this)">
+                                        </div>
+
+                                        <div class="logo_view_div my-3">
+                                            <div class="d-flex file_div order-3">
+                                                <img src="{{ route('get-file',['path'=>$link->logo]) }}"
+                                                    class="img-thumbnail" style="width: 75px; height: 60px">
+                                            </div>
+                                        </div>
+
+                                        <div class="w-75 my-3">
+                                            <input type="url" class="form-control" value="{{ $link->link }}" id=" items"
+                                                name="links[{{ $link->id }}][link]">
+                                        </div>
+
+                                    </div>
+                                    @endforeach
+                                    @else
+                                    <div class="logo_link_div border rounded ps-2 my-3">
+                                        <div class="text-end pe-2">
+                                            <i class="icon ri-delete-bin-2-line delete_link"
+                                                onclick="removeElemnet(this)"></i>
+                                        </div>
+                                        <div class="w-75 my-3">
+                                            <input type="file" class="form-control links_logo"
+                                                name="links[1][logo]" onchange="add_link_image(this)">
+                                        </div>
+                                        
+                                        <div class="logo_view_div my-3">
+
+                                        </div>
+
+                                        <div class="w-75 my-3">
+                                            <input type="url"
+                                                class="form-control"
+                                                id=" items" name="links[1][link]">
+                                        </div>
+
+                                    </div>
+                                    @endif
+                                    @endif
+                                    @enderror
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <label for="" class="form-label">Add Link</label>
+                                <i class="icon  ml-3 ri-add-box-line" id="add_link" data-number="1"></i>
+                            </div>
+
+
+                            <div class="text-start">
+                                <button class="btn btn-primary">Submit</button>
+                            </div>
+                        </form><!-- Vertical Form -->
 
                 </div>
             </div>
@@ -202,7 +278,6 @@
 @endsection
 
 @section('js-scripts')
-<script src="{{ asset('assets/back/js/current_earthquakes_edit.js') }}"></script>
+<script src="{{ asset('assets/back/js/contact_info.js') }}"></script>
 <script src="{{ asset('assets/back/js/delete_item.js') }}"></script>
-<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 @endsection

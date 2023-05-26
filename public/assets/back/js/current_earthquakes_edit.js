@@ -130,12 +130,24 @@ const removeElemnet = (a) => {
     }
 }
 add_link.addEventListener('click', function(){
-    let content = `<div>
-                    <div class="links_div col-lg-6 mr-3 d-flex">
-                        <input type="url" class="mt-2 form-control" name="links[]" >
-                        <i class="icon ri-delete-bin-2-line delete_link" onclick="removeElemnet(this)"></i>
-                    </div>
-                </div>`
+    let content = `<div><div class="col-lg-6 mr-3 d-flex mt-2 link_div">
+                        <input type="url" class="form-control" name="links[]" >
+                        <i class="icon ri-delete-bin-2-line remove_link"></i>
+                    </div></div>`
     document.querySelector('.links_div').insertAdjacentHTML('beforeend',content)
+    remove_links()
 })
 
+remove_links()
+
+function remove_links(){
+    document.querySelectorAll('.remove_link').forEach(el => {
+        el.addEventListener('click', removeLink)
+    })
+}
+
+function removeLink(){
+    if(document.querySelector('.links_div').children.length > 1){
+        this.parentNode.parentNode.remove()
+    }
+}
