@@ -7,6 +7,7 @@ use App\Mail\FeedbackMail;
 use App\Models\Feedbacks;
 use App\Models\User;
 use App\Notifications\Feedback;
+use App\Services\DeleteItemService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -160,8 +161,14 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        $current_earthquake = Feedbacks::find($id);
+
+        $deleted = $current_earthquake->delete();
+
+        if ($deleted) {
+            return redirect()->back();
+        }
     }
 }

@@ -111,7 +111,7 @@
                             </a>
                             @role('Admin')
                             <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"
-                                onclick="create_request_route(`current-earthquakes`, {{$feedback->id}})"></i>
+                                onclick="create_request_route(`feedback`, {{$feedback->id}})"></i>
                             @endrole
                         </div>
                     </td>
