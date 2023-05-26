@@ -29,5 +29,10 @@ class Region extends Model
     {
         return $this->hasMany(self::class, 'parent_id');
     }
+    public function map_regions()
+    {
+        return $this->belongsToMany(MapRegion::class, 'map_regions_regions', 'region_id','map_region_id');
+    }
+
 
 }

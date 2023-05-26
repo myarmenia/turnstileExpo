@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('region_infos', function (Blueprint $table) {
+        Schema::create('map_regions_regions', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('map_region_id')->unsigned();
+            $table->foreign('map_region_id')->references('id')->on('map_regions')->onDelete('cascade');
             $table->bigInteger('region_id')->unsigned();
-            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('image_path');
-            $table->string('schema_path');
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('region_infos');
+        Schema::dropIfExists('map_regions_regions');
     }
 };
