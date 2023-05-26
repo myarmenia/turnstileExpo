@@ -42,12 +42,12 @@
                         class="w-100 d-flex flex-column">
                         @csrf
                         @method('patch')
-                        @if (!$feedback->status == 'answerd')
-                        <textarea class="w-100 ps-2 @error('answer_content') _incorrectly @enderror" id=""
-                            name='answer_content' rows=" 3">{{ $feedback->answer_content ?? "" }}</textarea>
-                        @error('answer_content')
-                        <div class="error_message"> {{ $message }} </div>
-                        @enderror
+                        @if ($feedback->status != 'answerd')
+                                <textarea class="w-100 ps-2 @error('answer_content') _incorrectly @enderror" id=""
+                                    name='answer_content' rows=" 3">{{ $feedback->answer_content ?? "" }}</textarea>
+                            @error('answer_content')
+                            <div class="error_message"> {{ $message }} </div>
+                            @enderror
                         @else
                         <div>{{ $feedback->answer_content ?? "" }}</div>
                         @endif
