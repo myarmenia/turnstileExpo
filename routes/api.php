@@ -47,7 +47,7 @@ Route::get('home', [HomeController::class, 'index']);  /**updated*/
 
 Route::post('feedback/create', [CreateController::class, 'index']);
 
-Route::post('contact-info', [ContactInfoController::class, 'index']);
+Route::get('contact-info', [ContactInfoController::class, 'index']);
 
 Route::get('current-earthquakes-filter', [FilterController::class, 'filter']);
 
