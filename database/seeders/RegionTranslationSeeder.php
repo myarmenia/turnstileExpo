@@ -2413,7 +2413,7 @@ class RegionTranslationSeeder extends Seeder
 
 
 
-            RegionTranslation::create( [
+            Regiontranslation::create( [
             'id'=>231,
             'region_id'=>76,
             'language_id'=>3,
@@ -3936,6 +3936,237 @@ class RegionTranslationSeeder extends Seeder
             'region_id'=>122,
             'language_id'=>3,
             'name'=>'Չինաստան (հս-արլ)',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>370,
+            'region_id'=>123,
+            'language_id'=>1,
+            'name'=>'Philippines',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>371,
+            'region_id'=>123,
+            'language_id'=>2,
+            'name'=>'Филиппины',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>372,
+            'region_id'=>123,
+            'language_id'=>3,
+            'name'=>'Ֆիլիպիններ',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>373,
+            'region_id'=>124,
+            'language_id'=>1,
+            'name'=>'New Zealand',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>374,
+            'region_id'=>124,
+            'language_id'=>2,
+            'name'=>'Новая Зеландия',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>375,
+            'region_id'=>124,
+            'language_id'=>3,
+            'name'=>'Նոր Զելանդիա',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>376,
+            'region_id'=>125,
+            'language_id'=>1,
+            'name'=>'Canada',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>377,
+            'region_id'=>125,
+            'language_id'=>2,
+            'name'=>'Канада',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>378,
+            'region_id'=>125,
+            'language_id'=>3,
+            'name'=>'Կանադա',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>379,
+            'region_id'=>127,
+            'language_id'=>1,
+            'name'=>'Gulf of California',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>380,
+            'region_id'=>127,
+            'language_id'=>2,
+            'name'=>'Калифорнийский залив',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>381,
+            'region_id'=>127,
+            'language_id'=>3,
+            'name'=>'Կալիֆոռնիական ծոց',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>382,
+            'region_id'=>128,
+            'language_id'=>1,
+            'name'=>'Mexico (South)',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>383,
+            'region_id'=>128,
+            'language_id'=>2,
+            'name'=>'Мексика (юг)',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>384,
+            'region_id'=>128,
+            'language_id'=>3,
+            'name'=>'Մեքսիկա (հվ)',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>385,
+            'region_id'=>129,
+            'language_id'=>1,
+            'name'=>'Microslate of Burma',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>386,
+            'region_id'=>129,
+            'language_id'=>2,
+            'name'=>'Микрошифер Бирмы',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>387,
+            'region_id'=>129,
+            'language_id'=>3,
+            'name'=>'Բիրմայի միկրոսալ',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>388,
+            'region_id'=>126,
+            'language_id'=>1,
+            'name'=>'Washington',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>389,
+            'region_id'=>126,
+            'language_id'=>2,
+            'name'=>'Вашингтон',
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+            Regiontranslation::create( [
+            'id'=>390,
+            'region_id'=>126,
+            'language_id'=>3,
+            'name'=>'Վաշինգտոն',
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );

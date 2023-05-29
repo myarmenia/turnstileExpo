@@ -14,13 +14,17 @@ class GlobalMonitoringResource extends JsonResource
      */
     public function toArray($request)
     {
-       
-        return $data =  [
+;
+         return  [
             'id' => $this->id,
             'parent_region_name' => $this->translation($request->lng_id)->name,
+
             'children'=>$this->children()->count()>0 ? ChildRegionsResource::collection($this->children) : null,
 
         ];
+
+
     }
+   
 
 }

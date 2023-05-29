@@ -8,6 +8,7 @@ use App\Http\Controllers\API\Feedback\FedbackController;
 use App\Http\Controllers\API\GlobalMonitoring\GlobalMonitoringController;
 use App\Http\Controllers\API\Home\HomeController;
 use App\Http\Controllers\API\LanguageController;
+use App\Http\Controllers\API\MapRegion\MapRegionController;
 use App\Http\Controllers\API\News\NewsController;
 use App\Http\Controllers\API\PressReleases\FilterController as PressReleasesFilterController;
 use App\Http\Controllers\API\PressReleases\PressReleaseController;
@@ -52,5 +53,9 @@ Route::get('contact-info', [ContactInfoController::class, 'index']);
 Route::get('current-earthquakes-filter', [FilterController::class, 'filter']);
 
 Route::get('press-releases-filter', [PressReleasesFilterController::class, 'filter']);
+
+Route::get('map-region-info/{id}',[MapRegionController::class,'mapRegionInfo']);
+Route::get('region-info/{id}',[MapRegionController::class,'regionInfo']);
+
 
 
