@@ -22,37 +22,72 @@
             <div class="card-body" style="padding-top: 20px">
               <!-- Default Accordion -->
               <div class="accordion" id="accordionExample">
-                @foreach($regions as $item)
 
-                    <div class="accordion-item">
-                        {{-- <a href="{{route('global-monitoring.edit', $item->id)}}"> --}}
-                         <h2 class="accordion-header" id="heading{{$item->region_translations->name}}">
+                @foreach($regions as $kay=>$item)
+                    @if ($kay<=count($regions)/2)
 
-                            <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="{{$item->region_translations->name}}"
-                                aria-expanded="false"
-                                aria-controls="{{$item->region_translations->name}}"
-                            >
-                            {{$item->region_translations->name}}
-                            </button>
-                        </h2>
-                        @if ($item->children()->count()>0)
-                            <div id="{{$item->region_translations->name}}" class="accordion-collapse collapse" aria-labelledby="heading{{$item->region_translations->name}}" data-bs-parent="">
-                            <div class="accordion-body p-0 parent">
-                                @foreach ($item->children as $data)
-                                    <div class="px-3 py-2 bord_title d-flex justify-content-between align-items-center">
-                                        <div>{{$data->region_translations->name}}</div>
-                                        <div> <i class="bi bi-arrow-right-circle" style="cursor: pointer; font-size: 24px"></i></div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree{{$item->id}}">
+                                @if ( $item->children()->count()==0)
+                                    <a href="{{route('global-monitoring.edit', $item->id )}}">
+                                        <button
+                                                class="accordion-button {{$item->children()->count()>0 ? "collapsed": null }}"
+                                                type="button"
+
+                                                data-bs-toggle="{{$item->children()->count()>0 ? 'collapse': null }}"
+
+                                                data-bs-target="#collapseThree{{$item->id}}"
+                                                aria-expanded="{{$item->children()->count()>0 ? 'false' : 'true' }}"
+                                                aria-controls="collapseThree{{$item->id}}"
+                                            >
+                                            {{$item->region_translations->name}}
+                                            </button>
+
+                                    </a>
+
+                                @else
+                                    <button
+                                        class="accordion-button {{$item->children()->count()>0 ? "collapsed": null }}"
+                                        type="button"
+
+                                        data-bs-toggle="{{$item->children()->count()>0 ? 'collapse': null }}"
+
+                                        data-bs-target="#collapseThree{{$item->id}}"
+                                        aria-expanded="{{$item->children()->count()>0 ? 'false' : 'true' }}"
+                                        aria-controls="collapseThree{{$item->id}}"
+                                    >
+                                    {{$item->region_translations->name}}
+                                    </button>
+                                @endif
+                            </h2>
+                            @if ($item->children()->count()>0)
+                                <div
+                                id="collapseThree{{$item->id}}"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="headingThree{{$item->id}}"
+                                data-bs-parent="#accordionExample"
+                                >
+                                    <div class="accordion-body p-0 parent">
+                                        @foreach ($item->children as $data)
+                                            <a href="{{route('global-monitoring.edit', $data->id )}}">
+                                                <div class="px-3 py-2 bord_title d-flex justify-content-between align-items-center">
+
+                                                        <div>{{$data->region_translations->name}}</div>
+                                                        <div>
+                                                            <i
+                                                            class="bi bi-arrow-right-circle"
+                                                            style="cursor: pointer; font-size: 24px"
+                                                            ></i>
+                                                        </div>
+
+                                                </div>
+                                            </a>
+                                        @endforeach
                                     </div>
-                                @endforeach
-                            </div>
-                            </div>
-                        @endif
-                        {{-- </a> --}}
-                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
                 @endforeach
 
 
@@ -68,174 +103,73 @@
             <div class="card-body" style="padding-top: 20px">
               <!-- Default Accordion -->
               <div class="accordion" id="accordionExample1">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne1">
-                    <button
-                      class="accordion-button"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne1"
-                      aria-expanded="true"
-                      aria-controls="collapseOne1"
-                    >
-                      Region0
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseOne1"
-                    class="accordion-collapse collapse show"
-                    aria-labelledby="headingOne1"
-                    data-bs-parent="#accordionExample1"
-                  >
-                    <div class="accordion-body p-0 parent">
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 11</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 22</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 33</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
+                @foreach($regions as $kay=>$item)
+                @if ($kay>=count($regions)/2)
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree{{$item->id}}">
+                            @if ( $item->children()->count()==0)
+                                <a href="{{route('global-monitoring.edit', $item->id )}}">
+                                    <button
+                                            class="accordion-button {{$item->children()->count()>0 ? "collapsed": null }}"
+                                            type="button"
+
+                                            data-bs-toggle="{{$item->children()->count()>0 ? 'collapse': null }}"
+
+                                            data-bs-target="#collapseThree{{$item->id}}"
+                                            aria-expanded="{{$item->children()->count()>0 ? 'false' : 'true' }}"
+                                            aria-controls="collapseThree{{$item->id}}"
+                                        >
+                                        {{$item->region_translations->name}}
+                                        </button>
+
+                                </a>
+
+                            @else
+                                <button
+                                    class="accordion-button {{$item->children()->count()>0 ? "collapsed": null }}"
+                                    type="button"
+
+                                    data-bs-toggle="{{$item->children()->count()>0 ? 'collapse': null }}"
+
+                                    data-bs-target="#collapseThree{{$item->id}}"
+                                    aria-expanded="{{$item->children()->count()>0 ? 'false' : 'true' }}"
+                                    aria-controls="collapseThree{{$item->id}}"
+                                >
+                                {{$item->region_translations->name}}
+                                </button>
+                            @endif
+                        </h2>
+                        @if ($item->children()->count()>0)
+                            <div
+                            id="collapseThree{{$item->id}}"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="headingThree{{$item->id}}"
+                            data-bs-parent="#accordionExample"
+                            >
+                                <div class="accordion-body p-0 parent">
+                                    @foreach ($item->children as $data)
+                                        <a href="{{route('global-monitoring.edit', $data->id )}}">
+                                            <div class="px-3 py-2 bord_title d-flex justify-content-between align-items-center">
+
+                                                    <div>{{$data->region_translations->name}}</div>
+                                                    <div>
+                                                        <i
+                                                        class="bi bi-arrow-right-circle"
+                                                        style="cursor: pointer; font-size: 24px"
+                                                        ></i>
+                                                    </div>
+
+                                            </div>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
                     </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingTwo1">
-                    <button
-                      class="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseTwo1"
-                      aria-expanded="false"
-                      aria-controls="collapseTwo1"
-                    >
-                      Region22
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseTwo1"
-                    class="accordion-collapse collapse"
-                    aria-labelledby="headingTwo1"
-                    data-bs-parent="#accordionExample1"
-                  >
-                    <div class="accordion-body p-0 parent">
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 44</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 55</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 66</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingThree1">
-                    <button
-                      class="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseThree1"
-                      aria-expanded="false"
-                      aria-controls="collapseThree1"
-                    >
-                      Region33
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseThree1"
-                    class="accordion-collapse collapse"
-                    aria-labelledby="headingThree1"
-                    data-bs-parent="#accordionExample1"
-                  >
-                    <div class="accordion-body p-0 parent">
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 77</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 88</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
-                      <div
-                        class="px-3 py-2 bord_title d-flex justify-content-between align-items-center"
-                      >
-                        <div>Country 99</div>
-                        <div>
-                          <i
-                            class="bi bi-arrow-right-circle"
-                            style="cursor: pointer; font-size: 24px"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                @endif
+            @endforeach
+
               </div>
               <!-- End Default Accordion Example -->
             </div>

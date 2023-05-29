@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('region_infos', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('region_id')->unsigned();
-            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('image_path');
-            $table->string('schema_path');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('region_infos');
+        Schema::dropIfExists('rooms');
     }
 };

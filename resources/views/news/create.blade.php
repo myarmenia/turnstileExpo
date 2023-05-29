@@ -56,7 +56,7 @@
                   @error('image')
                     <div class="error_message" id="image_error"> {{ $message }} </div>
                  @enderror
-                  <div class="logo_div "></div>
+                  <div class="logo_div"></div>
                   <div class="col-12">
                     <label for="inputNanme4" class="form-label">Button Link</label>
                     <input type="text" class="form-control @error('button_link') _incorrectly @enderror" name="button_link" value="{{ old('button_link')}}">

@@ -7,6 +7,7 @@ function deleteItem(){
 
 function deleteItemFromDB()
 {
+
     let item_id = this.getAttribute('data-id')
     let type = this.getAttribute('data-type')
     let table = this.getAttribute('data-table')
@@ -15,8 +16,10 @@ function deleteItemFromDB()
     console.log(type);
 
     if(document.querySelectorAll('.'+type).length > 1){
-        
+       
+
         csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 
         fetch('/delete_item/'+item_id+'/'+table+'/'+type,{
             method: 'get',
@@ -24,7 +27,7 @@ function deleteItemFromDB()
         }).then(async response => {
                 if (response.ok) {
                     if(type == 'link_logo') {
-                        that.parentNode.parentNode.remove() 
+                        that.parentNode.parentNode.remove()
                     }else {
                         that.parentNode.remove()
                     }

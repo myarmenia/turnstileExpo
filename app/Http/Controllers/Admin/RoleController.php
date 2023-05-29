@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -60,10 +62,17 @@ class RoleController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
+            'avatar' => "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:2048",
         ]);
 
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
+
+        if ($request->has('avatar')) {
+            $avatar = FileUploadService::upload($request->avatar, 'role-avatar/' . $role->id);
+            $role->avatar = $avatar;
+            $role->save();
+        }
 
         return redirect()->route('admin.roles.index')
                         ->with('success','Role created successfully');
@@ -118,6 +127,16 @@ class RoleController extends Controller
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
+
+        if ($request->has('avatar')) {
+            if($role->avatar != null && Storage::disk('local')->exists($role->avatar)){
+                Storage::delete($role->avatar);
+            }
+
+            $avatar = FileUploadService::upload($request->avatar, 'role-avatar/' . $role->id);
+            $role->avatar = $avatar;
+            $role->save();
+        }
 
         $role->syncPermissions($request->input('permission'));
 

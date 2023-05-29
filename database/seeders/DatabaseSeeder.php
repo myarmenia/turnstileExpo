@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             RegionSeeder::class,
             RegionTranslationSeeder::class,
+            MapRegions::class,
+            MapRegionsRegions::class,
         ]);
     }
 }

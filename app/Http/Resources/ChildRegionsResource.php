@@ -18,6 +18,7 @@ class ChildRegionsResource extends JsonResource
         return [
             'id' => $this->id,
             "name"=>$this->translation($request->lng_id)->name,
+         
         ];
     }
 }

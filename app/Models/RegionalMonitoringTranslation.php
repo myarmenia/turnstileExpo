@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RegionInfoTranslation extends Model
+class RegionalMonitoringTranslation extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'region_id',
         'language_id',
-        'name'
+        'title',
     ];
 
-    public function region_infos()
+    public function regional_manitoring()
     {
-        return $this->belongsTo(RegionInfo::class,'region_info_id');
+        return $this->belongsTo(RegionalMonitoring::class, 'region_id');
     }
-
 }

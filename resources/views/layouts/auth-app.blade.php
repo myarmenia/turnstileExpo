@@ -25,6 +25,8 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     @yield('link')
+    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
+
     @yield('scripts')
     <!-- Scripts -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
