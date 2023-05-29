@@ -52,7 +52,13 @@
                 <span>Feedbacks</span>
             </a>
         </li>
-
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('chat.*') ? '' : ' collapsed' }}"
+                href="{{route('chat')}}">
+                <i class="ri-file-list-2-line"></i>
+                <span>Chat</span>
+            </a>
+        </li>
         @role('Admin')
         <li class=" nav-item">
                     <a class="nav-link {{ request()->routeIs('contact-informations.*') ? '' : ' collapsed' }}"

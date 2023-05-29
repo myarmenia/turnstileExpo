@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Feedback\FeedbackController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Admin\Profile\DashboardController;
+use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\ContactInfo\EditController;
 use App\Http\Controllers\PressReleases\PressReleaseController;
 use App\Http\Controllers\GlobalMonitoring\GlobalMonitoringController;
@@ -38,7 +39,6 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false, 'verify' => false,]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::name('admin.')->group(function () {
@@ -49,6 +49,8 @@ Route::group(['middleware' => ['auth']], function () {
             route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         });
     });
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::resource('press-release', PressReleaseController::class);
 
@@ -68,6 +70,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('delete_item/{id}/{table}/{type}', [DeleteItemService::class, 'delete_item'])->name('delete_item');
     Route::get('change_status/{id}/{table}/{status}', [ChangeStatusService::class, 'change_status'])->name('change_status');
+
+    Route::get('chat', [ChatController::class, 'index'])->name('chat');
+    Route::get('check-room/{user_id}', [ChatController::class, 'check_room'])->name('check_room');
+    Route::get('room/{id}', [ChatController::class, 'room'])->name('room');
+
+
 });
 
 
