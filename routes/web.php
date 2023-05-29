@@ -18,6 +18,7 @@ use App\Http\Controllers\ContactInfo\EditController;
 use App\Http\Controllers\PressReleases\PressReleaseController;
 use App\Http\Controllers\GlobalMonitoring\GlobalMonitoringController;
 use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
+use App\Http\Controllers\RegionalMonitoring\RegionalMonitoringController;
 use App\Http\Controllers\ScientificPublications\ScientificPublicationsController;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,6 +62,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('scientific-publications', ScientificPublicationsController::class);
 
     Route::resource('feedback', FeedbackController::class);
+
+    Route::resource('regional-monitoring', RegionalMonitoringController::class);
 
     Route::get('contact-informations', [EditController::class, 'edit'])->name('contact_informations');
     Route::post('contact-informations/create', [EditController::class, 'store'])->name('contact_informations_store');
