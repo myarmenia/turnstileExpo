@@ -123,7 +123,6 @@ class EditController extends Controller
         $contact_info = ContactInfo::create($request->all());
 
         if ($request->map_image) {
-
             $f_extension = $request->map_image->getClientOriginalExtension();
             $f_path = FileUploadService::upload($request->map_image, 'contact-info/' . $contact_info->id);
 
@@ -133,7 +132,6 @@ class EditController extends Controller
         }
 
         foreach ($request->address as $key => $item) {
-
             $contact_info_translations = ContactInfoTranslations::create([
                 'contact_info_id' => $contact_info->id,
                 'language_id' => $key,

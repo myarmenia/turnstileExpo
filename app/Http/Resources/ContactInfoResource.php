@@ -20,7 +20,7 @@ class ContactInfoResource extends JsonResource
             'phone' => $this->phone,
             'address' => $this->translation($request->lng_id)->address,
             'map_iframe' => $this->map_iframe,
-            'map_image' => $this->map_image,
+            'map_image' => route('get-file',['path'=>$this->map_image]),
             'links' =>  ContactInfoLinksResource::collection($this->contact_info_links)
         ];
 
