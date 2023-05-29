@@ -98,9 +98,12 @@
                     @else
 
                         <div class=" d-flex region_info_files_div">
+                            {{-- {{dd($map_region_info->files)}} --}}
                             @foreach ($map_region_info->files as $data )
+
                                 <div class="d-flex file_div">
                                     <img src="{{route('get-file',['path'=>$data->path])}}">
+                                    <i class="delete_item ri-delete-bin-2-line image" data-id="{{$data->id}}" data-table="files" data-type="image"></i>
                                 </div>
                             @endforeach
                         </div>
@@ -118,6 +121,7 @@
 
 @section('js-scripts')
     <script src="{{ asset('assets/back/js/region_info.js') }}"></script>
+    <script src="{{ asset('assets/back/js/delete_item.js') }}"></script>
 
     <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 

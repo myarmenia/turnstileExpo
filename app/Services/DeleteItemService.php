@@ -12,6 +12,7 @@ class DeleteItemService
 {
 
     public function delete_item($id, $table, $type = null){
+
         $item = DB::table($table)->where('id', $id);
 
         if($type == 'file'){
@@ -30,7 +31,7 @@ class DeleteItemService
             Storage::delete($data->logo);
         }
 
-        
+
         if($data->files->count() > 0){
             foreach ($data->files as $key => $value) {
                 Storage::delete($value->path);

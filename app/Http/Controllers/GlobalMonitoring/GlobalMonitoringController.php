@@ -24,7 +24,7 @@ class GlobalMonitoringController extends Controller
 
     {
         $regions = Region::where('parent_id',null)->with('region_translations')->latest()->get();
-      
+
         return view('regions.index',compact('regions'));
     }
 
@@ -121,20 +121,13 @@ class GlobalMonitoringController extends Controller
      */
     public function edit($id)
     {
-        // dd($id);
+
         $region=Region::find($id);
 
         $map_region_id=$region->map_regions[0]->pivot->map_region_id;
 
-        // $region_info=RegionInfo::where('region_id', $id)->first();
-        // if($region_info==null){
-        //     return view('regions.store',compact('region_info','id'));
-        // }else{
-        //     return view('regions.edit',compact('region_info'));
-        // }
-
         $map_region_info=MapRegionInfo::where('map_region_id',$map_region_id)->first();
-        // dd($map_region_info);
+      
         if($map_region_info==null){
             return view('regions.store',compact('map_region_info','map_region_id'));
         }else{
