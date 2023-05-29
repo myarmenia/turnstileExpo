@@ -26,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'second_name',
         'email',
         'password',
+        'status'
     ];
 
     public function press_releases()
@@ -49,6 +50,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function feedbacks()
     {
         return $this->hasMany(Feedbacks::class);
+    }
+
+    public function room_users(){
+        return $this->hasMany(RoomUsers::class);
+    }
+
+    public function chat_messages(){
+        return $this->hasMany(ChatMessage::class);
     }
 
     /**
