@@ -2986,39 +2986,6 @@ class RegionTranslationSeeder extends Seeder
 
 
             Regiontranslation::create( [
-            'id'=>283,
-            'region_id'=>94,
-            'language_id'=>1,
-            'name'=>'Slovenia',
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
-
-
-
-            Regiontranslation::create( [
-            'id'=>284,
-            'region_id'=>94,
-            'language_id'=>2,
-            'name'=>'Словения',
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
-
-
-
-            Regiontranslation::create( [
-            'id'=>285,
-            'region_id'=>94,
-            'language_id'=>3,
-            'name'=>'Սլովենիա',
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
-
-
-
-            Regiontranslation::create( [
             'id'=>286,
             'region_id'=>95,
             'language_id'=>1,
@@ -3671,7 +3638,7 @@ class RegionTranslationSeeder extends Seeder
             'id'=>345,
             'region_id'=>114,
             'language_id'=>3,
-            'name'=>'Թեննեսի ',
+            'name'=>'Թենեսի ',
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
@@ -4170,7 +4137,5 @@ class RegionTranslationSeeder extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
-
-
     }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('map_region_infos', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('map_region_id')->unsigned();
-            $table->foreign('map_region_id')->references('id')->on('regions')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('map_region_id')->references('id')->on('map_regions')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('editor_id')->unsigned();
             $table->foreign('editor_id')->references('id')->on('users');
             $table->string('image_path');

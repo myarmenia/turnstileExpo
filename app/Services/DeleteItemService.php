@@ -33,7 +33,7 @@ class DeleteItemService
 
 
         if($data->files->count() > 0){
-            foreach ($data->files as $key => $value) {
+            foreach ($data->pfiles as $key => $value) {
                 Storage::delete($value->path);
             }
         }
