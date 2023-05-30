@@ -13,9 +13,14 @@ class RegionalMonitoring extends Model
         'image_path',
     ];
 
+    public function files()
+    {
+        return $this->morphToMany(File::class, 'fileable');
+    }
+
     public function regional_manitoring_translations()
     {
-        return $this->hasMany(RegionalMonitoringTranslation::class);
+        return $this->hasMany(RegionalMonitoringTranslation::class, 'region_id');
     }
 
     public function translation($lng_id)

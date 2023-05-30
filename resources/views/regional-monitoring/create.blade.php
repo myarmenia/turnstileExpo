@@ -25,31 +25,40 @@
                     <h5 class="card-title">Regional monitoring</h5>
 
 
-                    <form class="row g-3" action="{{ route('current-earthquakes.store') }}" method="POST"
+                    <form class="row g-3" action="{{ route('regional-monitoring.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @foreach (languages() as $lng)
                         <div class="col-lg-12">
-                            <label for="description_{{$lng->name}}" class="form-label">Description {{
+                            <label for="description_{{$lng->name}}" class="form-label">Title {{
                                 Str::upper($lng->name) }}</label>
-                            <textarea
-                                class='ckeditor form-control @error("translations.$lng->id.description") _incorrectly @enderror'
-                                name="translations[{{$lng->id}}][description]"
-                                id="description_en">{{ old("translations.$lng->id.description")}}</textarea>
-                            @error("translations.$lng->id.description")
+                            <textarea class='ckeditor form-control @error("title.$lng->id") _incorrectly @enderror'
+                                name="title[{{$lng->id}}]" id="description_en">{{ old("title.$lng->id")}}</textarea>
+                            @error("title.$lng->id")
                             <div class="error_message"> {{ $message }} </div>
                             @enderror
                         </div>
                         @endforeach
                         <div class="col-lg-12">
 
-                            <div class="col-12">
+                            <div class="col-12 my-4">
+                                <label for="image" class="form-label">Image</label>
+                                <input type="file" class="form-control" id="image" name="image">
+                                @error('image')
+                                <div class="error_message"> {{ $message }} </div>
+                                @enderror
+                            </div>
+
+                            <div class="show_image mt-3 "> </div>
+
+                            <div class="col-12 my-4">
                                 <label for="items" class="form-label">Files</label>
                                 <input type="file" class="form-control" id="items" name="items[]" multiple>
                                 @error('items')
                                 <div class="error_message"> {{ $message }} </div>
                                 @enderror
                             </div>
+
                             <div class="items_div d-flex flex-wrap justify-content-between mt-3 "> </div>
                             <div class="text-start mt-3">
                                 <button class="btn btn-primary">Submit</button>
@@ -66,7 +75,7 @@
 @endsection
 
 @section('js-scripts')
-<script src="{{ asset('assets/back/js/current_earthquakes_create.js') }}"></script>
+<script src="{{ asset('assets/back/js/regional_monitoring.js') }}"></script>
 
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 @endsection
