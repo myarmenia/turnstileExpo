@@ -5,6 +5,7 @@ use App\Http\Controllers\API\CurrentEarthquake\CurrentEarthquakeController;
 use App\Http\Controllers\API\CurrentEarthquake\FilterController;
 use App\Http\Controllers\API\Feedback\CreateController;
 use App\Http\Controllers\API\Feedback\FedbackController;
+use App\Http\Controllers\API\Footer\FooterController;
 use App\Http\Controllers\API\GlobalMonitoring\GlobalMonitoringController;
 use App\Http\Controllers\API\Home\HomeController;
 use App\Http\Controllers\API\LanguageController;
@@ -43,8 +44,9 @@ Route::apiResources([
 
 ]);
 
-Route::get('languages', [LanguageController::class, 'index']);  /**updated*/
-Route::get('home', [HomeController::class, 'index']);  /**updated*/
+Route::get('languages', [LanguageController::class, 'index']);
+Route::get('home', [HomeController::class, 'index']);
+Route::get('footer/social-links', [FooterController::class, 'social_links']);
 
 Route::post('feedback/create', [CreateController::class, 'index']);
 
