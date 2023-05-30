@@ -8,7 +8,7 @@
         <h1>Chat</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('press-release.index')}}">Home</a></li>
                 <li class="breadcrumb-item">Chat</li>
             </ol>
         </nav>
@@ -24,16 +24,16 @@
                                 <div class="d-flex align-items-center py-1">
                                     <div class="position-relative">
                                         <img
-                                        src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                        class="rounded-circle mr-1"
-                                        alt="Sharon Lessman"
-                                        width="40"
-                                        height="40"
+                                            src="{{ route('get-file',['path'=>auth()->user()->roles[0]->avatar]) }}"
+                                            class="rounded-circle mr-1"
+                                            alt="Sharon Lessman"
+                                            width="40"
+                                            height="40"
                                         />
                                     </div>
                                     <div class="flex-grow-1 pl-3" style="padding-left: 12px">
-                                        <strong>Sharon Lessman</strong>
-                                        <div class="text-muted small"><em>Online</em></div>
+                                        <strong>{{auth()->user()->name}} {{auth()->user()->second_name}}</strong>
+                                        {{-- <div class="text-muted small"><em>Online</em></div> --}}
                                     </div>
                                 </div>
                             </div>

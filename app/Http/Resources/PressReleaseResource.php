@@ -18,17 +18,14 @@ class PressReleaseResource extends JsonResource
 
     public function toArray($request)
     {
-        // dd( FileResource::collection($this->files)[0]->type);
+        
         $data =  [
             'id' => $this->id,
             'title' => $this->translation($request->lng_id)->title,
             'description' => $this->translation($request->lng_id)->description,
             'date' => $this->date,
             'time' => $this->time,
-            'logo' => route('get-file',['path'=>$this->logo]),
-            // "files" => FileResource::collection($this->files),
-            // "links" => LinkResource::collection($this->links),
-
+            'logo' => route('get-file',['path'=>$this->logo])
         ];
 
         $data['image'] = route('get-file',['path'=>FileResource::getFirstImage($this->files)]);
@@ -36,5 +33,5 @@ class PressReleaseResource extends JsonResource
         return $data;
     }
 
-    
+
 }
