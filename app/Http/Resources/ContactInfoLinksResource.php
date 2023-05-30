@@ -15,7 +15,7 @@ class ContactInfoLinksResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'logo' => $this->logo,
+            'logo' => route('get-file',['path'=>$this->logo]),
             'link' => $this->link
         ];
     }
