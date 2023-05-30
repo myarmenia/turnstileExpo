@@ -24,6 +24,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>3,
             'map_region_id'=>3,
@@ -31,6 +33,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>5,
@@ -40,6 +44,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>6,
             'map_region_id'=>4,
@@ -47,6 +53,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>7,
@@ -56,6 +64,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>8,
             'map_region_id'=>4,
@@ -63,6 +73,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>9,
@@ -72,6 +84,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>10,
             'map_region_id'=>4,
@@ -79,6 +93,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>11,
@@ -88,6 +104,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>12,
             'map_region_id'=>5,
@@ -95,6 +113,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>15,
@@ -104,6 +124,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>16,
             'map_region_id'=>8,
@@ -111,6 +133,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>17,
@@ -120,6 +144,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>18,
             'map_region_id'=>9,
@@ -127,6 +153,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>19,
@@ -136,6 +164,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>20,
             'map_region_id'=>10,
@@ -143,6 +173,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>21,
@@ -152,6 +184,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>22,
             'map_region_id'=>10,
@@ -159,6 +193,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>23,
@@ -168,6 +204,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>24,
             'map_region_id'=>12,
@@ -175,6 +213,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>25,
@@ -184,6 +224,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>26,
             'map_region_id'=>14,
@@ -191,6 +233,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>27,
@@ -200,6 +244,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>28,
             'map_region_id'=>16,
@@ -207,6 +253,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>29,
@@ -216,6 +264,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>30,
             'map_region_id'=>17,
@@ -223,6 +273,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>31,
@@ -232,6 +284,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>34,
             'map_region_id'=>18,
@@ -239,6 +293,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>35,
@@ -248,6 +304,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>36,
             'map_region_id'=>18,
@@ -255,6 +313,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>37,
@@ -264,6 +324,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>38,
             'map_region_id'=>18,
@@ -271,6 +333,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>39,
@@ -280,6 +344,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>40,
             'map_region_id'=>20,
@@ -287,6 +353,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>41,
@@ -296,6 +364,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>42,
             'map_region_id'=>20,
@@ -303,6 +373,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>43,
@@ -312,6 +384,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>44,
             'map_region_id'=>20,
@@ -319,6 +393,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>46,
@@ -328,6 +404,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>47,
             'map_region_id'=>23,
@@ -335,6 +413,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>48,
@@ -344,6 +424,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>49,
             'map_region_id'=>23,
@@ -351,6 +433,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>50,
@@ -360,6 +444,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>51,
             'map_region_id'=>24,
@@ -367,6 +453,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>52,
@@ -376,6 +464,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>53,
             'map_region_id'=>24,
@@ -383,6 +473,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>54,
@@ -392,6 +484,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>55,
             'map_region_id'=>24,
@@ -399,6 +493,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>56,
@@ -408,6 +504,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>57,
             'map_region_id'=>25,
@@ -415,6 +513,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>58,
@@ -424,6 +524,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>59,
             'map_region_id'=>26,
@@ -431,6 +533,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>60,
@@ -440,6 +544,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>61,
             'map_region_id'=>27,
@@ -447,6 +553,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>62,
@@ -456,6 +564,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>63,
             'map_region_id'=>28,
@@ -463,6 +573,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>64,
@@ -472,6 +584,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>65,
             'map_region_id'=>28,
@@ -479,6 +593,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>66,
@@ -488,6 +604,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>67,
             'map_region_id'=>29,
@@ -495,6 +613,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>68,
@@ -504,6 +624,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>69,
             'map_region_id'=>29,
@@ -512,13 +634,7 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
-           DB::table('map_regions_regions')->insert( [
-            'id'=>70,
-            'map_region_id'=>30,
-            'region_id'=>74,
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>71,
@@ -528,6 +644,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>72,
             'map_region_id'=>31,
@@ -535,6 +653,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>73,
@@ -544,6 +664,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>74,
             'map_region_id'=>31,
@@ -551,6 +673,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>75,
@@ -560,7 +684,9 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
-            DB::table('map_regions_regions')->insert( [
+
+
+           DB::table('map_regions_regions')->insert( [
             'id'=>76,
             'map_region_id'=>32,
             'region_id'=>86,
@@ -568,13 +694,7 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
-           DB::table('map_regions_regions')->insert( [
-            'id'=>77,
-            'map_region_id'=>32,
-            'region_id'=>26,
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>79,
@@ -584,6 +704,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>80,
             'map_region_id'=>35,
@@ -591,6 +713,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>81,
@@ -600,6 +724,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>82,
             'map_region_id'=>36,
@@ -607,6 +733,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>83,
@@ -616,6 +744,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>86,
             'map_region_id'=>13,
@@ -623,6 +753,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>88,
@@ -632,6 +764,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>89,
             'map_region_id'=>15,
@@ -639,6 +773,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>90,
@@ -648,6 +784,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>91,
             'map_region_id'=>5,
@@ -655,6 +793,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>92,
@@ -664,6 +804,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>93,
             'map_region_id'=>30,
@@ -671,6 +813,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>94,
@@ -680,6 +824,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>95,
             'map_region_id'=>6,
@@ -687,6 +833,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>96,
@@ -696,6 +844,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>97,
             'map_region_id'=>6,
@@ -703,6 +853,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>98,
@@ -712,6 +864,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>99,
             'map_region_id'=>7,
@@ -719,6 +873,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>100,
@@ -728,6 +884,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>101,
             'map_region_id'=>7,
@@ -735,6 +893,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>102,
@@ -744,6 +904,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>103,
             'map_region_id'=>17,
@@ -751,6 +913,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>104,
@@ -760,6 +924,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>105,
             'map_region_id'=>21,
@@ -767,6 +933,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>106,
@@ -776,6 +944,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>107,
             'map_region_id'=>21,
@@ -783,6 +953,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>108,
@@ -792,6 +964,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>109,
             'map_region_id'=>3,
@@ -799,6 +973,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>110,
@@ -808,6 +984,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>111,
             'map_region_id'=>3,
@@ -815,6 +993,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>112,
@@ -824,6 +1004,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>113,
             'map_region_id'=>3,
@@ -831,6 +1013,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>114,
@@ -840,6 +1024,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>115,
             'map_region_id'=>6,
@@ -847,6 +1033,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>116,
@@ -856,6 +1044,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>117,
             'map_region_id'=>1,
@@ -863,6 +1053,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>118,
@@ -872,6 +1064,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>119,
             'map_region_id'=>1,
@@ -879,6 +1073,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>120,
@@ -888,6 +1084,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>121,
             'map_region_id'=>14,
@@ -895,6 +1093,8 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
+
+
 
            DB::table('map_regions_regions')->insert( [
             'id'=>122,
@@ -904,6 +1104,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>123,
             'map_region_id'=>4,
@@ -912,6 +1114,8 @@ class  MapRegionsRegions extends Seeder
             'updated_at'=>NULL
             ] );
 
+
+
            DB::table('map_regions_regions')->insert( [
             'id'=>124,
             'map_region_id'=>23,
@@ -919,12 +1123,26 @@ class  MapRegionsRegions extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
-            DB::table('map_regions_regions')->insert( [
-                'id'=>125,
-                'map_region_id'=>2,
-                'region_id'=>126,
-                'created_at'=>NULL,
-                'updated_at'=>NULL
+
+
+
+           DB::table('map_regions_regions')->insert( [
+            'id'=>125,
+            'map_region_id'=>2,
+            'region_id'=>126,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+            ] );
+
+
+
+           DB::table('map_regions_regions')->insert( [
+            'id'=>126,
+            'map_region_id'=>21,
+            'region_id'=>114,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
             ] );
     }
+
 }

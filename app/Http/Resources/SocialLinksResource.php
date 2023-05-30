@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ContactInfoLinksResource extends JsonResource
+class SocialLinksResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,7 @@ class ContactInfoLinksResource extends JsonResource
     {
         return [
             'logo' => route('get-file',['path'=>$this->logo]),
-            'link' => $this->link
+            'link' => $this->link,
         ];
     }
 }

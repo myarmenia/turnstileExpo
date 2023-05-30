@@ -10,8 +10,10 @@
         <h1>Chat</h1>
         <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item">Chat</li>
+            <li class="breadcrumb-item"><a href="{{route('press-release.index')}}">Home</a></li>
+            <li class="breadcrumb-item">Room
+
+            </li>
         </ol>
         </nav>
     </div>
@@ -27,16 +29,16 @@
                                 <div class="d-flex align-items-center py-1">
                                     <div class="position-relative">
                                         <img
-                                        src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                        class="rounded-circle mr-1"
-                                        alt="Sharon Lessman"
-                                        width="40"
-                                        height="40"
+                                            src="{{ route('get-file',['path'=>auth()->user()->roles[0]->avatar]) }}"
+                                            class="rounded-circle mr-1"
+                                            alt="Sharon Lessman"
+                                            width="40"
+                                            height="40"
                                         />
                                     </div>
                                     <div class="flex-grow-1 pl-3" style="padding-left: 12px">
-                                        <strong>Sharon Lessman</strong>
-                                        <div class="text-muted small"><em>Online</em></div>
+                                        <strong>{{auth()->user()->name}} {{auth()->user()->second_name}}</strong>
+                                        {{-- <div class="text-muted small"><em>Online</em></div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -96,23 +98,21 @@
                                 "
                             >
                                 <img
-                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                                alt="avatar 3"
-                                style="width: 40px; height: 100%"
+                                    src="{{ route('get-file',['path'=>auth()->user()->roles[0]->avatar]) }}"
+                                    alt="avatar 3"
+                                    style="width: 40px; height: 100%"
                                 />
                                 <input
-                                type="text"
-                                class="form-control form-control-lg"
-                                id="exampleFormControlInput2"
-                                placeholder="Type message"
+                                    type="text"
+                                    class="form-control form-control-lg"
+                                    id="exampleFormControlInput2"
+                                    placeholder="Type message"
                                 />
-                                <a class="ms-1 text-muted" href="#!"
-                                ><i class="bi bi-paperclip icon_send"></i
-                                ></a>
+                                <a class="ms-1 text-muted" href="#!"><i class="bi bi-paperclip icon_send"></i></a>
                                 <i
-                                class="bi bi-send icon_send ms-3"
-                                style="cursor: pointer"
-                                onclick="scrollToBottom()"
+                                    class="bi bi-send icon_send ms-3"
+                                    style="cursor: pointer"
+                                    onclick="scrollToBottom()"
                                 ></i>
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                                         <a href="{{ route('check_room', $user->id)}}" class="d-flex justify-content-between">
                                             <div class="d-flex flex-row">
                                             <img
-                                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp"
+                                                src="{{ route('get-file',['path'=>$user->roles[0]->avatar]) }}"
                                                 alt="avatar"
                                                 class="rounded-circle d-flex align-self-center me-3 shadow-1-strong"
                                                 width="60"

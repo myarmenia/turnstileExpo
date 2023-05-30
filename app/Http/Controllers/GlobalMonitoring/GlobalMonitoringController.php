@@ -127,7 +127,7 @@ class GlobalMonitoringController extends Controller
         $map_region_id=$region->map_regions[0]->pivot->map_region_id;
 
         $map_region_info=MapRegionInfo::where('map_region_id',$map_region_id)->first();
-      
+
         if($map_region_info==null){
             return view('regions.store',compact('map_region_info','map_region_id'));
         }else{

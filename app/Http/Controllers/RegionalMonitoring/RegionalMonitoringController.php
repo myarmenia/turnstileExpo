@@ -4,6 +4,9 @@ namespace App\Http\Controllers\RegionalMonitoring;
 
 use App\Http\Controllers\Controller;
 use App\Models\RegionalMonitoring;
+use App\Models\RegionalMonitoringTranslation;
+use App\Services\FileUploadService;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class RegionalMonitoringController extends Controller
@@ -17,9 +20,9 @@ class RegionalMonitoringController extends Controller
     {
         $regional_monitoring = RegionalMonitoring::first();
 
-        if($regional_monitoring != null) {
-            return view('regional-monitoring.edit');
-        }else {
+        if ($regional_monitoring != null) {
+            return view('regional-monitoring.edit', compact('regional_monitoring'));
+        } else {
             return view('regional-monitoring.create');
         }
     }
@@ -42,7 +45,49 @@ class RegionalMonitoringController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $requestData = $request->all();
+
+        $validate = [
+            "title.*" => "required",
+            "image" => "required",
+            "items" => "required",
+        ];
+
+        $validator = Validator::make($requestData, $validate);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $f_extension = $request['image']->getClientOriginalExtension();
+        $f_path = FileUploadService::upload($request['image'], 'regional-monitoring/');
+
+        $create_regional_monitoring = RegionalMonitoring::create([
+            'image_path' => $f_path
+        ]);
+
+        foreach ($request->title as $key => $title) {
+            RegionalMonitoringTranslation::create([
+                'region_id' => $create_regional_monitoring->id,
+                'language_id' => $key,
+                'title' => $title,
+            ]);
+        }
+
+        foreach ($request->items as $key => $image) {
+            $f_extension = $image->getClientOriginalExtension();
+
+            $f_type = 'image';
+            if ($f_extension == 'mp4' || $f_extension == 'avi' || $f_extension == 'mkv') {
+                $f_type = 'video';
+            }
+
+            $f_path = FileUploadService::upload($image, 'regional-monitoring-items/' . $create_regional_monitoring->id);
+            $create_regional_monitoring->files()->create(['path' => $f_path, 'type' => $f_type]);
+        }
+
+        return redirect('regional-monitoring');
     }
 
     /**
@@ -76,7 +121,20 @@ class RegionalMonitoringController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+
+        $validate = [
+            "title.*" => "required",
+        ];
+
+        $validator = Validator::make($requestData, $validate);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+
+
     }
 
     /**
