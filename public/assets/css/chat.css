@@ -1,44 +1,52 @@
 .scroll_ul::-webkit-scrollbar {
     width: 7px;
-  }
-  .scroll_ul::-webkit-scrollbar-track {
+}
+.scroll_ul::-webkit-scrollbar-track {
     background: #eeeeee;
-  }
-  .scroll_ul::-webkit-scrollbar-thumb {
+}
+.scroll_ul::-webkit-scrollbar-thumb {
     background: #938e97;
-  }
-  .scroll_ul::-webkit-scrollbar-thumb:hover {
+}
+.scroll_ul::-webkit-scrollbar-thumb:hover {
     background: #555;
-  }
+}
 
-  .form-control {
+.form-control {
     border-color: transparent;
     background-color: #fbfbfb;
-  }
+}
 
-  .form-control:focus {
+.form-control:focus {
     border-color: transparent;
     background: transparent;
     box-shadow: inset 0px 0px 0px 1px transparent;
-  }
+}
 
-  .badge-dot {
+.badge-dot {
     border-radius: 50%;
     height: 10px;
     width: 10px;
     margin-left: 2.9rem;
     margin-top: -0.75rem;
-  }
-  .scroll_ul,
-  .scroll_person {
+}
+.scroll_ul,
+.scroll_person {
     overflow-y: auto;
     max-height: 520px;
     min-height: 520px;
-  }
-  .icon_send {
+}
+.icon_send {
     font-size: 25px;
     color: black;
-  }
-  .fw-bold {
+}
+.fw-bold {
     color: #444444;
-  }
+}
+.send_message{
+    border: none !important;
+    background: none !important;
+}
+#up-label{
+    cursor: pointer;
+}
+

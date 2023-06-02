@@ -19,11 +19,13 @@ use Illuminate\Support\Facades\Broadcast;
 //     return (int) $user->id === (int) $id;
 // });
 
-Broadcast::channel('message.{roomId}', function ($user, $roomId) {
+Broadcast::channel('message.{roomId}', function ($roomId, $message) {
 
-    $messages = ChatMessage::with('user')->where('room_id', $roomId)->get()->toArray();
-    return [
-        'user' => Auth::user(),
-        'messages' => $messages,
-    ];
+    // $messages = ChatMessage::with('user')->where('room_id', $roomId)->get()->toArray();
+    // return [
+    //     'user' => Auth::user(),
+    //     'messages' => $messages,
+    // ];
+    return $roomId;
 });
+
