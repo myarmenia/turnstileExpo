@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Feedback\FeedbackController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Admin\Profile\DashboardController;
+use App\Http\Controllers\Banner\BannerController;
 use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\ContactInfo\EditController;
 use App\Http\Controllers\PressReleases\PressReleaseController;
@@ -82,6 +83,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('room/{id}', [ChatController::class, 'room'])->name('room');
     Route::post('room/{id}/message-store', [ChatController::class, 'message_store'])->name('message_store');
 
+
+
+    Route::resource('banner',BannerController::class);
 
 
 });

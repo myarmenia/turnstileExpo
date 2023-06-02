@@ -155,8 +155,8 @@ class GlobalMonitoringController extends Controller
         if($request->has('image_path')) {
             $validate['image_path']="required | mimes:jpeg,jpg,png,PNG | max:10000";
         }
-        if($request->has('image_path')) {
-            $validate['image_path']="required | mimes:jpeg,jpg,png,PNG | max:10000";
+        if($request->has('schema_path')) {
+            $validate['schema_path']="required | mimes:jpeg,jpg,png,PNG | max:10000";
         }
 
         $validator = Validator::make($request->all(), $validate);

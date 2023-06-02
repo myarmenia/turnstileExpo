@@ -76,6 +76,13 @@
                 <span>Chat</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('banner.*') ? '' : ' collapsed' }}"
+                href="{{route('banner.index')}}">
+                <i class="ri-file-list-2-line"></i>
+                <span>Banner</span>
+            </a>
+        </li>
         @role('Admin')
         <li class=" nav-item">
             <a class="nav-link {{ request()->routeIs('contact-informations.*') ? '' : ' collapsed' }}"
