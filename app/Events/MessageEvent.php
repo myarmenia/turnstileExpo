@@ -10,15 +10,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageEvent
+
+class MessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $roomId;
+    public $message;
 
-    public function __construct($roomId)
+
+    public function __construct($roomId, $message)
     {
         $this->roomId = $roomId;
+        $this->message = $message;
     }
 
     /**
@@ -29,5 +33,11 @@ class MessageEvent
     public function broadcastOn()
     {
         return new PrivateChannel('message.'.$this->roomId);
+        // return new Channel('message.'.$this->roomId);
+    }
+
+    public function broadcastAs()
+    {
+        return 'roomAs';
     }
 }

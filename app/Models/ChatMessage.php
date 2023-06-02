@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class ChatMessage extends Model
 {
@@ -18,6 +19,7 @@ class ChatMessage extends Model
         'read'
     ];
 
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -26,5 +28,15 @@ class ChatMessage extends Model
     public function room()
     {
         return $this->belongsTo(Room::class, 'room_id');
+    }
+
+    public function getTimeAgoAttribute()
+    {
+        return Carbon::parse($this->created_at)->ago();
+    }
+
+    public function getTime()
+    {
+        return Carbon::parse($this->created_at)->format('d-m-Y H:i:s');
     }
 }

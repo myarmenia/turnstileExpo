@@ -77,6 +77,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('chat', [ChatController::class, 'index'])->name('chat');
     Route::get('check-room/{user_id}', [ChatController::class, 'check_room'])->name('check_room');
     Route::get('room/{id}', [ChatController::class, 'room'])->name('room');
+    Route::post('room/{id}/message-store', [ChatController::class, 'message_store'])->name('message_store');
+
 
 
 });

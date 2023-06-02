@@ -37,6 +37,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="text-center my-5">Please select a chat member</div>
                         </div>
 
                         <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
@@ -89,16 +90,4 @@
         </div>
     </div>
 @endsection
-@section('js-scripts')
-    {{-- <script src="{{ asset('assets/back/js/modal.js') }}"></script> --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            console.log(555)
-            window.Echo.channel('events')
-                .listen('.ev', (e) => {
-                    console.log(333777777);
 
-                });
-        });
-    </script>
-@endsection

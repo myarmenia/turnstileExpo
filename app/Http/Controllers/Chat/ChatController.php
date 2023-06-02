@@ -9,6 +9,7 @@ use App\Models\ChatMessage;
 use App\Models\Room;
 use App\Models\RoomUsers;
 use App\Models\User;
+use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,7 +50,41 @@ class ChatController extends Controller
         $messages = ChatMessage::where('room_id', $id)->get();
         $room = Room::find($id);
 
-        broadcast(new MessageEvent($id))->toOthers();
+        // broadcast(new MessageEvent($id, $messages))->toOthers();
         return view('chat.room', compact('room', 'messages', 'users'));
+    }
+
+
+    public function message_store(Request $request, $id)
+    {
+// dd( $request->all());
+        $user = auth()->user();
+        $room = Room::find($id);
+        $roommate = RoomUsers::where('user_id', '!=', $user->id)->where('room_id', $room->id)->first();
+
+        $message = $room->messages()->create([
+            'user_id' => $user->id,
+            'to_user_id' => $roommate->user_id,
+            'content' => $request->content,
+        ]);
+        // $message = ChatMessage::create([
+        //     'user_id' => $user->id,
+        //     'to_user_id' => $roommate->user_id,
+        //     'room_id' => $id,
+        //     // 'content' => $request->content,
+        // ]);
+        if ($request->has('file')) {
+
+            $path_file = FileUploadService::upload($request->file, 'chat-files/' . $room->id);
+            $message->file = $path_file;
+            $message->save();
+        }
+
+        $message = ChatMessage::where('id',$message->id)->with('user.roles')->first();
+
+        // broadcast(new MessageEvent($room->id, $message))->toOthers();
+        event(new MessageEvent($room->id, $message));
+
+        return response()->json(['result' => 1], 200);
     }
 }
