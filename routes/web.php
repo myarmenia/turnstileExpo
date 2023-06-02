@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Feedback\FeedbackController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Admin\Profile\DashboardController;
+use App\Http\Controllers\Banner\BannerController;
 use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\ContactInfo\EditController;
 use App\Http\Controllers\PressReleases\PressReleaseController;
@@ -77,6 +78,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('chat', [ChatController::class, 'index'])->name('chat');
     Route::get('check-room/{user_id}', [ChatController::class, 'check_room'])->name('check_room');
     Route::get('room/{id}', [ChatController::class, 'room'])->name('room');
+
+
+    Route::resource('banner',BannerController::class);
 
 
 });
