@@ -25,6 +25,6 @@ class RegionalMonitoring extends Model
 
     public function translation($lng_id)
     {
-        return $this->hasOne(ContactInfoTranslations::class)->where('language_id', $lng_id)->first();
+        return $this->hasOne(RegionalMonitoringTranslation::class, 'region_id')->where('language_id', $lng_id)->first();
     }
 }

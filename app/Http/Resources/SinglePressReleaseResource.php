@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\VideoLink;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SinglePressReleaseResource extends JsonResource
@@ -14,6 +15,7 @@ class SinglePressReleaseResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return $data =  [
             'id' => $this->id,
             'title' => $this->translation($request->lng_id)->title,
@@ -23,6 +25,13 @@ class SinglePressReleaseResource extends JsonResource
             'logo' => route('get-file',['path'=>$this->logo]),
             "files" => FileResource::collection($this->files),
             "links" => LinkResource::collection($this->links),
+            'videos' => VideoLinkResource::collection($this->get_file())
         ];
     }
+
+    public function get_file()
+    {
+        return VideoLink::all();
+    }
+
 }

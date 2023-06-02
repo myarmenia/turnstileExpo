@@ -19,6 +19,7 @@ use App\Http\Controllers\ContactInfo\EditController;
 use App\Http\Controllers\PressReleases\PressReleaseController;
 use App\Http\Controllers\GlobalMonitoring\GlobalMonitoringController;
 use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
+use App\Http\Controllers\PressReleaseVideos\PressReleaseVideosController;
 use App\Http\Controllers\RegionalMonitoring\RegionalMonitoringController;
 use App\Http\Controllers\ScientificPublications\ScientificPublicationsController;
 use Illuminate\Support\Facades\Auth;
@@ -54,6 +55,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::resource('press-release', PressReleaseController::class);
+
+    Route::resource('press-release-videos', PressReleaseVideosController::class);
 
     Route::resource('news', NewsController::class);
 
