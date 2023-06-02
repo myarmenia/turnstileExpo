@@ -14,11 +14,13 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Feedback\FeedbackController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Admin\Profile\DashboardController;
+use App\Http\Controllers\Banner\BannerController;
 use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\ContactInfo\EditController;
 use App\Http\Controllers\PressReleases\PressReleaseController;
 use App\Http\Controllers\GlobalMonitoring\GlobalMonitoringController;
 use App\Http\Controllers\CurrentEarthquakes\CurrentEarthquakesController;
+use App\Http\Controllers\PressReleaseVideos\PressReleaseVideosController;
 use App\Http\Controllers\RegionalMonitoring\RegionalMonitoringController;
 use App\Http\Controllers\ScientificPublications\ScientificPublicationsController;
 use Illuminate\Support\Facades\Auth;
@@ -55,6 +57,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('press-release', PressReleaseController::class);
 
+    Route::resource('press-release-videos', PressReleaseVideosController::class);
+
     Route::resource('news', NewsController::class);
 
     Route::resource('global-monitoring', GlobalMonitoringController::class);
@@ -77,6 +81,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('chat', [ChatController::class, 'index'])->name('chat');
     Route::get('check-room/{user_id}', [ChatController::class, 'check_room'])->name('check_room');
     Route::get('room/{id}', [ChatController::class, 'room'])->name('room');
+    Route::post('room/{id}/message-store', [ChatController::class, 'message_store'])->name('message_store');
+
+
+
+    Route::resource('banner',BannerController::class);
 
 
 });

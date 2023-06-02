@@ -26,7 +26,6 @@ class ContactInfoController extends BaseController
 
     public function index(Request $request)
     {
-
         $contact_info = ContactInfo::first();
 
         return is_null($contact_info) ? $this->sendError('error message') :

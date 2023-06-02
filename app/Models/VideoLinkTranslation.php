@@ -5,18 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RegionalMonitoringTranslation extends Model
+class VideoLinkTranslation extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'region_id',
+        'video_link_id',
         'language_id',
-        'title',
+        'title'
     ];
-
-    public function video_link()
-    {
-        return $this->belongsTo(VideoLink::class);
-    }
 }

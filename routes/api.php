@@ -13,6 +13,7 @@ use App\Http\Controllers\API\MapRegion\MapRegionController;
 use App\Http\Controllers\API\News\NewsController;
 use App\Http\Controllers\API\PressReleases\FilterController as PressReleasesFilterController;
 use App\Http\Controllers\API\PressReleases\PressReleaseController;
+use App\Http\Controllers\API\RegionalMonitoring\RegionalMonitoringController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,7 +42,7 @@ Route::apiResources([
     'current-earthquake' => CurrentEarthquakeController::class,
     'news' => NewsController::class,
     'regions'=>GlobalMonitoringController::class,
-
+    'regional-monitoring' => RegionalMonitoringController::class
 ]);
 
 Route::get('languages', [LanguageController::class, 'index']);
@@ -55,6 +56,7 @@ Route::get('contact-info', [ContactInfoController::class, 'index']);
 Route::get('current-earthquakes-filter', [FilterController::class, 'filter']);
 
 Route::get('press-releases-filter', [PressReleasesFilterController::class, 'filter']);
+
 
 Route::get('map-region-info/{id}',[MapRegionController::class,'mapRegionInfo']);
 Route::get('region-info/{id}',[MapRegionController::class,'regionInfo']);

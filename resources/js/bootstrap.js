@@ -34,11 +34,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 import Echo from 'laravel-echo';
 import Pusher from "pusher-js";
+
 window.Pusher = Pusher;
 
 window.Echo = new Echo({
-
-    // enabledTransports: 'ws',
     disableStats: true,
     broadcaster: 'pusher',
     key: import.meta.env.VITE_PUSHER_APP_KEY,
@@ -47,5 +46,10 @@ window.Echo = new Echo({
     forceTLS: false,
     wsHost: window.location.hostname,
     wsPort: 6001,
+    enabledTransports: ['ws','wss'],
 });
-console.log(76677);
+
+// window.Echo.channel('events')
+//     .listen('.ev', (e) => {
+//         console.log(445533333);
+// });

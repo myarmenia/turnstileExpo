@@ -16,6 +16,15 @@
                 <span>Press Releases</span>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('press-release-videos.*') ? '' : ' collapsed' }}"
+                href="{{route('press-release-videos.index')}}">
+                <i class="ri-file-list-2-line"></i>
+                <span>Press Release Videos</span>
+            </a>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('news.*') ? '' : ' collapsed' }}" href="{{route('news.index')}}">
                 <i class="bx bx-news"></i>
@@ -29,6 +38,15 @@
                 <span>Global Monitoring</span>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('regional-monitoring.*') ? '' : ' collapsed' }}"
+                href="{{route('regional-monitoring.index')}}">
+                <i class="bx bx-news"></i>
+                <span>Regional Monitoring</span>
+            </a>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('current-earthquakes.*') ? '' : ' collapsed' }}"
                 href="{{route('current-earthquakes.index')}}">
@@ -37,13 +55,13 @@
             </a>
         </li>
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('scientific-publications.*') ? '' : ' collapsed' }}"
                 href="{{route('scientific-publications.index')}}">
                 <i class="ri-earthquake-line"></i>
                 <span>Scientific Publications</span>
             </a>
-        </li>
+        </li> --}}
 
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('feedback.*') ? '' : ' collapsed' }}"
@@ -53,19 +71,25 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('chat.*') ? '' : ' collapsed' }}"
-                href="{{route('chat')}}">
+            <a class="nav-link {{ request()->routeIs('chat.*') ? '' : ' collapsed' }}" href="{{route('chat')}}">
                 <i class="ri-file-list-2-line"></i>
                 <span>Chat</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('banner.*') ? '' : ' collapsed' }}"
+                href="{{route('banner.index')}}">
+                <i class="ri-file-list-2-line"></i>
+                <span>Banner</span>
+            </a>
+        </li>
         @role('Admin')
         <li class=" nav-item">
-                    <a class="nav-link {{ request()->routeIs('contact-informations.*') ? '' : ' collapsed' }}"
-                        href="{{route('contact_informations')}}">
-                        <i class="ri-earthquake-line"></i>
-                        <span>Contact Informations</span>
-                    </a>
+            <a class="nav-link {{ request()->routeIs('contact-informations.*') ? '' : ' collapsed' }}"
+                href="{{route('contact_informations')}}">
+                <i class="bi bi-envelope"></i>
+                <span>Contact Informations</span>
+            </a>
         </li>
         @endrole
 

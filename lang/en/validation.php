@@ -166,6 +166,14 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        
+        'links.*.link' => [
+            'required' => 'The link field is required',
+        ],
+
+        'links.*.title.*' => [
+            'required' => 'The title field is required',
+        ]
     ],
 
     /*
@@ -185,7 +193,9 @@ return [
         'translations.*.description' => ' ',
         'address.*' => 'address',
         'map_iframe_image' => 'ifram or image',
-        'title.*' => 'title'
+        'title.*' => 'title',
+        'links.*.title.*' => 'The title field is required',
+        'links.*.link' => 'The link field is required'
     ],
 
 ];

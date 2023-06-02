@@ -22,7 +22,7 @@ class PressReleaseController extends Controller
     {
 
         $request['table'] = 'press_releases';
-        $this->middleware('editor', ['only' => ['edit','update']]);
+        $this->middleware('editor', ['only' => ['edit', 'update']]);
 
         // $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
         // $this->middleware('permission:product-create', ['only' => ['create','store']]);
@@ -95,14 +95,14 @@ class PressReleaseController extends Controller
 
         $validate = [
 
-                    "logo" => "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:2048",
-                    "translations.*.title" => "required",
-                    "translations.*.description" => "required",
-                    "date" => "required",
-                    "time" => "required",
-                    "items" => "required",
-                    "items.*" => "mimes:mp4,mov,ogg,jpeg,jpg,png,PNG,JPG,JPEG | max:20000",
-                    "links.*" => "required"
+            "logo" => "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:2048",
+            "translations.*.title" => "required",
+            "translations.*.description" => "required",
+            "date" => "required",
+            "time" => "required",
+            "items" => "required",
+            "items.*" => "mimes:mp4,mov,ogg,jpeg,jpg,png,PNG,JPG,JPEG | max:20000",
+            "links.*" => "required"
 
         ];
 
@@ -171,7 +171,7 @@ class PressReleaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit(Request $request, $id)
     {
         $press_release = PressRelease::find($id);
 
@@ -273,13 +273,11 @@ class PressReleaseController extends Controller
 
 
         if ($deleted) {
-            if($request->_method != null){
+            if ($request->_method != null) {
                 return redirect()->back();
-            }
-            else{
+            } else {
                 return response()->json(['result' => 1], 200);
             }
-
         }
     }
 }
