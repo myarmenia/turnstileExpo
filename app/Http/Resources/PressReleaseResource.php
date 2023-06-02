@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\File;
 use App\Models\Link;
+use App\Models\VideoLink;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
@@ -25,13 +26,13 @@ class PressReleaseResource extends JsonResource
             'description' => $this->translation($request->lng_id)->description,
             'date' => $this->date,
             'time' => $this->time,
-            'logo' => route('get-file',['path'=>$this->logo])
+            'logo' => route('get-file',['path'=>$this->logo]),
+            // 'video' => VideoLinkResource::collection($this->get_video);
         ];
 
         $data['image'] = route('get-file',['path'=>FileResource::getFirstImage($this->files)]);
 
         return $data;
     }
-
-
+  
 }

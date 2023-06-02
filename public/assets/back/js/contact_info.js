@@ -10,7 +10,6 @@ map_image.addEventListener("change", (e) => {
     console.log(url)
     content += `<div class="d-flex file_div order-3">
                     <img src="${url}" class="img-thumbnail">
-                    <i data-key="${files[0].lastModified}" class="item_remove ri-delete-bin-2-line"></i>
                 </div>`
 
 

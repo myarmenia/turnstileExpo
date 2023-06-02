@@ -8,6 +8,7 @@ use App\Models\RegionalMonitoringTranslation;
 use App\Services\FileUploadService;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RegionalMonitoringController extends Controller
 {
@@ -121,6 +122,9 @@ class RegionalMonitoringController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $regional_monitoring = RegionalMonitoring::find($id);
+
         $requestData = $request->all();
 
         $validate = [
@@ -133,7 +137,42 @@ class RegionalMonitoringController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        if ($request->has('image')) {
 
+            $delete_image = $regional_monitoring->image_path;
+
+            $delete_image != null ? Storage::delete($delete_image) : null;
+
+            $f_extension = $request->image->getClientOriginalExtension();
+            $f_path = FileUploadService::upload($request['image'], 'regional-monitoring/');
+
+            $regional_monitoring->update([
+                'image_path' => $f_path
+            ]);
+        }
+
+        foreach ($request->title as $key => $title) {
+            $regional_monitoring_translation = RegionalMonitoringTranslation::where('region_id', $id)->where('language_id', $key)->first();
+            $regional_monitoring_translation->update([
+                'title' => $title,
+            ]);
+        }
+
+        if($request->has('items')) {
+            foreach ($request->items as $key => $image) {
+                $f_extension = $image->getClientOriginalExtension();
+    
+                $f_type = 'image';
+                if ($f_extension == 'mp4' || $f_extension == 'avi' || $f_extension == 'mkv') {
+                    $f_type = 'video';
+                }
+    
+                $f_path = FileUploadService::upload($image, 'regional-monitoring-items/' . $regional_monitoring->id);
+                $regional_monitoring->files()->create(['path' => $f_path, 'type' => $f_type]);
+            }
+        }
+
+        return redirect('regional-monitoring');
 
     }
 

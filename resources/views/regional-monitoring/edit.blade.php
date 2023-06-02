@@ -56,7 +56,7 @@
                                 <div class="d-flex file_div order-3">
                                     <img src="{{ route('get-file',['path'=>$regional_monitoring->image_path]) }}"
                                         class="file">
-                                    
+
                                 </div>
 
                             </div>
@@ -69,7 +69,7 @@
                                 @enderror
                             </div>
 
-                            <div class="items_div d-flex flex-wrap justify-content-between mt-3 ">
+                            <div class="d-flex flex-wrap justify-content-between">
                                 @foreach ($regional_monitoring->files as $item)
                                 <div class="d-flex file_div">
                                     <img src="{{ route('get-file',['path'=>$item->path]) }}" class="file">
@@ -78,6 +78,11 @@
                                 </div>
                                 @endforeach
                             </div>
+
+                            <div class="items_div d-flex flex-wrap justify-content-between mt-3 ">
+
+                            </div>
+
                             <div class="text-start mt-3">
                                 <button class="btn btn-primary">Submit</button>
                                 {{-- <button type="reset" class="btn btn-secondary">Reset</button> --}}
