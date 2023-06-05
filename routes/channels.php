@@ -29,3 +29,10 @@ Broadcast::channel('message.{roomId}', function ($roomId, $message) {
     return $roomId;
 });
 
+
+Broadcast::channel('unread_messages_count.{userId}', function ($users) {
+
+
+    return 111;
+});
+

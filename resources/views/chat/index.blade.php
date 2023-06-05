@@ -1,6 +1,7 @@
 @extends('layouts.auth-app')
 @section('link')
-    {{-- @vite(['resources/js/app.js']) --}}
+@vite(['resources/js/app.js'])
+
     <link href="{{ asset('assets/css/chat.css') }}" rel="stylesheet">
 @endsection
 @section('content')
@@ -63,19 +64,21 @@
 
                                                 <a href="{{ route('check_room', $user->id)}}" class="d-flex justify-content-between">
                                                     <div class="d-flex flex-row">
-                                                    <img
-                                                        src="{{ route('get-file',['path'=>$user->roles[0]->avatar]) }}"
-                                                        alt="avatar"
-                                                        class="rounded-circle d-flex align-self-center me-3 shadow-1-strong"
-                                                        width="60"
-                                                    />
-                                                    <div class="pt-1">
-                                                        <p class="fw-bold mb-0">{{$user->name}} {{$user->second_name}}</p>
+                                                        <img
+                                                            src="{{ route('get-file',['path'=>$user->roles[0]->avatar]) }}"
+                                                            alt="avatar"
+                                                            class="rounded-circle d-flex align-self-center me-3 shadow-1-strong"
+                                                            width="60"
+                                                        />
+                                                        <div class="pt-1">
+                                                            <p class="fw-bold mb-0">{{$user->name}} {{$user->second_name}}</p>
+                                                        </div>
                                                     </div>
+                                                    <div class="pt-1" id="user_{{$user->id}}">
+                                                        @if ($user->written_new_messages_count() > 0)
+                                                            <span class="badge bg-danger float-end"> {{ $user->written_new_messages_count() }} </span>
+                                                        @endif
                                                     </div>
-                                                    {{-- <div class="pt-1">
-                                                        <span class="badge bg-danger float-end">1</span>
-                                                    </div> --}}
                                                 </a>
                                                 </li>
 
@@ -89,5 +92,13 @@
             </section>
         </div>
     </div>
+@endsection
+@section('js-scripts')
+    <script>
+        let user_id = "{{auth()->user()->id}}";
+        let room_id = "{{$room->id}}"
+    </script>
+    <script src="{{ asset('assets/back/js/unread-messages.js') }}"></script>
+
 @endsection
 

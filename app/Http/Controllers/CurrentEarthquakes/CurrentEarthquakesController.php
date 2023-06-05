@@ -48,10 +48,10 @@ class CurrentEarthquakesController extends Controller
         $current_earthquakes = $current_earthquakes
             ->with('current_earthquakes_translations', function ($query) {
                 return $query->where('language_id', 1);
-            })->paginate(6)->withQueryString();
+            })->paginate(2)->withQueryString();
 
         return view('current-earthquakes.index', compact("current_earthquakes"))
-            ->with('i', ($request->input('page', 1) - 1) * 6);
+            ->with('i', ($request->input('page', 1) - 1) * 2);
     }
 
     /**

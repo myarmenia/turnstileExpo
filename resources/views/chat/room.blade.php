@@ -59,13 +59,13 @@
                                                         <i class="far fa-clock"></i> {{$message->getTime()}}
                                                     </p>
                                                 </div>
-                                                <div class="card-body">
-                                                    <p class="mb-0">{{$message->content}} </p>
+                                                <div class="card-body mt-2">
                                                     @if ($message->file)
-                                                        <div>
+                                                        <div class="file-div">
                                                             <a href="{{ route('get-file',['path'=>$message->file]) }}" download><i class="bi bi-box-arrow-down"></i> File</a>
                                                         </div>
                                                     @endif
+                                                    <p class="mb-0" mt-3>{{$message->content}} </p>
                                                 </div>
                                             </div>
                                         </li>
@@ -78,13 +78,13 @@
                                                         <i class="far fa-clock"></i> {{$message->getTime()}}
                                                     </p>
                                                 </div>
-                                                <div class="card-body">
-                                                    <p class="mb-0">{{$message->content}}</p>
+                                                <div class="card-body mt-2">
                                                     @if ($message->file)
-                                                        <div class="mb-2">
+                                                        <div class="mb-2 file-div">
                                                             <a href="{{ route('get-file',['path'=>$message->file]) }}" download><i class="bi bi-box-arrow-down"></i> File</a>
                                                         </div>
                                                     @endif
+                                                    <p class="mb-0 mt-3">{{$message->content}}</p>
                                                 </div>
                                             </div>
                                             <img
@@ -126,7 +126,7 @@
                                     </label>
                                     <input type="file" id="file-up" class="d-none" name="file">
 
-                                    <button type="submit" class="send_message">
+                                    <button type="submit" class="send_message" id="send_btn">
                                         <i
                                             class="bi bi-send icon_send ms-3"
                                             style="cursor: pointer"
@@ -156,23 +156,25 @@
 
                             <ul class="list-unstyled mb-0 scroll_ul">
                                 @foreach ($users as $user)
-                                    <li class="p-2 border-bottom">
+                                    <li class="p-2 border-bottom {{$room->active_user() == $user->id ? ' active_user' : ''}}">
                                         {{-- {{dd($user->room_users)}} --}}
                                         <a href="{{ route('check_room', $user->id)}}" class="d-flex justify-content-between">
                                             <div class="d-flex flex-row">
-                                            <img
-                                                src="{{ route('get-file',['path'=>$user->roles[0]->avatar]) }}"
-                                                alt="avatar"
-                                                class="rounded-circle d-flex align-self-center me-3 shadow-1-strong"
-                                                width="60"
-                                            />
-                                            <div class="pt-1">
-                                                <p class="fw-bold mb-0">{{$user->name}} {{$user->second_name}} </p>
+                                                <img
+                                                    src="{{ route('get-file',['path'=>$user->roles[0]->avatar]) }}"
+                                                    alt="avatar"
+                                                    class="rounded-circle d-flex align-self-center me-3 shadow-1-strong"
+                                                    width="60"
+                                                />
+                                                <div class="pt-1">
+                                                    <p class="fw-bold mb-0">{{$user->name}} {{$user->second_name}} </p>
+                                                </div>
                                             </div>
+                                            <div class="pt-1" id="user_{{$user->id}}">
+                                                @if ($user->written_new_messages_count() > 0)
+                                                    <span class="badge bg-danger float-end"> {{ $user->written_new_messages_count() }} </span>
+                                                @endif
                                             </div>
-                                            {{-- <div class="pt-1">
-                                                <span class="badge bg-danger float-end">1</span>
-                                            </div> --}}
                                         </a>
                                         </li>
                                 @endforeach
@@ -192,5 +194,6 @@
          let room_id = "{{$room->id}}"
     </script>
     <script src="{{ asset('assets/back/js/chat.js') }}"></script>
+    <script src="{{ asset('assets/back/js/unread-messages.js') }}"></script>
 
 @endsection
