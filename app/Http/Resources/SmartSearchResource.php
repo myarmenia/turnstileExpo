@@ -15,7 +15,7 @@ class SmartSearchResource extends JsonResource
     public function toArray($request)
     {
 
-        $arr = ['press_release', 'current_earthquake', 'news', 'map_region_info_id'];
+        $arr = ['press_release', 'current_earthquake', 'news', 'map_region_info'];
 
         $data =  [
             'title' => $this['title'],

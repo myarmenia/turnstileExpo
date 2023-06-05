@@ -51,7 +51,7 @@ class PressReleaseVideosController extends Controller
 
         foreach ($request->links as $k => $link) {
 
-            if($link['link'] != null) {
+            if ($link['link'] != null) {
                 $validate["links.$k.title.*"] = 'required';
             }
 
@@ -62,7 +62,6 @@ class PressReleaseVideosController extends Controller
                     $validate["links.$k.link"] = 'required';
                 }
             }
-
         }
 
         $validator = Validator::make($request->all(), $validate);
@@ -73,34 +72,34 @@ class PressReleaseVideosController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // foreach ($request->links as $link_key => $link) {
+        foreach ($request->links as $link_key => $link) {
 
-        //     if ($link['link'] != null) {
-        //         if (str_contains($link['link'], 'youtube.com/watch?v=')) {
-        //             $pl_list = str_replace('https://www.youtube.com/watch?v=', '', $link['link']);
-        //             $playlist = explode('&', $pl_list)[0];
-        //             $video_iframe = "<iframe width='460' height='165' src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
-        //         }
-        //         if (str_contains($link['link'], 'youtu.be/')) {
-        //             $playlist = explode('youtu.be/', $link['link'])[1];
-        //             $video_iframe = "<iframe width='460' height='165' src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
-        //         }
+            if ($link['link'] != null) {
+                if (str_contains($link['link'], 'youtube.com/watch?v=')) {
+                    $pl_list = str_replace('https://www.youtube.com/watch?v=', '', $link['link']);
+                    $playlist = explode('&', $pl_list)[0];
+                    $video_iframe = "<iframe width='460' height='165' src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+                }
+                if (str_contains($link['link'], 'youtu.be/')) {
+                    $playlist = explode('youtu.be/', $link['link'])[1];
+                    $video_iframe = "<iframe width='460' height='165' src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+                }
 
-        //         $created_video_link = VideoLink::create([
-        //             'video_iframe' => $video_iframe,
-        //             'link' => $link['link']
-        //         ]);
-        //     }
-        //     foreach ($link['title'] as $title_key => $title) {
-        //         if ($title != null) {
-        //             VideoLinkTranslation::create([
-        //                 'video_link_id' => $created_video_link->id,
-        //                 'language_id' => $title_key,
-        //                 'title' => $title,
-        //             ]);
-        //         }
-        //     }
-        // }
+                $created_video_link = VideoLink::create([
+                    'video_iframe' => $video_iframe,
+                    'link' => $link['link']
+                ]);
+            }
+            foreach ($link['title'] as $title_key => $title) {
+                if ($title != null) {
+                    VideoLinkTranslation::create([
+                        'video_link_id' => $created_video_link->id,
+                        'language_id' => $title_key,
+                        'title' => $title,
+                    ]);
+                }
+            }
+        }
 
         return redirect('press-release-videos');
     }
@@ -140,6 +139,10 @@ class PressReleaseVideosController extends Controller
         $validate = [];
 
         foreach ($request->links as $k => $link) {
+
+            if ($link['link'] != null) {
+                $validate["links.$k.title.*"] = 'required';
+            }
 
             foreach ($link['title'] as $p => $title) {
 
