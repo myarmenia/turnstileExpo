@@ -37,6 +37,6 @@ class ChatMessage extends Model
 
     public function getTime()
     {
-        return Carbon::parse($this->created_at)->format('d-m-Y H:i:s');
+        return Carbon::parse($this->created_at)->format('d-m-Y H:i');
     }
 }

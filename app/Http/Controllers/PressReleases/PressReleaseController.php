@@ -66,10 +66,10 @@ class PressReleaseController extends Controller
             $press_releases = $press_releases->whereIn('id', $press_release_ids);
         }
 
-        $press_releases = $press_releases->paginate(6)->withQueryString();
+        $press_releases = $press_releases->paginate(10)->withQueryString();
 
         return view('press-release.index', compact('press_releases', 'lng_id'))
-            ->with('i', ($request->input('page', 1) - 1) * 6);
+            ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**
