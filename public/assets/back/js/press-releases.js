@@ -92,6 +92,12 @@ function removeFile(e){
 
     e.target.parentNode.remove()
 }
+const removeElemnet = (a) => {
+    if(document.querySelectorAll(".delete_link").length>1){
+      
+        a.parentElement.parentElement.remove()
+    }
+}
 
 add_link.addEventListener('click', function(){
     let content = `<div><div class="col-lg-6 mr-3 d-flex mt-2 link_div">

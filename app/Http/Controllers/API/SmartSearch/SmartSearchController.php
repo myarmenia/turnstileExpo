@@ -57,7 +57,6 @@ class SmartSearchController extends BaseController
                 ->orWhere('description', 'like', '%' . $search . '%');
         })->get()->toArray();
 
-        
         $data = array_merge($current_earthquakes, $press_release, $news, $region);
 
         $data = collect($data)->sortBy('created_at')->all();
@@ -68,7 +67,7 @@ class SmartSearchController extends BaseController
                $this->sendResponse(SmartSearchResource::collection($data), 'success', $data->lastPage());
     }
 
-    public function paginate($items, $perPage = 1, $page = null)
+    public function paginate($items, $perPage = 10, $page = null)
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $total = count($items);

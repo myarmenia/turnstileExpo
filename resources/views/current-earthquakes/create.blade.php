@@ -97,7 +97,7 @@
                                     <div class=" col-lg-6 mr-3 d-flex mt-2">
                                         <input type="url" class="form-control {{ $item == null ? '_incorrectly' : ''}}"
                                             name="links[]" value="{{$item ?? ''}}">
-                                        <i class="icon ri-delete-bin-2-line remove_link"></i>
+                                        <i class="icon ri-delete-bin-2-line delete_link" onclick="removeElemnet(this)"></i>
                                     </div>
                                     @if ($item == null)
                                     <div class="error_message">The link field is required. </div>
@@ -108,7 +108,7 @@
                                 <div class=" col-lg-6 mr-3 d-flex">
                                     <input type="url" class="form-control @error('links.*') _incorrectly @enderror"
                                         name="links[]">
-                                    <i class="icon ri-delete-bin-2-line remove_link"></i>
+                                    <i class="icon ri-delete-bin-2-line delete_link" onclick="removeElemnet(this)"></i>
                                 </div>
                                 @endif
                             </div>
