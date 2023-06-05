@@ -11,6 +11,7 @@ use App\Models\RegionInfoTranslation;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class GlobalMonitoringController extends Controller
@@ -48,7 +49,6 @@ class GlobalMonitoringController extends Controller
     {
 // dd($request->all());
             $validate = [
-
                 "image_path" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
                 "schema_path" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
                 "translations.*.title"=> "required",
@@ -97,8 +97,6 @@ class GlobalMonitoringController extends Controller
             }
 
             return redirect()->back();
-
-
 
     }
 
@@ -168,6 +166,9 @@ class GlobalMonitoringController extends Controller
         }
 
         if($request->has('image_path')){
+
+            Storage::delete($map_region_info->image_path);
+
             $path=FileUploadService::upload($request->image_path,'region_info/'.$id);
             $map_region_info->image_path=$path;
             $map_region_info->save();
@@ -175,6 +176,9 @@ class GlobalMonitoringController extends Controller
         }
 
         if($request->has('schema_path')){
+
+            Storage::delete($map_region_info->schema_path);
+
             $path=FileUploadService::upload($request->schema_path,'region_info/'.$map_region_info->id);
             $map_region_info->schema_path=$path;
             $map_region_info->save();
@@ -191,6 +195,8 @@ class GlobalMonitoringController extends Controller
             $map_region_info->files()->delete();
 
             foreach ($request->region_info_files as $key => $item) {
+
+
 
                 $f_extension = $item->getClientOriginalExtension();
                 $type="image";

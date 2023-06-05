@@ -15,6 +15,7 @@ use App\Http\Controllers\Feedback\FeedbackController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Admin\Profile\DashboardController;
 use App\Http\Controllers\Banner\BannerController;
+use App\Http\Controllers\Banner\RunningTextController;
 use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\ContactInfo\EditController;
 use App\Http\Controllers\PressReleases\PressReleaseController;
@@ -88,6 +89,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::resource('banner',BannerController::class);
+    Route::resource('running-text',RunningTextController::class);
+
 
 
 });

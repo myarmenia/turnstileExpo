@@ -9,9 +9,9 @@
               <h1>News</h1>
               <nav>
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li class="breadcrumb-item">News</li>
-                  <li class="breadcrumb-item active">Create</li>
+                  <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                  <li class="breadcrumb-item"><a href="{{route('news.index')}}">News</a></li>
+                  <li class="breadcrumb-item active"><a href="{{route('news.create')}}">Create</a></li>
                 </ol>
               </nav>
             </div><!-- End Page Title -->
@@ -68,13 +68,13 @@
                 @foreach (languages() as  $lng)
                     <div class="col-12">
                         <label for="inputNanme4" class="form-label">Button {{$lng->name}}</label>
-                        <input type="text" class="form-control @error('button_text_{{$lng->name}}') _incorrectly @enderror" name="translations[{{$lng->id}}][button_text]"  value="{{ old('button_text_$lng->name')}}">
+                        <input type="text" class="form-control @error("translations.$lng->id.button_text") _incorrectly @enderror" name="translations[{{$lng->id}}][button_text]"   value="{{ old("translations.$lng->id.button_text")}}">
                     </div>
                     @error("translations.$lng->id.button_text")
                         <div class="error_message"> {{ $message }} </div>
                     @enderror
                 @endforeach
-                  <div class="text-center">
+                  <div class="text-left">
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
                 </form>

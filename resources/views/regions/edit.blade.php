@@ -6,12 +6,12 @@
 @endsection
 @section('content')
             <div class="pagetitle">
-              <h1>Edit Region</h1>
+              <h1>Edit Map Region Info </h1>
               <nav>
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li class="breadcrumb-item">News</li>
-                  <li class="breadcrumb-item active">Create</li>
+                    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('global-monitoring.index')}}">Region Info</a></li>
+                    <li class="breadcrumb-item"><a href="">Edit  </a></li>
                 </ol>
               </nav>
             </div><!-- End Page Title -->
@@ -19,10 +19,10 @@
     {{-- ========== --}}
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Edit Region</h5>
+                <h5 class="card-title">Edit Map Region Info </h5>
 
                 <!-- News Form -->
-{{-- {{dd($map_region_info->id)}} --}}
+
                 <form class="row g-3" action="{{ route('global-monitoring.update', $map_region_info->id) }}" method="POST" enctype="multipart/form-data">
                     @method('PUT')
 
@@ -109,7 +109,7 @@
                         </div>
                     @endif
 
-                  <div class="text-center">
+                  <div class="text-left">
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
                 </form>
