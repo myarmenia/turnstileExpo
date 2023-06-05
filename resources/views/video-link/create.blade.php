@@ -52,7 +52,7 @@
                                     <label for="link_{{ $i }}" class="form-label">Youtube Link</label>
                                     <input type="text" class='form-control @error("links.$i.link") _incorrectly @enderror' id="link_{{ $i }}"
                                         name="links[{{ $i }}][link]"
-                                        value='{{ old("translations.$lng->id.title")}}'>
+                                        value='{{ old("links.$i.link")}}'>
                                     @error("links.$i.link")
                                     <div class="error_message"> {{ $message }} </div>
                                     @enderror

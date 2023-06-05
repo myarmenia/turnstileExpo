@@ -83,10 +83,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('room/{id}', [ChatController::class, 'room'])->name('room');
     Route::post('room/{id}/message-store', [ChatController::class, 'message_store'])->name('message_store');
 
-
-
     Route::resource('banner',BannerController::class);
-
 
 });
 
