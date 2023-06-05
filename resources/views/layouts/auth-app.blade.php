@@ -11,6 +11,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
@@ -25,9 +26,14 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     @yield('link')
-    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
+    
+    @vite(['resources/js/app.js'])
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
     @yield('scripts')
+
+    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
+
     <!-- Scripts -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
 </head>
@@ -120,6 +126,11 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script>
+        let user_id = "{{auth()->user()->id}}";
+    </script>
+    <script src="{{ asset('assets/back/js/all-unread-messages.js') }}"></script>
+
     @yield('js-scripts')
 
 </body>
