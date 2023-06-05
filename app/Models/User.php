@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
@@ -56,8 +57,21 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(RoomUsers::class);
     }
 
-    public function chat_messages(){
+    public function messages(){
         return $this->hasMany(ChatMessage::class);
+    }
+
+    // written_new_messages_count for auth user by roommate
+    public function written_new_messages_count(){
+        return $this->messages()->where('to_user_id', Auth::id())->where('read', 0)->get()->count();
+    }
+
+    public function unread_messages(){
+        return ChatMessage::where('to_user_id', Auth::id())->where('read', 0)->get();
+    }
+
+    public function all_unread_messages(){
+        return $this->messages->where('user_id', '!=', Auth::id())->where('read', 0)->get();
     }
 
     /**

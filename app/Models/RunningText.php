@@ -13,4 +13,10 @@ class RunningText extends Model
         'content',
         'link',
     ];
+
+  
+    public function translation($lng_id)
+    {
+        return RunningText::where('language_id', $lng_id)->first();
+    }
 }
