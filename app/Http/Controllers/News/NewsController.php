@@ -18,6 +18,14 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(Request $request)
+    {
+
+        $request['table'] = 'news';
+        $this->middleware('editor', ['only' => ['edit', 'update']]);
+
+    }
+
     public function index(Request $request)
     {
 
@@ -61,20 +69,22 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
-
         $validate = [
-
-                    "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
-                    "translations.*.title"=> "required",
-                    "translations.*.description"=> "required",
-
+            "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
+            "translations.*.title"=> "required",
+            "translations.*.description"=> "required",
         ];
-        if($request->button_link!=null || $request['translations.*.button_text']!=null ){
 
+        if($request->button_link!=null ){
             $validate['button_link']="required|url";
             $validate["translations.*.button_text"]="required";
+        }
+
+        foreach($request->translations as $item){
+            if($item['button_text']!=null && $request->button_link==null){
+                $validate['button_link']="required|url";
+                $validate["translations.*.button_text"]="required";
+            }
         }
 
         $validator = Validator::make($request->all(), $validate);
@@ -83,11 +93,9 @@ class NewsController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // dd($request->all());
         $news = News::create([
             'image'=>'',
             'editor_id'=>Auth::id(),
-
 
         ]);
         if($news){
@@ -98,30 +106,29 @@ class NewsController extends Controller
             foreach($request->translations as $key=>$item){
 
                 $news_translate = NewsTranslation::create([
-                    "news_id"=>$news->id,
-                    "language_id"=>$key,
-                    "title"=>$item['title'],
-                    "description"=>$item['description'],
+                    "news_id" => $news->id,
+                    "language_id" => $key,
+                    "title" => $item['title'],
+                    "description" => $item['description'],
                 ]);
                 if($item['button_text']!=null){
-                    $update_news_translate=NewsTranslation::where('id',$news_translate->id)->first();
-                    $update_news_translate->button=$item['button_text'];
+                    $update_news_translate = NewsTranslation::where('id',$news_translate->id)->first();
+                    $update_news_translate->button = $item['button_text'];
                     $update_news_translate->save();
 
                 }
 
             }
-            if($request->button_link!=null || $request['translations.*.button_text']!=null ){
-                $news_update=News::where('id',$news->id)->first();
-                $news_update->button_link=$request->button_link;
-                $news_update->save();
 
-
+            if($request->button_link!=null ){
+                $news->button_link = $request->button_link;
+                $news->save();
             }
 
 
-            return redirect('/news');
+
         }
+        return redirect('news');
 
 
 
@@ -147,9 +154,9 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $news=News::where('id',$id)->with('news_translations')->first();
-        $news_translation=NewsTranslation::where('news_id',$id)->with('languages')->get();
-        return view('news.edit',compact('news','news_translation'));
+        $news=News::where('id',$id)->first();
+
+        return view('news.edit',compact('news'));
     }
 
     /**
@@ -161,34 +168,38 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-// dd($request->all());
-            $validate = [
 
-                // "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
-                "translations.*.title"=> "required",
-                "translations.*.description"=> "required",
+        $validate = [
 
-            ];
-            if($request->button_link!=null || $request['translations.*.button_text']!=null ){
+            "translations.*.title"=> "required",
+            "translations.*.description"=> "required",
 
+        ];
+        if($request->button_link!=null ){
+
+            $validate['button_link']="required|url";
+            $validate["translations.*.button"]="required";
+        }
+        foreach($request->translations as $item){
+            if($item['button']!=null && $request->button_link==null){
                 $validate['button_link']="required|url";
-                $validate["translations.*.button_text"]="required";
+                $validate["translations.*.button"]="required";
             }
-            if($request->has('image')){
-                $validate['image']="required | mimes:jpeg,jpg,png,PNG | max:10000";
-            }
+        }
+        if($request->has('image')){
+            $validate['image']="required | mimes:jpeg,jpg,png,PNG | max:10000";
+        }
 
-            $validator = Validator::make($request->all(), $validate);
+        $validator = Validator::make($request->all(), $validate);
 
+        if($validator->fails()) {
 
-            if($validator->fails()) {
-                // dd($validator->messages());
-
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-        $news=News::where('id',$id)->first();
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $news=News::find($id);
 
         if($request->has('image')){
+
             Storage::delete($news->image);
             $path=FileUploadService::upload($request->image,'news/'.$id);
             $news->image=$path;
@@ -199,37 +210,11 @@ class NewsController extends Controller
             $news->button_link=$request->button_link;
             $news->save();
         }
-
-
         foreach($request->translations as $key=>$item){
-            $news_translation = NewsTranslation::where(['news_id'=>$id,'language_id' =>$key])->first();
-            // dd($item);
-            if($item['title']!=null){
-                $news_translation->title=$item['title'];
-                $news_translation->save();
 
-            }
-            if($item['description']!=null){
-                $news_translation->description=$item['description'];
-                $news_translation->save();
-
-            }
-            if($item['button_text']!=null){
-                $news_translation->button=$item['button_text'];
-                $news_translation->save();
-
-            }
+            $news->translation($key)->update($item);
         }
-
-
-
-        // if($news){
-
-            $news=News::where('id',$id)->first();
-            $news_translation=NewsTranslation::where('news_id',$id)->with('languages')->get();
-            return view('news.edit',compact('news','news_translation'));
-
-        // }
+        return redirect()->back();
     }
 
 

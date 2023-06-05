@@ -31,6 +31,7 @@ class PressReleaseController extends Controller
 
         $lng_id = Language::where('name', 'en')->first()->id;
         $this->lng_id = $lng_id;
+        // dd($request->all());
     }
     /**
      * Display a listing of the resource.

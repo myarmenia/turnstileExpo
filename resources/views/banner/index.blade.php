@@ -9,8 +9,8 @@
     <h1>Banner</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item">Banner</li>
+        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{route('banner.index')}}">Banner</a></li>
       </ol>
     </nav>
   </div>
@@ -18,11 +18,25 @@
 
   <div class="card pt-4">
     <div class="card-body">
+        <div class="d-flex justify-content-between my-2">
+            {{-- <div class="w-75">
+                @if ($message = Session::get('permission_denied'))
+                    <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                        {{$message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+            </div> --}}
+
+        </div>
+        @if ( $running_text==null)
+                <div style="display: flex; justify-content: flex-end;margin:15px 0">
+                    <a href="{{route('running-text.create')}}" class="btn btn-primary">Create Running row</a>
+                </div>
+            @endif
       <!-- Primary Color Bordered Table -->
 
-      <div style="display: flex; justify-content: flex-end;margin:15px 0">
-        <a href="{{route('banner.create')}}" class="btn btn-primary">Create Running row</a>
-      </div>
+
       <div>
 
       </div>
@@ -36,26 +50,23 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($banner as $item )
-
-
-          <tr>
-            <th scope="row">{{$item->id}}</th>
-            <td style="max-width: 300px !important">
-              {!!$item->banner_tranlations->content !!}
-            </td>
-            <td><img src="{{ route('get-file',['path'=>$item->path])}}" style="height:70px;width:70px"> </td>
-
-            <td>
-              <div style="display: flex !important">
-                <a href="{{route('banner.edit', $item->id)}}"><i class="bi bi-pencil-square action_i"></i></a>
-                <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"
-                  onclick="create_request_route(`news`, {{$item->id}})"></i>
-
-              </div>
-            </td>
-          </tr>
-          @endforeach
+            @if ($running_text!=null)
+                <tr>
+                    <th scope="row">1</th>
+                    <td style="max-width: 300px !important">
+                        {{  $running_text->content }}
+                    </td>
+                    <td>
+                        <a href="{{$running_text->link}}">link</a>
+                    <td>
+                    <div style="display: flex !important">
+                        @if ($running_text!=null)
+                            <a href="{{route('running-text.edit', $running_text->id)}}"><i class="bi bi-pencil-square action_i"></i></a>
+                        @endif
+                    </div>
+                    </td>
+                </tr>
+            @endif
         </tbody>
       </table>
       <!-- End Primary Color Bordered Table -->
@@ -82,24 +93,25 @@
         </thead>
         <tbody>
           @foreach ($banner as $item )
+            <tr>
+                <th scope="row">{{++$i}}</th>
+                <td style="max-width: 300px !important">
+                {{$item->banner_tranlations->content }}
+                </td>
+                <td><img src="{{ route('get-file',['path'=>$item->path])}}" style="height:70px;width:70px"> </td>
+
+                <td>
+                <div style="display: flex !important">
+                    <a href="{{route('banner.edit', $item->id)}}"><i class="bi bi-pencil-square action_i"></i></a>
+                    @if(auth()->user()->hasRole('Admin'))
+                        <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"
+                        onclick="create_request_route(`news`, {{$item->id}})"></i>
+                    @endif
 
 
-          <tr>
-            <th scope="row">{{$item->id}}</th>
-            <td style="max-width: 300px !important">
-              {!!$item->banner_tranlations->content !!}
-            </td>
-            <td><img src="{{ route('get-file',['path'=>$item->path])}}" style="height:70px;width:70px"> </td>
-
-            <td>
-              <div style="display: flex !important">
-                <a href="{{route('banner.edit', $item->id)}}"><i class="bi bi-pencil-square action_i"></i></a>
-                <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"
-                  onclick="create_request_route(`news`, {{$item->id}})"></i>
-
-              </div>
-            </td>
-          </tr>
+                </div>
+                </td>
+            </tr>
           @endforeach
         </tbody>
       </table>

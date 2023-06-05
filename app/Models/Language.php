@@ -12,10 +12,10 @@ class Language extends Model
     protected $fillable=[
         'name'
     ];
-    public function news_translations()
-    {
-        return $this->hasMany(NewsTranslation::class);
-    }
+    // public function news_translations()
+    // {
+    //     return $this->hasMany(NewsTranslation::class);
+    // }
     public function region_translations()
     {
         return $this->hasMany(RegionTranslation::class);
@@ -24,4 +24,5 @@ class Language extends Model
     {
         return $this->hasMany(RegionInfoTranslation::class);
     }
+
 }

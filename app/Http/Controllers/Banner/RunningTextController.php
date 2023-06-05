@@ -3,31 +3,20 @@
 namespace App\Http\Controllers\Banner;
 
 use App\Http\Controllers\Controller;
-use App\Models\Banner;
-use App\Models\BannerTranlation;
 use App\Models\RunningText;
-use App\Services\FileUploadService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class BannerController extends Controller
+class RunningTextController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-   
     public function index()
     {
-        $i=0;
-        $banner=Banner::all();
-
-        $running_text=RunningText::first();
-
-
-        return view('banner.index',compact('banner','running_text','i'));
+        //
     }
 
     /**
@@ -37,7 +26,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('banner.create');
+        return view('banner.create_run');
     }
 
     /**
@@ -48,40 +37,30 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
+
         // dd($request->all());
         $validate=[
-            'translations.*.content'=>'required',
-            'path' => "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:2048",
 
+            'running_text.*.content'=>'required',
+            'running_link'=>'required|url',
         ];
         $validator = Validator::make($request->all(), $validate);
+
         if ($validator->fails()) {
-            // return response()->json(['errors'=>$validator->errors()], 404);
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $banner=Banner::create([
-            'path'=>$request->path
-        ]);
-
-        $banner=Banner::find($banner->id);
-
-        $path=FileUploadService::upload($request->path,'banner/'.$banner->id);
-        $banner->path= $path;
-        $banner->save();
-
-        foreach($request->translations as $key=>$item){
-
-            $banner_translate = BannerTranlation::create([
-                'banner_id'=>$banner->id,
+        foreach($request->running_text as $key=>$item){
+            // dd($item);
+            $running_text=RunningText::create([
                 'language_id'=>$key,
-                'content'=>$item['content']
+                'content'=>$item['content'],
+                'link'=>$request->running_link,
             ]);
-
         }
-        return redirect('banner');
 
 
+           return redirect('/banner');
 
     }
 
@@ -104,10 +83,9 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        $banner = Banner::where('id',$id)->first();
 
-        return view('banner.edit',compact('banner'));
-
+        $running_text=RunningText::all();
+        return view('banner.edit_run',compact('running_text','id'));
     }
 
     /**
@@ -119,39 +97,26 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
-
-
-        $banner = Banner::find($id);
 
         $validate = [
-            "translations.*.content"=> "required",
+
+            "running_text.*.content"=> "required",
+            "running_link"=>"required | url"
+
         ];
-
-        if($request->has('path')) {
-            $validate['path']="required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:2048";
-        }
-
         $validator = Validator::make($request->all(), $validate);
 
         if($validator->fails()) {
 
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        foreach($request->translations as $key=>$item){
 
-            $banner->translation($key)->update($item);
+        foreach($request->running_text as $key=>$item){
 
-        }
-
-        if($request->has('path')){
-            Storage::delete($banner->path);
-            $path=FileUploadService::upload($request->path,'banner/'.$id);
-            $banner->path=$path;
-            $banner->save();
+            $running_text=RunningText::where('language_id',$key)->update(['content'=>$item['content'],'link'=>$request->running_link]);
 
         }
-        return redirect()->back();
+        return redirect('/running-text/'.$id.'/edit');
 
     }
 
