@@ -20,7 +20,7 @@
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('press-release-videos.*') ? '' : ' collapsed' }}"
                 href="{{route('press-release-videos.index')}}">
-                <i class="ri-file-list-2-line"></i>
+                <i class="ri-play-circle-line"></i>
                 <span>Press Release Videos</span>
             </a>
         </li>
@@ -32,9 +32,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('news.*') ? '' : ' collapsed' }}"
+            <a class="nav-link {{ request()->routeIs('global-monitoring.*') ? '' : ' collapsed' }}"
                 href="{{route('global-monitoring.index')}}">
-                <i class="bx bx-news"></i>
+                <i class="ri-earth-fill"></i>
                 <span>Global Monitoring</span>
             </a>
         </li>
@@ -42,7 +42,7 @@
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('regional-monitoring.*') ? '' : ' collapsed' }}"
                 href="{{route('regional-monitoring.index')}}">
-                <i class="bx bx-news"></i>
+                <i class="ri-map-pin-2-line"></i>
                 <span>Regional Monitoring</span>
             </a>
         </li>
@@ -72,7 +72,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('chat.*') ? '' : ' collapsed' }}" href="{{route('chat')}}">
-                <i class="ri-file-list-2-line"></i>
+                <i class="ri-chat-2-line"></i>
                 <span>Chat</span>
             </a>
         </li>
@@ -97,7 +97,7 @@
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.users.*') ? '' : ' collapsed' }}"
                 href="{{route('admin.users.index')}}">
-                <i class="ri-file-list-2-line"></i>
+                <i class="ri-user-2-line"></i>
                 <span>Users</span>
             </a>
         </li>

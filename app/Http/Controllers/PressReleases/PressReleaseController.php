@@ -44,11 +44,13 @@ class PressReleaseController extends Controller
         $press_releases = PressRelease::orderBy('id', 'DESC');
 
         if ($request->from) {
-            $press_releases = $press_releases->where('date', '>=', $request->from);
+            $from = date('Y-m-d', strtotime($request->from));
+            $press_releases = $press_releases->where('date', '>=', $from);
         }
 
         if ($request->to) {
-            $press_releases = $press_releases->where('date', '<=', $request->to);
+            $to = date('Y-m-d', strtotime($request->to));
+            $press_releases = $press_releases->where('date', '<=', $to);
         }
 
         if ($request->status) {

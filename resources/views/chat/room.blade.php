@@ -10,8 +10,8 @@
         <h1>Chat</h1>
         <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{route('press-release.index')}}">Home</a></li>
-            <li class="breadcrumb-item">Room
+            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+            <li class="breadcrumb-item active">Room
 
             </li>
         </ol>

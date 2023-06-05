@@ -14,6 +14,7 @@ use App\Http\Controllers\API\News\NewsController;
 use App\Http\Controllers\API\PressReleases\FilterController as PressReleasesFilterController;
 use App\Http\Controllers\API\PressReleases\PressReleaseController;
 use App\Http\Controllers\API\RegionalMonitoring\RegionalMonitoringController;
+use App\Http\Controllers\API\SmartSearch\SmartSearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,7 @@ Route::get('current-earthquakes-filter', [FilterController::class, 'filter']);
 
 Route::get('press-releases-filter', [PressReleasesFilterController::class, 'filter']);
 
+Route::get('smart-search', [SmartSearchController::class, 'index']);
 
 Route::get('map-region-info/{id}',[MapRegionController::class,'mapRegionInfo']);
 Route::get('region-info/{id}',[MapRegionController::class,'regionInfo']);
