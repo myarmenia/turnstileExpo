@@ -8,7 +8,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('press-release.index')}}">Press Release</a></li>
+                <li class="breadcrumb-item active">Press Release</li>
             </ol>
         </nav>
     </div>
@@ -75,7 +75,7 @@
                         <td style="max-width: 300px !important">
                             {!! $release->translation($lng_id)->description !!}
                         </td>
-                        <td>{{ date('d-m-Y', strtotime($release->date))}}</td>
+                        <td>{{ date('d-m-Y', strtotime($release->date)) }}</td>
                         <td>{{$release->editor->name}}</td>
                         <td>{{ $release->status }}</td>
                         <td class="px-1">

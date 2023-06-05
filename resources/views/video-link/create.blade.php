@@ -10,8 +10,8 @@
     <h1>Press Release Videos</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item">Press Release Videos</li>
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item active">Press Release Videos</li>
         </ol>
     </nav>
 </div><!-- End Page Title -->

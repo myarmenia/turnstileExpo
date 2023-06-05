@@ -11,8 +11,8 @@
     <h1>Current Earthquakes</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item">Current Earthquakes</li>
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item active">Current Earthquakes</li>
         </ol>
     </nav>
 </div>
@@ -21,7 +21,15 @@
 <div class="card pt-4">
     <div class="card-body">
         <!-- Primary Color Bordered Table -->
-        <div style="display: flex; justify-content: flex-end">
+        <div style="display: flex; justify-content:space-between">
+            <div class="w-75">
+                @if ($message = Session::get('permission_denied'))
+                <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                    {{$message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+            </div>
             <a href="{{  route('current-earthquakes.create') }}">
                 <h5 class="card-title shadow-sm rounded" style="
                                 border: 1px solid #0d6efd;
@@ -94,6 +102,7 @@
                     <th scope="col">Magnitude</th>
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
+                    <th scope="col">Moderator</th>
                     <th scope="col">Status</th>
                     <th scope="col" style="width: 80px !important">Actions</th>
                 </tr>
@@ -109,14 +118,16 @@
                         {!! $current_earthquake->current_earthquakes_translations[0]->description !!}
                     </td>
                     <td>{{ $current_earthquake->magnitude }}</td>
-                    <td>{{ $current_earthquake->date }}</td>
+                    <td>{{ date('d-m-Y', strtotime($current_earthquake->date))}}</td>
                     <td>{{ $current_earthquake->time }}</td>
+                    <td>{{ $current_earthquake->editor->name }}</td>
                     <td>{{ $current_earthquake->status }}</td>
                     <td class="px-0">
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('current-earthquakes.edit', $current_earthquake->id) }}">
                                 <i class="bi bi-pencil-square action_i"></i>
                             </a>
+                            @role('Admin')
                             <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"
                                 onclick="create_request_route(`current-earthquakes`, {{$current_earthquake->id}})"></i>
                             <a
@@ -127,6 +138,7 @@
                                     data-bs-original-title="{{ $current_earthquake->status == 'confirmed' ? 'Confirmed' : 'Change status to confirmed'}}">
                                 </i>
                             </a>
+                            @endrole
                         </div>
                     </td>
                 </tr>

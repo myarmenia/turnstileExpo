@@ -14,6 +14,7 @@ class RegionalMonitoringResource extends JsonResource
      */
     public function toArray($request)
     {
+
         $data =  [
             'id' => $this->id,
             'title' => $this->translation($request->lng_id)->title,
