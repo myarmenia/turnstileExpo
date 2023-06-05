@@ -7,7 +7,7 @@
     <h1>Press Release</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
             <li class="breadcrumb-item"><a href="{{route('press-release.index')}}">Press Release</a></li>
             <li class="breadcrumb-item active">Edit</li>
         </ol>

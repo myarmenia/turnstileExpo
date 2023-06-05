@@ -21,9 +21,6 @@ class NewsTranslation extends Model
     {
         return $this->belongsTo(News::class,'news_id');
     }
-    public function languages()
-    {
-        return $this->belongsTo(Language::class,'language_id');
-    }
+   
 
 }

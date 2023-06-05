@@ -22,6 +22,7 @@ class Editor
 
         $data = null;
         $params = $request->route()->parameters();
+
         $route = explode('.', request()->route()->getName())[0];
 
         foreach ($params as $key => $value) {

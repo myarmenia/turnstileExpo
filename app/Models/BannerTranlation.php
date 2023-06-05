@@ -13,7 +13,7 @@ class BannerTranlation extends Model
         'language_id',
         'content',
     ];
-    
+
     public function banners()
     {
         return $this->belongsTo(Banner::class,'banner_id');

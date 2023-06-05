@@ -18,6 +18,15 @@ class DeleteItemService
         if($type == 'file'){
             // Storage::delete($item->first()->path);
         }
+        if($type == 'image'){
+            $item_region= DB::table($table)->find($id);
+
+             Storage::delete($item_region->path);
+            //  $item_region->files()->delete();
+             $item_region->files()->detach();
+        }
+
+
         $deleted = $item->delete();
         return $deleted ? true : false;
     }
@@ -33,7 +42,7 @@ class DeleteItemService
 
 
         if($data->files->count() > 0){
-            foreach ($data->pfiles as $key => $value) {
+            foreach ($data->files as $key => $value) {
                 Storage::delete($value->path);
             }
         }

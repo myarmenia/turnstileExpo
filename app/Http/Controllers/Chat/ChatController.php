@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Chat;
 
 use App\Events\MessageEvent;
 use App\Events\RealTimeMessage;
+use App\Events\UnreadMessagesCountEvent;
 use App\Http\Controllers\Controller;
 use App\Models\ChatMessage;
 use App\Models\Room;
@@ -18,6 +19,7 @@ class ChatController extends Controller
     public function index(){
         // event(new RealTimeMessage('Hello World'));
         $users = User::where('id', '!=', Auth::id())->where('status', 1)->get();
+
         return view('chat.index', compact('users'));
     }
 
@@ -45,19 +47,24 @@ class ChatController extends Controller
 
     public function room(Room $room, $id)
     {
+
         $user = auth()->user();
         $users = User::where('id', '!=', Auth::id())->where('status', 1)->get();
         $messages = ChatMessage::where('room_id', $id)->get();
         $room = Room::find($id);
 
+        $unread_message_ids = $room->unread_messages()->pluck('id');
+        $room->messages()->whereIn('id', $unread_message_ids)->update(['read'=>1]);
+
         // broadcast(new MessageEvent($id, $messages))->toOthers();
+
         return view('chat.room', compact('room', 'messages', 'users'));
     }
 
 
     public function message_store(Request $request, $id)
     {
-// dd( $request->all());
+
         $user = auth()->user();
         $room = Room::find($id);
         $roommate = RoomUsers::where('user_id', '!=', $user->id)->where('room_id', $room->id)->first();
@@ -67,6 +74,7 @@ class ChatController extends Controller
             'to_user_id' => $roommate->user_id,
             'content' => $request->content,
         ]);
+
         // $message = ChatMessage::create([
         //     'user_id' => $user->id,
         //     'to_user_id' => $roommate->user_id,
@@ -84,7 +92,22 @@ class ChatController extends Controller
 
         // broadcast(new MessageEvent($room->id, $message))->toOthers();
         event(new MessageEvent($room->id, $message));
+        // event(new UnreadMessagesCountEvent(Auth::id(), $room->id, $room->roommate_unread_messages_count()));
+
+        event(new UnreadMessagesCountEvent(Auth::id(), $room->id, $room->roommate_unread_messages_count()));
 
         return response()->json(['result' => 1], 200);
+    }
+
+
+    public function read_messag($id){
+        $message = ChatMessage::find($id);
+        $update = $message->update(['read'=>1]);
+
+        if($update){
+            return response()->json(['result' => 1], 200);
+
+        }
+
     }
 }

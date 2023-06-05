@@ -9,9 +9,9 @@
               <h1>Create Region info</h1>
               <nav>
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li class="breadcrumb-item">Region info</li>
-                  <li class="breadcrumb-item active">Create</li>
+                  <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                  <li class="breadcrumb-item"><a href="{{route('global-monitoring.index')}}">Region Info</a></li>
+
                 </ol>
               </nav>
             </div><!-- End Page Title -->
@@ -82,7 +82,7 @@
 
 
 
-                  <div class="text-center">
+                  <div class="text-left">
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
                 </form>
