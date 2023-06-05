@@ -9,9 +9,9 @@
               <h1>Edit Banner </h1>
               <nav>
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li class="breadcrumb-item">Region info</li>
-                  <li class="breadcrumb-item active">Create</li>
+                  <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                  <li class="breadcrumb-item"><a href="{{route('banner.index')}}">Banner</a></li>
+                  <li class="breadcrumb-item active"><a href="{{route('banner.edit', $banner->id)}}">Edit</a> </li>
                 </ol>
               </nav>
             </div><!-- End Page Title -->
@@ -22,8 +22,7 @@
                 <h5 class="card-title">Edit Banner</h5>
 
                 <!-- News Form -->
-
-                <form class="row g-3" action="{{route('banner.update', $banner->id)}}"  id="banner"  data-type="" method="post" enctype="multipart/form-data">
+                <form class="row g-3" action="{{route('banner.update', $banner->id)}}"   data-type="edit" method="post" enctype="multipart/form-data">
                     {{-- @csrf --}}
                     @csrf
                     @method('PUT')
@@ -35,8 +34,8 @@
                                     <div class="col-lg-12">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Description {{ Str::upper($lng->name) }}</label>
 
-                                        <textarea class='form-control @error("translations.$lng->id.description") _incorrectly @enderror' name="translations[{{$lng->id}}][content]">{{ $banner->translation($lng->id)->content}}</textarea>
-                                        @error("translations.$lng->id.description")
+                                        <textarea class='form-control @error("translations.$lng->id.content") _incorrectly @enderror' name="translations[{{$lng->id}}][content]">{{ $banner->translation($lng->id)->content}}</textarea>
+                                        @error("translations.$lng->id.content")
                                             <div class="error_message" > {{ $message }} </div>
                                         @enderror
                                     </div>
@@ -48,7 +47,7 @@
                                         <input class="form-control" type="file"  name="path"  id="banner_path" accept="image/png, image/jpeg, image/jpg, image/PNG, image/JPG">
                                     </div>
                                 </div>
-                                <div class="image_path_div">
+                                <div class="path_div">
                                     <div class="d-flex file_div">
                                         <img src="{{route('get-file',['path'=>$banner->path])}}">
                                     </div>
@@ -56,7 +55,7 @@
                             </div>
                         </div>
 
-                  <div class="text-center">
+                  <div class="text-left">
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
                 </form>

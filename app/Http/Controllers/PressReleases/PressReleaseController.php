@@ -31,6 +31,7 @@ class PressReleaseController extends Controller
 
         $lng_id = Language::where('name', 'en')->first()->id;
         $this->lng_id = $lng_id;
+        // dd($request->all());
     }
     /**
      * Display a listing of the resource.
@@ -43,11 +44,13 @@ class PressReleaseController extends Controller
         $press_releases = PressRelease::orderBy('id', 'DESC');
 
         if ($request->from) {
-            $press_releases = $press_releases->where('date', '>=', $request->from);
+            $from = date('Y-m-d', strtotime($request->from));
+            $press_releases = $press_releases->where('date', '>=', $from);
         }
 
         if ($request->to) {
-            $press_releases = $press_releases->where('date', '<=', $request->to);
+            $to = date('Y-m-d', strtotime($request->to));
+            $press_releases = $press_releases->where('date', '<=', $to);
         }
 
         if ($request->status) {
@@ -66,10 +69,10 @@ class PressReleaseController extends Controller
             $press_releases = $press_releases->whereIn('id', $press_release_ids);
         }
 
-        $press_releases = $press_releases->paginate(6)->withQueryString();
+        $press_releases = $press_releases->paginate(10)->withQueryString();
 
         return view('press-release.index', compact('press_releases', 'lng_id'))
-            ->with('i', ($request->input('page', 1) - 1) * 6);
+            ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**

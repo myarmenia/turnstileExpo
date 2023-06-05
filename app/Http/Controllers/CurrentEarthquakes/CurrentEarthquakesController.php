@@ -5,6 +5,7 @@ namespace App\Http\Controllers\CurrentEarthquakes;
 use App\Http\Controllers\Controller;
 use App\Models\CurrentEarthquake;
 use App\Models\CurrentEarthquakesTranslations;
+use App\Models\Language;
 use App\Services\DeleteItemService;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
@@ -13,6 +14,24 @@ use Illuminate\Support\Facades\Validator;
 
 class CurrentEarthquakesController extends Controller
 {
+
+    public $lng_id;
+    public function __construct(Request $request)
+    {
+
+        $request['table'] = 'press_releases';
+        $this->middleware('editor', ['only' => ['edit', 'update']]);
+
+        // $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
+        // $this->middleware('permission:product-create', ['only' => ['create','store']]);
+        // $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
+        // $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+
+        $lng_id = Language::where('name', 'en')->first()->id;
+        $this->lng_id = $lng_id;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -24,11 +43,13 @@ class CurrentEarthquakesController extends Controller
         $current_earthquakes = CurrentEarthquake::orderBy('id', 'DESC');
 
         if ($request->date_from) {
-            $current_earthquakes = $current_earthquakes->where('date', '>=', $request->date_from);
+            $date_from = date('Y-m-d', strtotime($request->date_from));
+            $current_earthquakes = $current_earthquakes->where('date', '>=', $date_from);
         }
 
         if ($request->date_to) {
-            $current_earthquakes = $current_earthquakes->where('date', '<=', $request->date_to);
+            $date_to = date('Y-m-d', strtotime($request->date_to));
+            $current_earthquakes = $current_earthquakes->where('date', '<=', $date_to);
         }
 
         if ($request->status) {
@@ -48,10 +69,10 @@ class CurrentEarthquakesController extends Controller
         $current_earthquakes = $current_earthquakes
             ->with('current_earthquakes_translations', function ($query) {
                 return $query->where('language_id', 1);
-            })->paginate(6)->withQueryString();
+            })->paginate(2)->withQueryString();
 
         return view('current-earthquakes.index', compact("current_earthquakes"))
-            ->with('i', ($request->input('page', 1) - 1) * 6);
+            ->with('i', ($request->input('page', 1) - 1) * 2);
     }
 
     /**
@@ -132,7 +153,7 @@ class CurrentEarthquakesController extends Controller
             }
         }
 
-        return redirect()->back();
+        return redirect()->route('current-earthquakes.index');
     }
 
     /**

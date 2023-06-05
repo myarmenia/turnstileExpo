@@ -10,8 +10,8 @@
     <h1>Current Earthquakes</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item">Current Earthquakes</li>
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('current-earthquakes.index') }}">Current Earthquakes</a></li>
             <li class="breadcrumb-item active">Edit</li>
         </ol>
     </nav>

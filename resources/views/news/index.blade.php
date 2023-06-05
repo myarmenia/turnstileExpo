@@ -9,8 +9,8 @@
     <h1>News</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item">News</li>
+        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{route('news.index')}}">News</a></li>
       </ol>
     </nav>
   </div>
@@ -19,9 +19,28 @@
   <div class="card pt-4">
     <div class="card-body">
       <!-- Primary Color Bordered Table -->
-      <div style="display: flex; justify-content: flex-end">
+      {{-- <div style="d-flex justify-content-between">
+        <div class="w-75">
+            @if ($message = Session::get('permission_denied'))
+                <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                    {{$message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        </div>
         <a href="{{route('news.create')}}" class="btn btn-primary">Create News</a>
-      </div>
+      </div> --}}
+    <div class="d-flex justify-content-between">
+        <div class="w-75">
+            @if ($message = Session::get('permission_denied'))
+                <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                    {{$message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        </div>
+        <a href="{{route('news.create')}}"><button type="button" class="btn btn-primary">Create News</button></a>
+     </div>
 
       <div>
         <form action="{{route('news.index')}}" method="get" class="row g-3 mt-2" style="display: flex">
@@ -33,6 +52,7 @@
             </div>
             <div class="col-2">
               <select id="inputState" class="form-select" name="status">
+                <option value="" selected>Status</option>
                 <option value="new" {{ request()->input('status') == 'new' ? 'selected' : ''}}>New</option>
                 <option value="confirmed" {{ request()->input('status') == 'confirmed' ? 'selected' : ''}}>Confirmed
                 </option>
@@ -62,7 +82,7 @@
         <tbody>
           @foreach ($news as $item )
 
-          
+
           <tr>
             <th scope="row">{{++$i}}</th>
             <td>{!! $item->news_translations->title !!}</td>
@@ -75,15 +95,19 @@
             <td>
               <div style="display: flex !important">
                 <a href="{{route('news.edit', $item->id)}}"><i class="bi bi-pencil-square action_i"></i></a>
-                <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"
-                  onclick="create_request_route(`news`, {{$item->id}})"></i>
-                <a href="{{ route('change_status', [$item->id, 'news', 'confirmed']) }}">
-                  <i class="bi bi-check-circle action_i"
-                    style="color:{{ $item->status == 'confirmed' ? '#0d6efd' : ''}}" data-bs-toggle="tooltip"
-                    data-bs-placement="left"
-                    data-bs-original-title="{{ $item->status == 'confirmed' ? 'Confirmed' : 'Change status to confirmed'}}">
-                  </i>
-                </a>
+                @role('Admin')
+                    <i class="bi bi-trash action_i " data-bs-toggle="modal" data-bs-target="#disablebackdrop"
+                    onclick="create_request_route(`news`, {{$item->id}})"></i>
+
+
+                    <a href="{{ route('change_status', [$item->id, 'news', 'confirmed']) }}">
+                    <i class="bi bi-check-circle action_i"
+                        style="color:{{ $item->status == 'confirmed' ? '#0d6efd' : ''}}" data-bs-toggle="tooltip"
+                        data-bs-placement="left"
+                        data-bs-original-title="{{ $item->status == 'confirmed' ? 'Confirmed' : 'Change status to confirmed'}}">
+                    </i>
+                    </a>
+                @endrole
               </div>
             </td>
           </tr>
