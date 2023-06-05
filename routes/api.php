@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Banner\BannerController;
 use App\Http\Controllers\API\ContactInfo\ContactInfoController;
 use App\Http\Controllers\API\CurrentEarthquake\CurrentEarthquakeController;
 use App\Http\Controllers\API\CurrentEarthquake\FilterController;
@@ -62,6 +63,8 @@ Route::get('smart-search', [SmartSearchController::class, 'index']);
 
 Route::get('map-region-info/{id}',[MapRegionController::class,'mapRegionInfo']);
 Route::get('region-info/{id}',[MapRegionController::class,'regionInfo']);
+
+Route::get('banner',[BannerController::class,'index']);
 
 
 
