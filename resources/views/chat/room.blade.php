@@ -1,8 +1,6 @@
 @extends('layouts.auth-app')
-@section('link')
-    @vite(['resources/js/app.js'])
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+@section('link')
     <link href="{{ asset('assets/css/chat.css') }}" rel="stylesheet">
 @endsection
 @section('content')
@@ -190,7 +188,6 @@
 @endsection
 @section('js-scripts')
     <script>
-         let user_id = "{{auth()->user()->id}}";
          let room_id = "{{$room->id}}"
     </script>
     <script src="{{ asset('assets/back/js/chat.js') }}"></script>

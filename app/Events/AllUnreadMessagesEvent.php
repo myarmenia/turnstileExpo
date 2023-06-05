@@ -10,27 +10,17 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UnreadMessagesCountEvent implements ShouldBroadcast
+class AllUnreadMessagesEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-   /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-
-    public $userId;
     public $roommateId;
-    public $roomId;
-    public $unreadMessageCount;
+    public $allUnreadMessages;
 
-    public function __construct($userId, $roommateId, $roomId, $unreadMessageCount)
+    public function __construct($roommateId, $allUnreadMessages)
     {
-        $this->userId = $userId;
         $this->roommateId = $roommateId;
-        $this->roomId = $roomId;
-        $this->unreadMessageCount = $unreadMessageCount;
+        $this->allUnreadMessages = $allUnreadMessages;
     }
 
      /**
@@ -40,11 +30,11 @@ class UnreadMessagesCountEvent implements ShouldBroadcast
       */
     public function broadcastOn()
     {
-        return new PrivateChannel('unread_messages_count.'.$this->roommateId);
+        return new PrivateChannel('all_unread_messages.'.$this->roommateId);
     }
 
     public function broadcastAs()
     {
-        return 'unreadMessagesCount';
+        return 'allUnreadMessages';
     }
 }

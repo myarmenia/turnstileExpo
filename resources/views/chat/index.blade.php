@@ -1,7 +1,6 @@
 @extends('layouts.auth-app')
-@section('link')
-@vite(['resources/js/app.js'])
 
+@section('link')
     <link href="{{ asset('assets/css/chat.css') }}" rel="stylesheet">
 @endsection
 @section('content')
@@ -94,10 +93,7 @@
     </div>
 @endsection
 @section('js-scripts')
-    <script>
-        let user_id = "{{auth()->user()->id}}";
-        let room_id = "{{$room->id}}"
-    </script>
+
     <script src="{{ asset('assets/back/js/unread-messages.js') }}"></script>
 
 @endsection
