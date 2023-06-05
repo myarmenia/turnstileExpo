@@ -21,7 +21,8 @@ class MapRegionInfoResource extends JsonResource
             "image_path"=> route('get-file',['path'=>$this->image_path]),
             "schema_path"=> route('get-file',['path'=>$this->schema_path]),
             "title"=>$this->translation($request->lng_id)->title,
-            "description"=>$this->translation($request->lng_id)->description
+            "description"=>$this->translation($request->lng_id)->description,
+            "files" =>FileResource::collection($this->files)
         ];
     }
 
