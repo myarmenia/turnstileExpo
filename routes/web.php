@@ -86,11 +86,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('message/{id}', [ChatController::class, 'read_messag'])->name('read_messag');
 
 
-
-
     Route::resource('banner',BannerController::class);
     Route::resource('running-text',RunningTextController::class);
-
 
 
 });
