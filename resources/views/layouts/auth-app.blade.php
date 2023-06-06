@@ -27,7 +27,7 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     @yield('link')
-    
+
     @vite(['resources/js/app.js'])
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
@@ -137,9 +137,9 @@
     <script>
         let user_id = "{{auth()->user()->id}}";
     </script>
-    <script src="{{ asset('assets/back/js/all-unread-messages.js') }}"></script>
-
     @yield('js-scripts')
+
+    <script src="{{ asset('assets/back/js/all-unread-messages.js') }}"></script>
 
 </body>
 

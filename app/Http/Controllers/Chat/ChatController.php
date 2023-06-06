@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Response;
 
 class ChatController extends Controller
 {
+    public $word;
     public function index(){
         // event(new RealTimeMessage('Hello World'));
         $users = User::where('id', '!=', Auth::id())->where('status', 1)->get();
@@ -89,7 +90,7 @@ class ChatController extends Controller
         event(new MessageEvent($room->id, $message));
 
         event(new UnreadMessagesCountEvent(Auth::id(), $roommate_id, $room->id, $room->roommate_unread_messages_count()));
-        event(new AllUnreadMessagesEvent($roommate_id, $this->user_all_unread_message($roommate_id)));
+        event(new AllUnreadMessagesEvent($roommate_id, $room->id, $this->user_all_unread_message($roommate_id)));
 
         return response()->json(['result' => 1], 200);
     }
@@ -108,7 +109,35 @@ class ChatController extends Controller
 
     public function user_all_unread_message($user_id){
 
-       $messages=  ChatMessage::where(['to_user_id'=> $user_id,'read'=> 0])->with('user.roles')->get();
-       return Response::json($messages);
+       $messages =  ChatMessage::where(['to_user_id'=> $user_id,'read'=> 0])->with('user.roles')->orderBy('id', 'DESC')->get();
+       $group_messages = $messages->groupBy('room_id')->toArray();
+       $count = $messages->count();
+       return Response::json(['messages' =>$group_messages, 'count'=>$count], 200);
+    }
+
+    public function search_roommate(Request $request){
+
+        $users = User::where('id', '!=', Auth::id())->with('roles')->with('messages', function($q){
+            $q->where('to_user_id', Auth::id())->where('read', 0);
+        });
+
+        if(isset($request->search )){
+
+            $words = explode(' ', $request->search);
+
+            foreach($words as $word){
+                if($word != ''){
+                    $this->word = $word;
+                    $users = $users->where(function( $query ){
+                                $query->where('name', 'like', '%' . $this->word . '%')
+                                      ->orWhere('second_name', 'like', '%' . $this->word . '%');
+                    });
+                }
+            }
+        }
+
+        $users = $users->get();
+
+        return response()->json(['users' => $users], 200);
     }
 }

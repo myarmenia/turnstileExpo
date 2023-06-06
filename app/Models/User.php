@@ -60,7 +60,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function messages(){
         return $this->hasMany(ChatMessage::class);
     }
-
+    
     // written_new_messages_count for auth user by roommate
     public function written_new_messages_count(){
         return $this->messages()->where('to_user_id', Auth::id())->where('read', 0)->get()->count();
@@ -68,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function all_unread_messages(){
 
-        return ChatMessage::where(['to_user_id'=> Auth::id(),'read'=> 0])->with('user.roles')->get();
+        return ChatMessage::where(['to_user_id'=> Auth::id(),'read'=> 0])->with('user.roles')->orderBy('id', 'DESC')->get();
     }
 
 
