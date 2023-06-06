@@ -23,23 +23,25 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::whereDoesntHave('roles', function ($q) {
-            $q->where('name', 'Admin');
-        })->orderBy('id','DESC');
+        // $data = User::whereDoesntHave('roles', function ($q) {
+        //     $q->where('name', 'Admin');
+        // })->orderBy('id','DESC');
 
-        if($request->role){
+        $data = User::orderBy('id','DESC');
+
+        if($request->role != null){
             $role = $request->role;
             $data = $data->whereHas('roles', function ($sub_query) use ($role) {
                 $sub_query->where('name',$role);
             });
         }
 
-        if($request->has('status')){
+        if($request->status != null){
 
             $data = $data->where('status', $request->status);
         }
 
-        if($request->name){
+        if($request->name != null){
             $name = $request->name;
             $data = $data->where(function ($query) use ($name){
                 $query->where('name', 'like', '%' . $name . '%')
@@ -47,12 +49,12 @@ class UserController extends Controller
             });
         }
 
-        $data = $data->paginate(1)->withQueryString();
+        $data = $data->paginate(10)->withQueryString();
 
         $roles = Role::pluck('name','name')->all();
 
         return view('admin.users.index',compact('data', 'roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**

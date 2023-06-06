@@ -19,13 +19,8 @@ class CurrentEarthquakesController extends Controller
     public function __construct(Request $request)
     {
 
-        $request['table'] = 'press_releases';
+        $request['table'] = 'current_earthquakes';
         $this->middleware('editor', ['only' => ['edit', 'update']]);
-
-        // $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
-        // $this->middleware('permission:product-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:product-delete', ['only' => ['destroy']]);
 
         $lng_id = Language::where('name', 'en')->first()->id;
         $this->lng_id = $lng_id;

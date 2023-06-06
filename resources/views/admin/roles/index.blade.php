@@ -8,7 +8,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('press-release.index')}}">Roles</a></li>
+                <li class="breadcrumb-item active">Roles</li>
             </ol>
         </nav>
     </div>

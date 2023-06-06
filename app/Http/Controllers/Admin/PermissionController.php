@@ -22,9 +22,9 @@ class PermissionController extends Controller
     }
     public function index(Request $request)
     {
-        $permissions = Permission::orderBy('id','DESC')->paginate(5); //Get all permissions
+        $permissions = Permission::orderBy('id','DESC')->paginate(10); //Get all permissions
 
-        return view('admin.permissions.index', compact('permissions'))->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('admin.permissions.index', compact('permissions'))->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**

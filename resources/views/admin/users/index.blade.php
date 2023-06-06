@@ -8,7 +8,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('press-release.index')}}">Users</a></li>
+                <li class="breadcrumb-item active">Users</li>
             </ol>
         </nav>
     </div>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-2">
                             <select id="select_role" class="form-select" name="role" >
-                                <option selected disabled>Select role</option>
+                                <option selected value="">Select role</option>
 
                                 @foreach ($roles as $role)
                                     <option value="{{$role}}" {{ request()->input('role') == $role ? 'selected' : ''}}>{{$role}}</option>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-2">
                             <select id="inputStatus" class="form-select" name="status">
-                                <option selected disabled>Select status</option>
+                                <option selected value="">Select status</option>
                                 <option value="1" {{ request()->input('status') == '1' ? 'selected' : ''}}>Active</option>
                                 <option value="0" {{ request()->input('status') == '0' ? 'selected' : ''}}>Unactive</option>
                             </select>
