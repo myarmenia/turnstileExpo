@@ -9,6 +9,7 @@
         <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{route('chat')}}">Chat</a></li>
             <li class="breadcrumb-item active">Room
 
             </li>
@@ -120,7 +121,7 @@
                                         name="content"
                                     />
                                     <label for="file-up" id="up-label">
-                                        <i class="bi bi-paperclip icon_send"></i>
+                                        <i class="bi bi-paperclip icon_send icon_file"></i>
                                     </label>
                                     <input type="file" id="file-up" class="d-none" name="file">
 
@@ -146,13 +147,14 @@
                                     placeholder="Search"
                                     aria-label="Search"
                                     aria-describedby="search-addon"
+                                    id="search"
                                 />
                                 <span class="input-group-text border-0" id="search-addon">
-                                <i class="bi bi-search"></i>
+                                    <i class="bi bi-search" id="search_roommate"></i>
                                 </span>
                             </div>
 
-                            <ul class="list-unstyled mb-0 scroll_ul">
+                            <ul class="list-unstyled mb-0 scroll_ul" id="users-div">
                                 @foreach ($users as $user)
                                     <li class="p-2 border-bottom {{$room->active_user() == $user->id ? ' active_user' : ''}}">
                                         {{-- {{dd($user->room_users)}} --}}
@@ -174,7 +176,7 @@
                                                 @endif
                                             </div>
                                         </a>
-                                        </li>
+                                    </li>
                                 @endforeach
                             </ul>
                             </div>
@@ -192,5 +194,6 @@
     </script>
     <script src="{{ asset('assets/back/js/chat.js') }}"></script>
     <script src="{{ asset('assets/back/js/unread-messages.js') }}"></script>
+    <script src="{{ asset('assets/back/js/search-roommate.js') }}"></script>
 
 @endsection

@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     window.Echo.private(`unread_messages_count.${user_id}`)
     .listen('.unreadMessagesCount', (data) => {
-        console.log('aaaaaaaaa')
         console.log(data)
 
         if(typeof room_id !== 'undefined') {
