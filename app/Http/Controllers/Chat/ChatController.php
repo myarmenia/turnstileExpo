@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Chat;
 
+use App\Events\AllUnreadMessagesEvent;
 use App\Events\MessageEvent;
 use App\Events\RealTimeMessage;
 use App\Events\UnreadMessagesCountEvent;
@@ -13,6 +14,7 @@ use App\Models\User;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class ChatController extends Controller
 {
@@ -50,13 +52,11 @@ class ChatController extends Controller
 
         $user = auth()->user();
         $users = User::where('id', '!=', Auth::id())->where('status', 1)->get();
-        $messages = ChatMessage::where('room_id', $id)->get();
+        $messages = ChatMessage::where('room_id', $id)->with('user')->get();
         $room = Room::find($id);
 
         $unread_message_ids = $room->unread_messages()->pluck('id');
         $room->messages()->whereIn('id', $unread_message_ids)->update(['read'=>1]);
-
-        // broadcast(new MessageEvent($id, $messages))->toOthers();
 
         return view('chat.room', compact('room', 'messages', 'users'));
     }
@@ -67,20 +67,15 @@ class ChatController extends Controller
 
         $user = auth()->user();
         $room = Room::find($id);
-        $roommate = RoomUsers::where('user_id', '!=', $user->id)->where('room_id', $room->id)->first();
+        $roommate_id = $room->room_users->where('user_id', '!=', $user->id)->first()->user_id;
 
         $message = $room->messages()->create([
             'user_id' => $user->id,
-            'to_user_id' => $roommate->user_id,
+            'to_user_id' => $roommate_id,
             'content' => $request->content,
         ]);
 
-        // $message = ChatMessage::create([
-        //     'user_id' => $user->id,
-        //     'to_user_id' => $roommate->user_id,
-        //     'room_id' => $id,
-        //     // 'content' => $request->content,
-        // ]);
+
         if ($request->has('file')) {
 
             $path_file = FileUploadService::upload($request->file, 'chat-files/' . $room->id);
@@ -92,9 +87,9 @@ class ChatController extends Controller
 
         // broadcast(new MessageEvent($room->id, $message))->toOthers();
         event(new MessageEvent($room->id, $message));
-        // event(new UnreadMessagesCountEvent(Auth::id(), $room->id, $room->roommate_unread_messages_count()));
 
-        event(new UnreadMessagesCountEvent(Auth::id(), $room->id, $room->roommate_unread_messages_count()));
+        event(new UnreadMessagesCountEvent(Auth::id(), $roommate_id, $room->id, $room->roommate_unread_messages_count()));
+        event(new AllUnreadMessagesEvent($roommate_id, $this->user_all_unread_message($roommate_id)));
 
         return response()->json(['result' => 1], 200);
     }
@@ -109,5 +104,11 @@ class ChatController extends Controller
 
         }
 
+    }
+
+    public function user_all_unread_message($user_id){
+
+       $messages=  ChatMessage::where(['to_user_id'=> $user_id,'read'=> 0])->with('user.roles')->get();
+       return Response::json($messages);
     }
 }

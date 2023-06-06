@@ -44,6 +44,7 @@
                         </div>
                         <div class="col-2">
                             <select id="inputState" class="form-select" name="status">
+                                <option value="" selected>Status</option>
                                 <option value="new" {{ request()->input('status') == 'new' ? 'selected' : ''}}>New</option>
                                 <option value="confirmed" {{ request()->input('status') == 'confirmed' ? 'selected' : ''}}>Confirmed</option>
                                 <option value="hidden" {{ request()->input('status') == 'hidden' ? 'selected' : ''}}>Hidden</option>

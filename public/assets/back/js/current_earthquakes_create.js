@@ -19,7 +19,6 @@
 //         })
 //     }
 // }
-
 items.addEventListener("change", (e) => {
     document.querySelector('.items_div').innerHTML=''
 

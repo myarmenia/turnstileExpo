@@ -248,7 +248,6 @@
 <script src="{{ asset('assets/back/js/press-releases.js') }}"></script>
 <script src="{{ asset('assets/back/js/delete_item.js') }}"></script>
 <script src="{{ asset('assets/back/js/edit-status-item.js') }}"></script>
-
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 
 @endsection

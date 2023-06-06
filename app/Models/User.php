@@ -66,13 +66,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->messages()->where('to_user_id', Auth::id())->where('read', 0)->get()->count();
     }
 
-    public function unread_messages(){
-        return ChatMessage::where('to_user_id', Auth::id())->where('read', 0)->get();
+    public function all_unread_messages(){
+
+        return ChatMessage::where(['to_user_id'=> Auth::id(),'read'=> 0])->with('user.roles')->get();
     }
 
-    public function all_unread_messages(){
-        return $this->messages->where('user_id', '!=', Auth::id())->where('read', 0)->get();
-    }
 
     /**
      * The attributes that should be hidden for serialization.

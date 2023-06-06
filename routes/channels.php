@@ -30,9 +30,11 @@ Broadcast::channel('message.{roomId}', function ($roomId, $message) {
 });
 
 
-Broadcast::channel('unread_messages_count.{userId}', function ($users) {
+Broadcast::channel('unread_messages_count.{roommateId}', function ($users) {
+    return 111;
+});
 
-
+Broadcast::channel('all_unread_messages.{roommateId}', function ($users) {
     return 111;
 });
 
