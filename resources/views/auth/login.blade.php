@@ -79,8 +79,8 @@
 
             <div class="d-flex justify-content-center py-4">
               <a href="index.html" class="logo d-flex align-items-center w-auto">
-                <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">SeiEn</span>
+                <img src="assets/img/logo.svg" style="max-height: 50px;"alt="">
+                {{-- <span class="d-none d-lg-block">SeiEn</span> --}}
               </a>
             </div><!-- End Logo -->
 
@@ -121,15 +121,6 @@
                   </div>
 
                   <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                        <label class="form-check-label" for="remember">
-                            {{ __('Remember Me') }}
-                        </label>
-                    </div>
-                  </div>
-                  <div class="col-12">
                     <button class="btn btn-primary w-100" type="submit">Login</button>
 
                   </div>
@@ -140,9 +131,7 @@
                             </a>
                         @endif
                     </div>
-                  <div class="col-12">
-                    <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
-                  </div>
+                 
                 </form>
 
               </div>
