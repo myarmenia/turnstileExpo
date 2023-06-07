@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         </li>`;
                 }
                 $("#scroll_messages").append(listMessage);
+                $('.icon_file').css("color", "black");
                 scrollToBottom()
         });
 

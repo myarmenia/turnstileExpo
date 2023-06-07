@@ -16,14 +16,17 @@ class DeleteItemService
         $item = DB::table($table)->where('id', $id);
 
         if($type == 'file'){
-            // Storage::delete($item->first()->path);
+            Storage::delete($item->first()->path);
+            DB::table('fileables')->where('id', $id)->delete();
         }
+
         if($type == 'image'){
             $item_region= DB::table($table)->find($id);
 
-             Storage::delete($item_region->path);
-            //  $item_region->files()->delete();
-             $item_region->files()->detach();
+            Storage::delete($item_region->path);
+
+            DB::table('fileables')->where('id', $id)->delete();
+
         }
 
 

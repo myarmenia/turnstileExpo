@@ -33,7 +33,7 @@ class LoginController extends Controller
 
         $user = Auth::user();
 
-        if($user->status){
+        if($user->status == 1){
             return '/home';
         }
         else{

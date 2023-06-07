@@ -115,7 +115,7 @@
                 <div id="span-unread-message-count">
                     @if (Auth::user()->all_unread_messages()->count() > 0)
                         <li class="dropdown-header">
-                            You have <span >{{Auth::user()->all_unread_messages()->count()}} </span>new messages
+                            You have <span > {{Auth::user()->all_unread_messages()->count()}} </span>new messages
                         </li>
                     @else
                         <li class="dropdown-header">

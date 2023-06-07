@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if(count > 0 && room_id != data.roomId){
                 document.getElementById('unread-messages_count').innerHTML = `<span class="badge bg-success badge-number all-uread-message-count">${count}</span>`
                 document.getElementById('span-unread-message-count').innerHTML = `<li class="dropdown-header">
-                                You have <span >${count}</span>new messages
+                                You have <span > ${count}</span>new messages
                             </li>`
 
                 messages.forEach(message => {
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if(count > 0 ){
                 document.getElementById('unread-messages_count').innerHTML = `<span class="badge bg-success badge-number all-uread-message-count">${count}</span>`
                 document.getElementById('span-unread-message-count').innerHTML = `<li class="dropdown-header">
-                                You have <span >${count}</span>new messages
+                                You have <span > ${count}</span>new messages
                             </li>`
 
                 messages.forEach(message => {

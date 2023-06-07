@@ -34,10 +34,10 @@ class RoleController extends Controller
         if($request->role){
             $roles = $roles->where('name', 'like', '%' . $request->role . '%');
         }
-        $roles = $roles->paginate(5)->withQueryString();
+        $roles = $roles->paginate(10)->withQueryString();
 
         return view('admin.roles.index',compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**
