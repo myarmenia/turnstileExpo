@@ -10,7 +10,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-          <li class="breadcrumb-item"><a href="{{route('global-monitoring.index')}}">RegionList</a></li>
+          <li class="breadcrumb-item active">RegionList</li>
         </ol>
       </nav>
     </div>

@@ -49,11 +49,10 @@
                     <div class="col-2">
                         <select name="type" class="form-select">
                             <option value="" selected>Type</option>
-                            <option value="aaaa">aaaa</option>
-                            <option value="bbbb">bbbb</option>
-                            <option value="cccc">cccc</option>
-                            <option value="dddd">dddd</option>
-
+                            <option value="aaaa">Technology</option>
+                            <option value="bbbb">Products</option>
+                            <option value="cccc">Cooperation</option>
+                            <option value="dddd">Other</option>
                         </select>
                     </div>
 
@@ -63,7 +62,7 @@
                             <option value="new" {{ request()->input('status') == 'new' ? 'selected' : ''}}>New</option>
                             <option value="read" {{ request()->input('status') == 'read' ? 'selected' :
                                 ''}}>Read</option>
-                            <option value="hidden" {{ request()->input('status') == 'answerd' ? 'selected' :
+                            <option value="answerd" {{ request()->input('status') == 'answerd' ? 'selected' :
                                 ''}}>Answerd
                             </option>
                             @role('Admin')

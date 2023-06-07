@@ -11,7 +11,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{route('global-monitoring.index')}}">Region Info</a></li>
-                    <li class="breadcrumb-item"><a href="">Edit  </a></li>
+                    <li class="breadcrumb-item active">Edit</li>
                 </ol>
               </nav>
             </div><!-- End Page Title -->

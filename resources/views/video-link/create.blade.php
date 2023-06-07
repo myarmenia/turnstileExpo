@@ -29,7 +29,6 @@
                         enctype="multipart/form-data">
                         @csrf
 
-
                         @for ($i = 0; $i < 3; $i++)
                             <div class="col-5">
                                 @foreach (languages() as $lng)

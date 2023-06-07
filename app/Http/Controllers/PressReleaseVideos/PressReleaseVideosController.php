@@ -53,6 +53,12 @@ class PressReleaseVideosController extends Controller
 
             if ($link['link'] != null) {
                 $validate["links.$k.title.*"] = 'required';
+
+                if (!str_contains($link['link'], 'youtube.com/watch?v=') && !str_contains($link['link'], 'youtu.be/')) {
+                    // dd('url error');
+                    $validate["links.$k.link"] = 'url';
+                }
+
             }
 
             foreach ($link['title'] as $p => $title) {
@@ -75,6 +81,7 @@ class PressReleaseVideosController extends Controller
         foreach ($request->links as $link_key => $link) {
 
             if ($link['link'] != null) {
+
                 if (str_contains($link['link'], 'youtube.com/watch?v=')) {
                     $pl_list = str_replace('https://www.youtube.com/watch?v=', '', $link['link']);
                     $playlist = explode('&', $pl_list)[0];
@@ -142,6 +149,11 @@ class PressReleaseVideosController extends Controller
 
             if ($link['link'] != null) {
                 $validate["links.$k.title.*"] = 'required';
+
+                if (!str_contains($link['link'], 'youtube.com/watch?v=') && !str_contains($link['link'], 'youtu.be/')) {
+                    $validate["links.$k.link"] = 'url';
+                }
+
             }
 
             foreach ($link['title'] as $p => $title) {
