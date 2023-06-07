@@ -28,5 +28,6 @@ class CreateController extends BaseController
 
         $feedback = Feedbacks::create($request->all());
 
+        return response()->json('success', 200);
     }
 }

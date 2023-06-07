@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         console.log('mmm user id '+data.message.user_id)
 
         let listMessage = '';
-        
+
         let file = ''
         if (data.message.file != null){
             file = `<div class="file-div">
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                                 </p>
                             </div>
                             <div class="card-body mt-2">
-                                <p class="mb-0">${data.message.content} </p>
+                                <p class="mb-0">${data.message.content ?? ''} </p>
                                 ${file}
                             </div>
                         </div>
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                                     </p>
                                 </div>
                                 <div class="card-body mt-2">
-                                    <p class="mb-0">${data.message.content}</p>
+                                    <p class="mb-0">${data.message.content ?? ''}</p>
                                     ${file}
                                 </div>
                             </div>
@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         </li>`;
                 }
                 $("#scroll_messages").append(listMessage);
+                $('.icon_file').css("color", "black");
                 scrollToBottom()
         });
 
@@ -136,14 +137,7 @@ function scrollToBottom() {
 scrollToBottom();
 
 
-const formatDate = (date) => {
-      let d = new Date(date);
-      let month = (d.getMonth()+1).toString().padStart(2, '0');
-      let day = d.getDate().toString().padStart(2, '0');
-      let year = d.getFullYear();
-      let hour = d.getHours().toString().padStart(2, '0');
-      let minute = d.getMinutes().toString().padStart(2, '0');
-      let data = day+'-'+month+'-'+year+' '+hour+':'+minute
 
-          return data
-}
+$('#file-up').on('change', function(){
+    $('.icon_file').css("color", "#4154f1");
+})

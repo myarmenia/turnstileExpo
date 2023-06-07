@@ -97,7 +97,6 @@ class PressReleaseController extends Controller
         $requestData = $request->all();
 
         $validate = [
-
             "logo" => "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:2048",
             "translations.*.title" => "required",
             "translations.*.description" => "required",
@@ -106,7 +105,6 @@ class PressReleaseController extends Controller
             "items" => "required",
             "items.*" => "mimes:mp4,mov,ogg,jpeg,jpg,png,PNG,JPG,JPEG | max:20000",
             "links.*" => "required"
-
         ];
 
         $validator = Validator::make($request->all(), $validate);

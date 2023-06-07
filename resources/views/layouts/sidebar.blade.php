@@ -71,7 +71,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('chat.*') ? '' : ' collapsed' }}" href="{{route('chat')}}">
+            <a class="nav-link {{ request()->routeIs(['chat', 'room']) ? '' : ' collapsed' }}" href="{{route('chat')}}">
                 <i class="ri-chat-2-line"></i>
                 <span>Chat</span>
             </a>
@@ -85,7 +85,7 @@
         </li>
         @role('Admin')
         <li class=" nav-item">
-            <a class="nav-link {{ request()->routeIs('contact-informations.*') ? '' : ' collapsed' }}"
+            <a class="nav-link {{ request()->routeIs('contact_informations') ? '' : ' collapsed' }}"
                 href="{{route('contact_informations')}}">
                 <i class="bi bi-envelope"></i>
                 <span>Contact Informations</span>
@@ -93,7 +93,7 @@
         </li>
         @endrole
 
-        @role('Admin|moderator')
+        @role('Admin')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.users.*') ? '' : ' collapsed' }}"
                 href="{{route('admin.users.index')}}">
@@ -109,7 +109,7 @@
             </a>
         </li>
         @endrole
-        
+
 
     </ul>
 

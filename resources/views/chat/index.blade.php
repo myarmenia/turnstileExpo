@@ -45,18 +45,19 @@
                                 <div class="card-body">
                                     <div class="input-group rounded mb-3 pt-3">
                                         <input
-                                        type="search"
-                                        class="form-control rounded"
-                                        placeholder="Search"
-                                        aria-label="Search"
-                                        aria-describedby="search-addon"
+                                            type="search"
+                                            class="form-control rounded"
+                                            placeholder="Search"
+                                            aria-label="Search"
+                                            aria-describedby="search-addon"
+                                            id="search"
                                         />
                                         <span class="input-group-text border-0" id="search-addon">
-                                        <i class="bi bi-search"></i>
+                                        <i class="bi bi-search" id="search_roommate"></i>
                                         </span>
                                     </div>
 
-                                    <ul class="list-unstyled mb-0 scroll_ul">
+                                    <ul class="list-unstyled mb-0 scroll_ul" id="users-div">
                                         @foreach ($users as $user)
                                             <li class="p-2 border-bottom">
                                                 {{-- {{dd($user->room_users)}} --}}
@@ -95,6 +96,7 @@
 @section('js-scripts')
 
     <script src="{{ asset('assets/back/js/unread-messages.js') }}"></script>
+    <script src="{{ asset('assets/back/js/search-roommate.js') }}"></script>
 
 @endsection
 

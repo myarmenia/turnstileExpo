@@ -169,6 +169,7 @@ return [
 
         'links.*.link' => [
             'required' => 'The link field is required',
+            'url' => 'The link must be a valid URL',
         ],
 
         'links.*.title.*' => [

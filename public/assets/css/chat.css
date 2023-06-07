@@ -46,7 +46,7 @@
     border: none !important;
     background: none !important;
 }
-#up-label{
+#up-label, #search_roommate{
     cursor: pointer;
 }
 .file-div{

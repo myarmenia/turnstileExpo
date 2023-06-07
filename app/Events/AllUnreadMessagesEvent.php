@@ -15,11 +15,13 @@ class AllUnreadMessagesEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $roommateId;
+    public $roomId;
     public $allUnreadMessages;
 
-    public function __construct($roommateId, $allUnreadMessages)
+    public function __construct($roommateId, $roomId, $allUnreadMessages)
     {
         $this->roommateId = $roommateId;
+        $this->roomId = $roomId;
         $this->allUnreadMessages = $allUnreadMessages;
     }
 

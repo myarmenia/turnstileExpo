@@ -3,7 +3,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ route('home') }}" class="logo d-flex align-items-center">
-        <img style="max-height: 47px;" src="{{ asset('assets/img/logo.svg') }}">
+        <img style="max-height: 55px;" src="{{ asset('assets/img/logo.svg') }}">
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -112,39 +112,43 @@
             {{--  --}}
           </a><!-- End Messages Icon -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                @if (Auth::user()->all_unread_messages()->count() > 0)
-                    <li class="dropdown-header">
-                        You have {{Auth::user()->all_unread_messages()->count()}} new messages
-                    </li>
-                @else
-                    <li class="dropdown-header">
-                        You dont have new messages
-                    </li>
-                @endif
-
+                <div id="span-unread-message-count">
+                    @if (Auth::user()->all_unread_messages()->count() > 0)
+                        <li class="dropdown-header">
+                            You have <span > {{Auth::user()->all_unread_messages()->count()}} </span>new messages
+                        </li>
+                    @else
+                        <li class="dropdown-header">
+                            You dont have new messages
+                        </li>
+                    @endif
+                </div>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
 
-            @if (Auth::user()->all_unread_messages()->count() > 0)
-
                 <div id="li-messages">
-                    @foreach (Auth::user()->all_unread_messages() as $message)
-                        <li class="message-item">
-                            <a href="{{route('room', $message->room_id )}}">
-                                <img src="{{ route('get-file',['path'=>$message->user->roles[0]->avatar]) }}" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>{{$message->user->name}}</h4>
-                                    <p>{{$message->getTimeAgoAttribute()}} </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                    @endforeach
+                    @if (Auth::user()->all_unread_messages()->count() > 0)
+                        @php
+                            $messages = Auth::user()->all_unread_messages()->groupBy('room_id')
+                        @endphp
+                        @foreach ($messages as $message)
+                            <li class="message-item">
+                                <a href="{{ route('room', $message[0]->room_id )}}">
+                                    <img src="{{ route('get-file',['path'=>$message[0]->user->roles[0]->avatar]) }}" alt="" class="rounded-circle">
+                                    <div>
+                                        <h4>{{$message[0]->user->name}}</h4>
+                                        <p>{{$message[0]->getTimeAgoAttribute()}} </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                        @endforeach
+                    @endif
                 </div>
-            @endif
+
           </ul><!-- End Messages Dropdown Items -->
 
         </li><!-- End Messages Nav -->

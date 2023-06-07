@@ -222,7 +222,11 @@
                         <div class="d-flex flex-wrap justify-content-between">
                             @foreach ($press_release->files as $item)
                             <div class="d-flex file_div">
-                                <img src="{{ route('get-file',['path'=>$item->path]) }}" class="file">
+                                @if($item->type == 'image') 
+                                    <img src="{{ route('get-file',['path'=>$item->path]) }}" class="file">
+                                @else 
+                                    <video controls src="{{ route('get-file',['path'=>$item->path]) }}" class="file"></video>
+                                @endif
                                 <i class="delete_item ri-delete-bin-2-line" data-id="{{$item->id}}" data-table="files"
                                     data-type="file"></i>
                             </div>

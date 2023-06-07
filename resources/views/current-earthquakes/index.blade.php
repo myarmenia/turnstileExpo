@@ -131,7 +131,7 @@
                             <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"
                                 onclick="create_request_route(`current-earthquakes`, {{$current_earthquake->id}})"></i>
                             <a
-                                href="{{ route('change_status', [$current_earthquake->id, 'current_earthquakes', 'confirmed']) }}">
+                                href="{{ $current_earthquake->status != 'confirmed' ? route('change_status', [$current_earthquake->id, 'current_earthquakes', 'confirmed']) : '' }}">
                                 <i class="bi bi-check-circle action_i"
                                     style="color:{{ $current_earthquake->status == 'confirmed' ? '#0d6efd' : ''}}"
                                     data-bs-toggle="tooltip" data-bs-placement="left"
