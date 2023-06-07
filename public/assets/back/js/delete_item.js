@@ -13,8 +13,6 @@ function deleteItemFromDB()
     let table = this.getAttribute('data-table')
     let that = this
 
-    console.log(this.getAttribute('data-type'));
-
     if(document.querySelectorAll('.'+type).length > 1){
 
 

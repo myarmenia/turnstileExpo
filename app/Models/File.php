@@ -27,7 +27,6 @@ class File extends Model
 
     public function map_region_infos()
     {
-
         return $this->morphedByMany(MapRegionInfo::class, 'fileable');
     }
 }

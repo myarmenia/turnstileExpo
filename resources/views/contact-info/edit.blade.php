@@ -82,7 +82,7 @@
                                 <label for="address.{{ $lng->id }}" class="form-label">Address {{ Str::upper($lng->name)
                                     }}</label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control @error(" address.$lng->id") _incorrectly
+                                    <input type="text" class="form-control @error("address.$lng->id") _incorrectly
                                     @enderror"
                                     id="address.{{ $lng->id }}" name="address[{{ $lng->id }}]"
                                     @if($contact_info != null && $contact_info->contact_info_translations[$index]->address != null) 

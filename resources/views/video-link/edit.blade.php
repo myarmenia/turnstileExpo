@@ -50,12 +50,16 @@
                             @endforeach
                 </div>
 
+                {{-- {{ dd(old("links.1.link")) }} --}}
+
                 <div class="col-5 ms-5">
                     <div class="col-12 my-4">
                         <label for="link_{{ $i }}" class="form-label">Youtube Link</label>
                         <input type="text" class='form-control @error("links.$i.link") _incorrectly @enderror'
                             id="link_{{ $i }}" name="links[{{ $i }}][link]"
-                            value='{{ isset($video_link[$i]) ? $video_link[$i]->link : '' }}'>
+                            value='{{ 
+                                old("links.$i.link") ?? 
+                                (isset($video_link[$i]) ? $video_link[$i]->link : '') }}'>
                         @error("links.$i.link")
                         <div class="error_message"> {{ $message }} </div>
                         @enderror

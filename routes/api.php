@@ -11,6 +11,7 @@ use App\Http\Controllers\API\GlobalMonitoring\GlobalMonitoringController;
 use App\Http\Controllers\API\Home\HomeController;
 use App\Http\Controllers\API\LanguageController;
 use App\Http\Controllers\API\MapRegion\MapRegionController;
+use App\Http\Controllers\API\MapRegion\MapRegionTranslationController;
 use App\Http\Controllers\API\News\NewsController;
 use App\Http\Controllers\API\PressReleases\FilterController as PressReleasesFilterController;
 use App\Http\Controllers\API\PressReleases\PressReleaseController;
@@ -63,6 +64,8 @@ Route::get('smart-search', [SmartSearchController::class, 'index']);
 
 Route::get('map-region-info/{id}',[MapRegionController::class,'mapRegionInfo']);
 Route::get('region-info/{id}',[MapRegionController::class,'regionInfo']);
+
+Route::get('map-region-translation',[MapRegionTranslationController::class,'index']);
 
 Route::get('banner',[BannerController::class,'index']);
 
