@@ -169,7 +169,7 @@ return [
 
         'links.*.link' => [
             'required' => 'The link field is required',
-            'url' => 'The link must be a valid URL',
+            'url' => 'The link must be a valid youtube URL',
         ],
 
         'links.*.title.*' => [

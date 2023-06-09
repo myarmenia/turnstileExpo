@@ -40,6 +40,7 @@ class PressReleaseController extends Controller
      */
     public function index(Request $request)
     {
+       
         $lng_id = $this->lng_id;
         $press_releases = PressRelease::orderBy('id', 'DESC');
 

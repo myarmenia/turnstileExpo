@@ -25,6 +25,8 @@ class EditController extends Controller
     public function update($id, Request $request)
     {
 
+        // dd($request->all());
+
         $contact_info = ContactInfo::find($id);
 
         $delete_image = $contact_info->map_image;
@@ -74,16 +76,19 @@ class EditController extends Controller
             ]);
         }
 
-        $current_contact_links = ContactInfoLinks::all();
+        // $current_contact_links = ContactInfoLinks::all();
 
-        if ($current_contact_links != null) {
-            foreach ($current_contact_links as $item) {
-                $delete_contact_links = ContactInfoLinks::find($item->id);
+        // if ($current_contact_links != null) {
+        //     foreach ($current_contact_links as $item) {
 
-                $delete_contact_links->delete();
-                $item->logo != null ? Storage::delete($item->logo) : null;
-            }
-        }
+        //         // dd($item);
+
+        //         $delete_contact_links = ContactInfoLinks::find($item->id);
+
+        //         $delete_contact_links->delete();
+        //         $item->logo != null ? Storage::delete($item->logo) : null;
+        //     }
+        // }
 
         foreach ($request['links'] as $item) {
 

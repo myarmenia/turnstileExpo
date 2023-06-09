@@ -5,6 +5,7 @@ namespace App\Http\Controllers\News;
 use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\NewsTranslation;
+use App\Services\DeleteItemService;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,9 @@ class NewsController extends Controller
         $paginate=2;
         $i=$request['page'] ? ($request['page']-1)*$paginate : 0;
         $query=News::latest();
-        if($request->has('title')){
+
+        if($request->title){
+
             $title = $request->title;
             $news_translation=NewsTranslation::latest()
                                 ->where('title', 'like', '%' . $title . '%')
@@ -42,7 +45,7 @@ class NewsController extends Controller
 
 
         }
-        if($request->has('status')){
+        if($request->status){
             $query = $query->where('status', $request->status);
         }
         $news=$query->paginate(2)->withQueryString();
@@ -68,7 +71,9 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+
     {
+       
         $validate = [
             "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
             "translations.*.title"=> "required",
@@ -200,6 +205,7 @@ class NewsController extends Controller
 
         if($request->has('image')){
 
+
             Storage::delete($news->image);
             $path=FileUploadService::upload($request->image,'news/'.$id);
             $news->image=$path;
@@ -224,12 +230,27 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-            $news=News::where('id',$id)->first();
+        // dd($request);
+
+            $news=News::where('id', $id)->first();;
+
+            Storage::delete($news->image);
             $deleted=$news->delete();
-            if($deleted){
-                return redirect()->back();
+
+
+            if($deleted) {
+                if ($request->_method != null) {
+
+                        Storage::disk('public')->deleteDirectory('news/'.$id);
+
+
+                    return redirect()->back();
+                } else {
+                    return response()->json(['result' => 1], 200);
+                }
             }
+
     }
 }
