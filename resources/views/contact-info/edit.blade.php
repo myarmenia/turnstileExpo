@@ -53,12 +53,9 @@
                             <div class="col-6">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control @error('email') _incorrectly @enderror"
-                                    id="email" name="email" 
-                                    @if($contact_info !=null)
-                                        value="{{ old('email') ?? $contact_info->email }}" 
-                                    @else
-                                        value="{{ old('email') ?? '' }}" 
-                                    @endif />
+                                    id="email" name="email" @if($contact_info !=null)
+                                    value="{{ old('email') ?? $contact_info->email }}" @else
+                                    value="{{ old('email') ?? '' }}" @endif />
                                 @error('email')
                                 <div class="error_message"> {{ $message }} </div>
                                 @enderror
@@ -67,12 +64,9 @@
                             <div class="col-6">
                                 <label for="phone" class="form-label">Phone</label>
                                 <input type="phone" class="form-control @error('phone') _incorrectly @enderror"
-                                    id="phone" name="phone" 
-                                    @if($contact_info !=null)
-                                    value="{{ old('phone') ?? $contact_info->phone }}" 
-                                    @else
-                                    value="{{ old('phone') ?? '' }}" 
-                                    @endif>
+                                    id="phone" name="phone" @if($contact_info !=null)
+                                    value="{{ old('phone') ?? $contact_info->phone }}" @else
+                                    value="{{ old('phone') ?? '' }}" @endif>
                                 @error('phone')
                                 <div class="error_message"> {{ $message }} </div>
                                 @enderror
@@ -82,12 +76,14 @@
                                 <label for="address.{{ $lng->id }}" class="form-label">Address {{ Str::upper($lng->name)
                                     }}</label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control @error("address.$lng->id") _incorrectly
+                                    <input type="text" class="form-control @error(" address.$lng->id") _incorrectly
                                     @enderror"
                                     id="address.{{ $lng->id }}" name="address[{{ $lng->id }}]"
-                                    @if($contact_info != null && $contact_info->contact_info_translations[$index]->address != null) 
-                                    value="{{old("address.$lng->id") ?? $contact_info->contact_info_translations[$index]->address
-                                    }}" 
+                                    @if($contact_info != null &&
+                                    $contact_info->contact_info_translations[$index]->address != null)
+                                    value="{{old("address.$lng->id") ??
+                                    $contact_info->contact_info_translations[$index]->address
+                                    }}"
                                     @else
                                     value="{{old("address.$lng->id") ?? ''
                                     }}"
@@ -119,12 +115,9 @@
                                 <label for="map_iframe" class="form-label">Map Iframe</label>
                                 <input type="text"
                                     class="form-control @error('map_iframe_image') _incorrectly @enderror"
-                                    id="map_iframe" name="map_iframe" 
-                                    @if($contact_info !=null)
-                                        value="{{ old('map_iframe') ?? $contact_info->map_iframe }}" 
-                                    @else
-                                        value="{{ old('map_iframe') ?? '' }}" 
-                                    @endif>
+                                    id="map_iframe" name="map_iframe" @if($contact_info !=null)
+                                    value="{{ old('map_iframe') ?? $contact_info->map_iframe }}" @else
+                                    value="{{ old('map_iframe') ?? '' }}" @endif>
                                 @error('map_iframe_image')
                                 <div class="error_message"> {{ $message }} </div>
                                 @enderror
@@ -142,7 +135,52 @@
                             <div class="col-lg-12">
                                 <label for="" class="form-label">Links </label>
                                 <div class="links_div col-6">
+                                    @if($contact_info != null)
+                                    @foreach ($contact_info->contact_info_links as $link)
+                                    <div class="logo_link_div border rounded ps-2 my-3 link_logo">
+                                        <div class="text-end pe-2">
+                                            <i class="icon ri-delete-bin-2-line delete_item" data-id="{{$link->id}}"
+                                                data-table="contact_info_links" data-type="link_logo"></i>
+                                        </div>
+                                        {{-- <div class="w-75 my-3">
+                                            <input type="file" class="form-control links_logo"
+                                                name="links[{{ $link->id }}][logo]" onchange="add_link_image(this)">
+                                        </div> --}}
 
+                                        <div class="logo_view_div">
+                                            <div class="d-flex file_div order-3">
+                                                <img src="{{ route('get-file',['path'=>$link->logo]) }}"
+                                                    class="img-thumbnail" style="width: 150px; height: 100px">
+                                            </div>
+                                        </div>
+
+                                        <div class="w-75 my-3">
+                                            {{ $link->link }}
+                                        </div>
+
+                                    </div>
+                                    @endforeach
+                                    @else
+                                    <div class="logo_link_div border rounded ps-2 my-3">
+                                        <div class="text-end pe-2">
+                                            <i class="icon ri-delete-bin-2-line delete_link"
+                                                onclick="removeElemnet(this)"></i>
+                                        </div>
+                                        <div class="w-75 my-3">
+                                            <input type="file" class="form-control links_logo" name="links[1][logo]"
+                                                onchange="add_link_image(this)">
+                                        </div>
+
+                                        <div class="logo_view_div my-3">
+
+                                        </div>
+
+                                        <div class="w-75 my-3">
+                                            <input type="url" class="form-control" id=" items" name="links[1][link]">
+                                        </div>
+
+                                    </div>
+                                    @endif
                                     @error('links.*')
                                     @foreach (old('links') as $key => $item)
                                     <div class="logo_link_div border rounded ps-2 my-3">
@@ -202,55 +240,6 @@
                                     </div>
                                     @endforeach
                                     @else
-                                    @if($contact_info != null)
-                                    @foreach ($contact_info->contact_info_links as $link)
-                                    <div class="logo_link_div border rounded ps-2 my-3 link_logo">
-                                        <div class="text-end pe-2">
-                                            <i class="icon ri-delete-bin-2-line delete_item" data-id="{{$link->id}}"
-                                                data-table="contact_info_links" data-type="link_logo"></i>
-                                        </div>
-                                        <div class="w-75 my-3">
-                                            <input type="file" class="form-control links_logo"
-                                                name="links[{{ $link->id }}][logo]" onchange="add_link_image(this)">
-                                        </div>
-
-                                        <div class="logo_view_div my-3">
-                                            <div class="d-flex file_div order-3">
-                                                <img src="{{ route('get-file',['path'=>$link->logo]) }}"
-                                                    class="img-thumbnail" style="width: 75px; height: 60px">
-                                            </div>
-                                        </div>
-
-                                        <div class="w-75 my-3">
-                                            <input type="url" class="form-control" value="{{ $link->link }}" id=" items"
-                                                name="links[{{ $link->id }}][link]">
-                                        </div>
-
-                                    </div>
-                                    @endforeach
-                                    @else
-                                    <div class="logo_link_div border rounded ps-2 my-3">
-                                        <div class="text-end pe-2">
-                                            <i class="icon ri-delete-bin-2-line delete_link"
-                                                onclick="removeElemnet(this)"></i>
-                                        </div>
-                                        <div class="w-75 my-3">
-                                            <input type="file" class="form-control links_logo"
-                                                name="links[1][logo]" onchange="add_link_image(this)">
-                                        </div>
-                                        
-                                        <div class="logo_view_div my-3">
-
-                                        </div>
-
-                                        <div class="w-75 my-3">
-                                            <input type="url"
-                                                class="form-control"
-                                                id=" items" name="links[1][link]">
-                                        </div>
-
-                                    </div>
-                                    @endif
                                     @endif
                                     @enderror
 
