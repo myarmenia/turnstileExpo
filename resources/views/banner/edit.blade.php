@@ -44,7 +44,7 @@
                                 <div class="flex mb-3">
                                     <label for="inputNumber" class="col-sm-2 col-form-label">Image</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" type="file"  name="path"  id="banner_path" accept="image/png, image/jpeg, image/jpg, image/PNG, image/JPG">
+                                        <input class="form-control" type="file"  name="path"  id="banner_path" accept="image/png, image/jpeg, image/jpg, image/PNG, image/JPG, image/gif">
                                     </div>
                                 </div>
                                 <div class="path_div">
