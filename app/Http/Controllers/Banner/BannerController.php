@@ -18,7 +18,7 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+   
     public function index()
     {
         $i=0;
@@ -51,7 +51,7 @@ class BannerController extends Controller
         // dd($request->all());
         $validate=[
             'translations.*.content'=>'required',
-            'path' => "required | max:2048",
+            'path' => "required | mimes:gif,jpeg,jpg,png,PNG,JPG,JPEG",
 
         ];
         $validator = Validator::make($request->all(), $validate);
@@ -129,7 +129,7 @@ class BannerController extends Controller
         ];
 
         if($request->has('path')) {
-            $validate['path']="required | max:2048";
+            $validate['path']="required | mimes:gif,jpeg,jpg,png,PNG,JPG,JPEG ";
         }
 
         $validator = Validator::make($request->all(), $validate);
@@ -161,25 +161,8 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        $banner=Banner::where('id', $id)->first();;
-
-        Storage::delete( $banner->path);
-        $deleted= $banner->delete();
-
-
-        if($deleted) {
-            if ($request->_method != null) {
-
-                    Storage::disk('public')->deleteDirectory('banner/'.$id);
-
-
-                return redirect()->back();
-            } else {
-                return response()->json(['result' => 1], 200);
-            }
-        }
-
+        //
     }
 }
