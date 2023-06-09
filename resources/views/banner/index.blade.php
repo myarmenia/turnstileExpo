@@ -10,7 +10,7 @@
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{route('banner.index')}}">Banner</a></li>
+        <li class="breadcrumb-item"><a href="{{route('banner.index')}}" class="active">Banner</a></li>
       </ol>
     </nav>
   </div>
@@ -19,14 +19,7 @@
   <div class="card pt-4">
     <div class="card-body">
         <div class="d-flex justify-content-between my-2">
-            {{-- <div class="w-75">
-                @if ($message = Session::get('permission_denied'))
-                    <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
-                        {{$message}}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-            </div> --}}
+            <h5 class="fw-bold">Running Text</h5>
 
         </div>
         @if ( $running_text==null)
@@ -40,6 +33,7 @@
       <div>
 
       </div>
+
       <table class="table table-bordered border-primary">
         <thead>
           <tr>
@@ -76,7 +70,9 @@
     <div class="card-body">
       <!-- Primary Color Bordered Table -->
 
-      <div style="display: flex; justify-content: flex-end;margin:15px 0">
+
+      <div style="display: flex; justify-content: space-between;margin:15px 0">
+        <h5 class="fw-bold">Banner</h5>
         <a href="{{route('banner.create')}}" class="btn btn-primary">Create Banner</a>
       </div>
       <div>
@@ -103,11 +99,11 @@
                 <td>
                 <div style="display: flex !important">
                     <a href="{{route('banner.edit', $item->id)}}"><i class="bi bi-pencil-square action_i"></i></a>
-                    @if(auth()->user()->hasRole('Admin'))
-                        <i class="bi bi-trash action_i" data-bs-toggle="modal" data-bs-target="#disablebackdrop"
-                        onclick="create_request_route(`news`, {{$item->id}})"></i>
-                    @endif
+                    @role('Admin')
+                        <i class="bi bi-trash action_i " data-bs-toggle="modal" data-bs-target="#disablebackdrop"
+                        onclick="create_request_route(`banner`, {{$item->id}})"></i>
 
+                    @endrole
 
                 </div>
                 </td>
