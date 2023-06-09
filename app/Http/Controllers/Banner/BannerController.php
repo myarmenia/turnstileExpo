@@ -51,7 +51,7 @@ class BannerController extends Controller
         // dd($request->all());
         $validate=[
             'translations.*.content'=>'required',
-            'path' => "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:2048",
+            'path' => "required | max:2048",
 
         ];
         $validator = Validator::make($request->all(), $validate);
@@ -129,7 +129,7 @@ class BannerController extends Controller
         ];
 
         if($request->has('path')) {
-            $validate['path']="required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:2048";
+            $validate['path']="required | max:2048";
         }
 
         $validator = Validator::make($request->all(), $validate);
