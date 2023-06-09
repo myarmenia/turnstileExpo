@@ -11,17 +11,20 @@ if(document.getElementById('select_status') != null){
         csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         if(status == 'delete'){
+            console.log(777)
 
             fetch('/'+delete_url+'/'+item_id,{
                 method: 'DELETE',
                 headers: {'X-CSRF-TOKEN':csrf }
             }).then(async response => {
                     if (response.ok) {
+                        console.log(77777)
                         window.location.href = '/' + delete_url
                     }
                 })
         }
         else{
+            console.log(8888)
             fetch('/change_status/'+item_id+'/'+table+'/'+status,{
                 method: 'get',
                 headers: {'X-CSRF-TOKEN':csrf },
