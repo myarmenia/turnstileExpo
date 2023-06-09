@@ -37,7 +37,7 @@ class EditController extends Controller
             "email" => "required|email",
             "address.*" => "required",
             "phone" => "required",
-            // "links.*.logo" => "required",
+            "links.*.logo" => "required",
             "links.*.link" => "required",
         ];
 
