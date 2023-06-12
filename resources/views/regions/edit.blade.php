@@ -100,10 +100,23 @@
                         <div class=" d-flex region_info_files_div">
                             {{-- {{dd($map_region_info->files)}} --}}
                             @foreach ($map_region_info->files as $data )
+                            {{-- {{dd($data)}} --}}
 
-                                <div class="d-flex file_div">
+                                {{-- <div class="d-flex file_div">
                                     <img src="{{route('get-file',['path'=>$data->path])}}">
                                     <i class="delete_item ri-delete-bin-2-line image" data-id="{{$data->id}}" data-table="files" data-type="image"></i>
+                                </div> --}}
+
+                                <div class="d-flex file_div">
+                                    @if($data->type == 'image')
+                                        <img src="{{ route('get-file',['path'=>$data->path]) }}" class="file">
+                                        <i class="delete_item ri-delete-bin-2-line image" data-id="{{$data->id}}" data-table="files" data-type="image"></i>
+                                    @else
+                                        <video controls src="{{ route('get-file',['path'=>$data->path]) }}" class="file"></video>
+                                        <i class="delete_item ri-delete-bin-2-line" data-id="{{$data->id}}" data-table="files"
+                                            data-type="file"></i>
+                                    @endif
+
                                 </div>
                             @endforeach
                         </div>
