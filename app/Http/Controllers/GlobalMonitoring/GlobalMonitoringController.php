@@ -91,6 +91,9 @@ class GlobalMonitoringController extends Controller
 
                 $f_extension = $item->getClientOriginalExtension();
                 $type="image";
+                if ($f_extension == 'mp4' || $f_extension == 'avi' || $f_extension == 'mkv') {
+                    $type = 'video';
+                }
 
                 $f_path = FileUploadService::upload($item, 'region_info/'.$map_region_info->id);
                 $map_region_info->files()->create(['path' => $f_path, 'name'=>$item->getClientOriginalName() ,'type'=>$type]);
@@ -119,6 +122,7 @@ class GlobalMonitoringController extends Controller
      */
     public function edit($id)
     {
+        // dd($id);
 
         $region=Region::find($id);
 
@@ -198,6 +202,10 @@ class GlobalMonitoringController extends Controller
 
                 $f_extension = $item->getClientOriginalExtension();
                 $type="image";
+                if ($f_extension == 'mp4' || $f_extension == 'avi' || $f_extension == 'mkv') {
+                    $type = 'video';
+                }
+
 
                 $f_path = FileUploadService::upload($item, 'region_info/'. $map_region_info->id);
                 $map_region_info->files()->create(['path' => $f_path, 'name'=>$item->getClientOriginalName() ,'type'=>$type]);

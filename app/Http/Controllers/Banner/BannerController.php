@@ -18,7 +18,7 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   
+
     public function index()
     {
         $i=0;
@@ -161,8 +161,24 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $banner=Banner::where('id', $id)->first();;
+
+        Storage::delete( $banner->path);
+        $deleted= $banner->delete();
+
+
+        if($deleted) {
+            if ($request->_method != null) {
+
+                    Storage::disk('public')->deleteDirectory('banner/'.$id);
+
+
+                return redirect()->back();
+            } else {
+                return response()->json(['result' => 1], 200);
+            }
+        }
     }
 }

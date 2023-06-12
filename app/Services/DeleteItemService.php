@@ -12,7 +12,7 @@ class DeleteItemService
 {
 
     public function delete_item($id, $table, $type = null){
-
+// dd($table);
         $item = DB::table($table)->where('id', $id);
 
         if($type == 'file'){
@@ -21,6 +21,7 @@ class DeleteItemService
         }
 
         if($type == 'image'){
+
             $item_region= DB::table($table)->find($id);
 
             Storage::delete($item_region->path);

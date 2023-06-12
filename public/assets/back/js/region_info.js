@@ -34,18 +34,31 @@ schema_path.addEventListener("change", (e) => {
 })
 region_info_files.addEventListener("change", (e) => {
 
-    // document.querySelector('.region_info_files_div').innerHTML=''
+
 
     let files = e.target.files;
     console.log(files);
     for (var i = 0; i < files.length; i++){
         let url = URL.createObjectURL(files[i])
+        let type_arr = files[i].type.split('/')
 
-        console.log(url)
-        document.querySelector('.region_info_files_div').innerHTML+= `<div class="d-flex file_div">
-                                                                    <img src="${url}">
-                                                                    <i data-key="${files[i].lastModified}" id="logo_remove" class="item_remove  ri-delete-bin-2-line"></i>
-                                                                </div>`;
+        console.log(type_arr)
+        if(type_arr[0] == 'video'){
+            document.querySelector('.region_info_files_div').innerHTML+=`<div class="d-flex file_div order-3">
+                                    <video class="img-thumbnail" controls><source src="${url}" type="${files[i].type}"></video>
+                                    <i data-key="${files[i].lastModified}" class="item_remove ri-delete-bin-2-line"></i>
+                                </div>`
+
+
+        }else{
+
+            document.querySelector('.region_info_files_div').innerHTML+= `<div class="d-flex file_div">
+                                                                            <img src="${url}">
+                                                                            <i data-key="${files[i].lastModified}" id="logo_remove" class="item_remove  ri-delete-bin-2-line"></i>
+                                                                        </div>`;
+        }
+
+
     }
 
     document.querySelectorAll('.item_remove').forEach( el => {
@@ -58,7 +71,7 @@ region_info_files.addEventListener("change", (e) => {
 
         document.getElementById('region_info_files_error').innerHTML=''
     }
-
+   
 
 })
 
