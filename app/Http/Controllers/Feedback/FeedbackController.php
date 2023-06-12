@@ -142,7 +142,7 @@ class FeedbackController extends Controller
             ]);
 
             if ($feedback_updated) {
-                Mail::to('kirakosyan.suren@inbox.ru')->send(new FeedbackMail($feedback->type, $request->answer_content));
+                Mail::to($feedback->email)->send(new FeedbackMail($feedback->type, $request->answer_content));
             }
         } else {
             $feedback->update([
