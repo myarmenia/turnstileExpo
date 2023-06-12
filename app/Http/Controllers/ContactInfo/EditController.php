@@ -89,17 +89,18 @@ class EditController extends Controller
         //         $item->logo != null ? Storage::delete($item->logo) : null;
         //     }
         // }
+        if($request->has('links') ){
+            foreach ($request['links'] as $item) {
 
-        foreach ($request['links'] as $item) {
+                $f_extension = $item['logo']->getClientOriginalExtension();
+                $f_path = FileUploadService::upload($item['logo'], 'contact-info-links/' . $contact_info->id);
 
-            $f_extension = $item['logo']->getClientOriginalExtension();
-            $f_path = FileUploadService::upload($item['logo'], 'contact-info-links/' . $contact_info->id);
-
-            ContactInfoLinks::create([
-                'contact_info_id' => $contact_info->id,
-                'logo' => $f_path,
-                'link' => $item['link']
-            ]);
+                ContactInfoLinks::create([
+                    'contact_info_id' => $contact_info->id,
+                    'logo' => $f_path,
+                    'link' => $item['link']
+                ]);
+            }
         }
 
         return redirect()->back();

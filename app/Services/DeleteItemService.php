@@ -29,6 +29,9 @@ class DeleteItemService
 
         }
 
+        if($type == 'link_logo'){
+            Storage::delete($item->first()->logo);
+        }
 
         $deleted = $item->delete();
         return $deleted ? true : false;
