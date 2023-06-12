@@ -143,7 +143,7 @@ class GlobalMonitoringController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        // dd($request->all());
         $map_region_info = MapRegionInfo::where('id',$id)->first();
 
         $validate = [
@@ -191,8 +191,6 @@ class GlobalMonitoringController extends Controller
 
         if($request->has('region_info_files')){
 
-            $map_region_info->files()->detach();
-            $map_region_info->files()->delete();
 
             foreach ($request->region_info_files as $key => $item) {
 

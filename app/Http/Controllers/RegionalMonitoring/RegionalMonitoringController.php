@@ -161,12 +161,12 @@ class RegionalMonitoringController extends Controller
         if($request->has('items')) {
             foreach ($request->items as $key => $image) {
                 $f_extension = $image->getClientOriginalExtension();
-    
+
                 $f_type = 'image';
                 if ($f_extension == 'mp4' || $f_extension == 'avi' || $f_extension == 'mkv') {
                     $f_type = 'video';
                 }
-    
+
                 $f_path = FileUploadService::upload($image, 'regional-monitoring-items/' . $regional_monitoring->id);
                 $regional_monitoring->files()->create(['path' => $f_path, 'type' => $f_type]);
             }

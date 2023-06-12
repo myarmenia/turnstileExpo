@@ -73,7 +73,7 @@ class NewsController extends Controller
     public function store(Request $request)
 
     {
-       
+
         $validate = [
             "image" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
             "translations.*.title"=> "required",
@@ -232,22 +232,20 @@ class NewsController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        // dd($request);
+
 
             $news=News::where('id', $id)->first();;
 
             Storage::delete($news->image);
             $deleted=$news->delete();
-
+            Storage::disk('public')->deleteDirectory('news/'.$id);
 
             if($deleted) {
                 if ($request->_method != null) {
 
-                        Storage::disk('public')->deleteDirectory('news/'.$id);
-
-
                     return redirect()->back();
                 } else {
+
                     return response()->json(['result' => 1], 200);
                 }
             }

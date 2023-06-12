@@ -34,7 +34,7 @@ schema_path.addEventListener("change", (e) => {
 })
 region_info_files.addEventListener("change", (e) => {
 
-    document.querySelector('.region_info_files_div').innerHTML=''
+    // document.querySelector('.region_info_files_div').innerHTML=''
 
     let files = e.target.files;
     console.log(files);
