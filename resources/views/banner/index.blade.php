@@ -39,7 +39,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Description</th>
-            <th scope="col">Image</th>
+            <th scope="col">Link</th>
             <th scope="col" style="width: 60px !important">Actions</th>
           </tr>
         </thead>

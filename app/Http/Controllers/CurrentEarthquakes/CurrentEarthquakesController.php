@@ -204,7 +204,7 @@ class CurrentEarthquakesController extends Controller
         }
 
         if ($current_earthquake->files == null || $request->has('items')) {
-            $validate["items.*"] = "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:20000";
+            $validate["items.*"] = "required | mimes:mp4,mov,ogg,jpeg,jpg,png,PNG,JPG,JPEG | max:20000";
         }
 
 

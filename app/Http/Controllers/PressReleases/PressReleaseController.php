@@ -24,14 +24,9 @@ class PressReleaseController extends Controller
         $request['table'] = 'press_releases';
         $this->middleware('editor', ['only' => ['edit', 'update']]);
 
-        // $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
-        // $this->middleware('permission:product-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:product-delete', ['only' => ['destroy']]);
-
         $lng_id = Language::where('name', 'en')->first()->id;
         $this->lng_id = $lng_id;
-        // dd($request->all());
+
     }
     /**
      * Display a listing of the resource.
@@ -40,7 +35,7 @@ class PressReleaseController extends Controller
      */
     public function index(Request $request)
     {
-       
+
         $lng_id = $this->lng_id;
         $press_releases = PressRelease::orderBy('id', 'DESC');
 
@@ -60,11 +55,6 @@ class PressReleaseController extends Controller
 
         if ($request->title) {
             $title = $request->title;
-            // $press_releases = $press_releases->where(function ($query) use ($title) {
-            //     $query->where('title_en', 'like', '%' . $title . '%')
-            //         ->orWhere('title_ru', 'like', '%' . $title . '%')
-            //         ->orWhere('title_am', 'like', '%' . $title . '%');
-            // });
 
             $press_release_ids = PressReleaseTranslation::where('title', 'like', '%' . $title . '%')->pluck('press_release_id')->toArray();
             $press_releases = $press_releases->whereIn('id', $press_release_ids);
@@ -125,7 +115,7 @@ class PressReleaseController extends Controller
         }
 
         foreach ($request->translations as $key => $item) {
-            // dd($item['title']);
+
             PressReleaseTranslation::create([
                 'press_release_id' => $press_releases->id,
                 'language_id' => $key,
@@ -192,6 +182,7 @@ class PressReleaseController extends Controller
         $press_releases = PressRelease::find($id);
         $logo_path = $press_releases->logo;
         // dd($request->all());
+
         $requestData = $request->all();
 
         $validate = [
@@ -210,7 +201,8 @@ class PressReleaseController extends Controller
         }
 
         if ($press_releases->files == null || $request->has('items')) {
-            $validate["items.*"] = "required | mimes:jpeg,jpg,png,PNG,JPG,JPEG | max:20000";
+            $validate["items.*"] = "required | mimes:mp4,mov,ogg,jpeg,jpg,png,PNG,JPG,JPEG | max:20000";
+
         }
 
         $validator = Validator::make($request->all(), $validate);
@@ -233,12 +225,14 @@ class PressReleaseController extends Controller
             $press_releases->translation($key)->update($value);
         }
 
-        if ($request->has('items')) {
+        if ($request->has("items")) {
+
             foreach ($request->items as $key => $image) {
 
                 $f_extension = $image->getClientOriginalExtension();
                 $f_type = 'image';
-                if ($f_extension == 'mp4' || $f_extension == 'mov' || $f_extension == 'ogg') {
+
+                if($f_extension == 'mp4' || $f_extension == 'mov' || $f_extension == 'ogg') {
                     $f_type = 'video';
                 }
                 $f_path = FileUploadService::upload($image, 'press-releases/' . $press_releases->id);
