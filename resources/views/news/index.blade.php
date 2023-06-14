@@ -85,7 +85,7 @@
 
           <tr>
             <th scope="row">{{++$i}}</th>
-            <td>{!! $item->news_translations->title !!}</td>
+            <td>{{ $item->news_translations->title }}</td>
             <td style="max-width: 300px !important">
               {!! $item->news_translations->description !!}
             </td>
@@ -95,7 +95,7 @@
             <td>
               <div style="display: flex !important">
                 <a href="{{route('news.edit', $item->id)}}"><i class="bi bi-pencil-square action_i"></i></a>
-                
+
                 @role('Admin')
                     <i class="bi bi-trash action_i " data-bs-toggle="modal" data-bs-target="#disablebackdrop"
                     onclick="create_request_route(`news`, {{$item->id}})"></i>
