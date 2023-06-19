@@ -46,7 +46,7 @@ window.Echo = new Echo({
     forceTLS: false,
     wsHost: window.location.hostname,
     wsPort: 6001,
-    enabledTransports: ['ws','wss'],
+    // enabledTransports: ['ws','wss'],
 });
 
 // window.Echo.channel('events')
