@@ -42,13 +42,11 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: import.meta.env.VITE_PUSHER_APP_KEY,
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-    // encrypted: true,
-    encrypted: false,
+    encrypted: true,
     forceTLS: false,
     wsHost: window.location.hostname,
     wsPort: 6001,
-    // wssPort: 6001,
-    enabledTransports: ['ws', 'wss'],
+    enabledTransports: ['ws'],
 });
 
 // window.Echo.channel('events')
