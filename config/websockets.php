@@ -29,23 +29,11 @@ return [
             'secret' => env('PUSHER_APP_SECRET'),
             'path' => env('PUSHER_APP_PATH'),
             'capacity' => null,
-            // -------server---------
-            'encripted' => true,
-            // ---------------------
             'enable_client_messages' => false,
             'enable_statistics' => true,
         ],
     ],
 
-    'pusher' => [
-        'driver' => 'pusher',
-        'key' => env('PUSHER_APP_KEY'),
-        'secret' => env('PUSHER_APP_SECRET'),
-        'app_id' => env('PUSHER_APP_ID'),
-        'options' => [
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-        ],
-    ],
     /*
      * This class is responsible for finding the apps. The default provider
      * will use the apps defined in this config file.
@@ -140,9 +128,6 @@ return [
          * Passphrase for your local_cert file.
          */
         'passphrase' => env('LARAVEL_WEBSOCKETS_SSL_PASSPHRASE', null),
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-        'CURLOPT_SSL_VERIFYPEER' => false
     ],
 
     /*
