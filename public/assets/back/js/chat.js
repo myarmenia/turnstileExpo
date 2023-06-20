@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-
+    window.Echo.channel('events')
+        .listen('.ev', (e) => {
+            console.log(445533333);
+    });
     window.Echo.private(`message.${room_id}`)
     .listen('.roomAs', (data) => {
         console.log('user_id '+user_id)

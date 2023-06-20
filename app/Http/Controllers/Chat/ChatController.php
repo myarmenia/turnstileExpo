@@ -20,7 +20,7 @@ class ChatController extends Controller
 {
     public $word;
     public function index(){
-        // event(new RealTimeMessage('Hello World'));
+        event(new RealTimeMessage('Hello World'));
         $users = User::where('id', '!=', Auth::id())->where('status', 1)->get();
 
         return view('chat.index', compact('users'));
@@ -85,6 +85,8 @@ class ChatController extends Controller
         }
 
         $message = ChatMessage::where('id',$message->id)->with('user.roles')->first();
+
+        event(new RealTimeMessage('Hello World'));
 
         // broadcast(new MessageEvent($room->id, $message))->toOthers();
         event(new MessageEvent($room->id, $message));
