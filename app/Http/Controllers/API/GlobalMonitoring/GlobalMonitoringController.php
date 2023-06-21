@@ -8,7 +8,7 @@ use App\Http\Resources\GlobalMonitoringResource;
 use App\Models\Language;
 use App\Models\Region;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Arr;
 
 class GlobalMonitoringController extends  BaseController
 {
@@ -17,6 +17,7 @@ class GlobalMonitoringController extends  BaseController
      *
      * @return \Illuminate\Http\Response
      */
+    protected $lng_id;
     public function __construct(Request $request)
     {
         $lng = 'en';
@@ -27,11 +28,18 @@ class GlobalMonitoringController extends  BaseController
 
         $lng_id = Language::where('name', $lng)->first()->id;
         $request['lng_id'] = $lng_id;
+        $this->lng_id = $lng_id;
     }
     public function index(Request $request)
     {
 
-        $query = Region::where('parent_id',null)->with('region_translations')->get();
+
+        $query = Region::where('parent_id',null)->with('region_translations', function($query){
+            return $query->where('language_id',  $this->lng_id);
+        })->get();
+
+        $query = collect($query)->sortBy('region_translations.name');
+
 
         return is_null($query)? $this->sendError('error message'):
                 $this->sendResponse(GlobalMonitoringResource::collection($query), 'success');
