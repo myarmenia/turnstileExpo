@@ -16,6 +16,7 @@ class MapRegionController extends BaseController
 {
     public function __construct(Request $request)
     {
+       
         $lng = 'en';
 
         if($request->lng){
@@ -27,28 +28,10 @@ class MapRegionController extends BaseController
     }
     public function mapRegionInfo(Request $request,$id){
 
-        // $map_regions = MapRegion::where('id',$request->id)->with('map_region_infos')->first();
-        // if($request->type=="region"){
-        //     $arr=[];
-        //     foreach($map_regions->regions as $data){
+        $map_region_info = MapRegionInfo::where('map_region_id', $id)->first();
 
-        //         array_push($arr,$data->pivot->region_id);
-        //     }
-        //     $region=Region::whereIn('id',$arr)->get();
-
-        //     return is_null($region) ? $this->sendError('error message'):
-        //     $this->sendResponse(MapRegionResource::collection($region), 'success');
-        // }
-
-        // if($request->type=="region_info"){
-
-            $map_region_info = MapRegionInfo::where('map_region_id', $id)->first();
-
-            return is_null($map_region_info) ? $this->sendError('error message'):
-            $this->sendResponse( new MapRegionInfoResource($map_region_info), 'success');
-        // }
-
-
+        return is_null($map_region_info) ? $this->sendError('error message'):
+        $this->sendResponse( new MapRegionInfoResource($map_region_info), 'success');
 
     }
     public function regionInfo(Request $request,$id){

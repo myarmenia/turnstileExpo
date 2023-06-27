@@ -12,7 +12,7 @@ class MapRegionInfo extends Model
         'map_region_id',
         'editor_id',
         'image_path',
-        'schema_path'
+       
     ];
 
     public function map_regions()

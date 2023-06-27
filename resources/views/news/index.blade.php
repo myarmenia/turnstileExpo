@@ -98,7 +98,8 @@
 
                 @role('Admin')
                     <i class="bi bi-trash action_i " data-bs-toggle="modal" data-bs-target="#disablebackdrop"
-                    onclick="create_request_route(`news`, {{$item->id}})"></i>
+                    onclick="create_request_route(`news`, {{$item->id}})"
+                    ></i>
 
                     <a href="{{ $item->status!='confirmed'? route('change_status', [$item->id, 'news', 'confirmed']) :'' }}">
                         <i class="bi bi-check-circle action_i"
