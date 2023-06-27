@@ -24,7 +24,7 @@
               <div class="accordion" id="accordionExample">
 
                 @foreach($regions as $kay=>$item)
-                    @if ($kay<=count($regions)/2)
+                    @if ($kay<count($regions)/2)
 
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingThree{{$item->id}}">
