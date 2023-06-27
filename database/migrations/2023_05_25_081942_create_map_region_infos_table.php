@@ -20,8 +20,6 @@ return new class extends Migration
             $table->bigInteger('editor_id')->unsigned();
             $table->foreign('editor_id')->references('id')->on('users');
             $table->string('image_path');
-            $table->string('schema_path');
-
             $table->timestamps();
         });
     }

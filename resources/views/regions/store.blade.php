@@ -59,17 +59,6 @@
                 <div class="error_message" id="image_path_error"> {{ $message }} </div>
             @enderror
           <div class="image_path_div"></div>
-
-            <div class="flex mb-3">
-                <label for="inputNumber" class="col-sm-2 col-form-label">Schema</label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="file" name="schema_path" id="schema_path" accept="image/png, image/jpeg, image/jpg, image/PNG, image/JPG">
-                </div>
-            </div>
-            @error('schema_path')
-                <div class="error_message" id="schema_path_error"> {{ $message }} </div>
-            @enderror
-            <div class="schema_path_div"></div>
             <div class="flex mb-3">
                 <label for="inputNumber" class="col-sm-2 col-form-label">Files</label>
                 <div class="col-sm-10">

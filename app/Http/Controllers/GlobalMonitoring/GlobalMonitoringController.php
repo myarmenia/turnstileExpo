@@ -50,7 +50,7 @@ class GlobalMonitoringController extends Controller
 // dd($request->all());
             $validate = [
                 "image_path" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
-                "schema_path" => "required | mimes:jpeg,jpg,png,PNG | max:10000",
+
                 "translations.*.title"=> "required",
                 "translations.*.description"=> "required",
                 "region_info_files"=>"required"
@@ -71,14 +71,7 @@ class GlobalMonitoringController extends Controller
                 $map_region_info->save();
 
             }
-            if($request->has('schema_path')){
-                $path=FileUploadService::upload($request->schema_path,'region_info/'.$map_region_info->id);
-                $map_region_info->schema_path=$path;
-                $map_region_info->save();
-
-            }
             foreach ($request->translations as $key => $item) {
-                // dd($region_info->id);
 
                 MapRegionInfoTranslation::create([
                     'map_region_info_id' => $map_region_info->id,
@@ -147,7 +140,7 @@ class GlobalMonitoringController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+
         $map_region_info = MapRegionInfo::where('id',$id)->first();
 
         $validate = [
@@ -157,9 +150,7 @@ class GlobalMonitoringController extends Controller
         if($request->has('image_path')) {
             $validate['image_path']="required | mimes:jpeg,jpg,png,PNG | max:10000";
         }
-        if($request->has('schema_path')) {
-            $validate['schema_path']="required | mimes:jpeg,jpg,png,PNG | max:10000";
-        }
+
 
         $validator = Validator::make($request->all(), $validate);
         $request['editor_id']=Auth::id();
@@ -177,15 +168,6 @@ class GlobalMonitoringController extends Controller
             $map_region_info->image_path=$path;
             $map_region_info->save();
 
-        }
-
-        if($request->has('schema_path')){
-
-            Storage::delete($map_region_info->schema_path);
-
-            $path=FileUploadService::upload($request->schema_path,'region_info/'.$map_region_info->id);
-            $map_region_info->schema_path=$path;
-            $map_region_info->save();
         }
 
         foreach($request->translations as $key=>$item){
