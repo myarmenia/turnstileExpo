@@ -14,7 +14,7 @@
             <li class="breadcrumb-item"><a href="{{route('press-release.index')}}">Press Release</a></li>
             <li class="breadcrumb-item active">Create</li>
 
-            
+
         </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -52,31 +52,7 @@
                             @enderror
                         </div>
                         @endforeach
-                        {{-- <div class="col-12">
 
-                            <label for="title_en" class="form-label">Title EN</label>
-                            <input type="text" class="form-control @error('title_en') _incorrectly @enderror"
-                                id="title_en" name="title_en" value="{{ old('title_en')}}">
-                            @error('title_en')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="col-12">
-                            <label for="title_am" class="form-label">Title AM</label>
-                            <input type="text" class="form-control @error('title_am') _incorrectly @enderror"
-                                id="title_am" name="title_am" value="{{ old('title_am')}}">
-                            @error('title_am')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="col-12">
-                            <label for="title_ru" class="form-label">Title RU</label>
-                            <input type="text" class="form-control @error('title_am') _incorrectly @enderror"
-                                id="title_ru" name="title_ru" value="{{ old('title_ru')}}">
-                            @error('title_ru')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div> --}}
                         <div class="col-6">
                             <label for="date" class="form-label">Date</label>
                             <input type="date" class="form-control @error('date') _incorrectly @enderror" id="date"
@@ -106,30 +82,7 @@
                             @enderror
                         </div>
                         @endforeach
-                        {{-- <div class="col-lg-12">
-                            <label for="description_en" class="form-label">Description EN</label>
-                            <textarea class="ckeditor form-control @error('description_en') _incorrectly @enderror"
-                                name="description_en" id="description_en">{{ old('description_en')}}</textarea>
-                            @error('description_en')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="description_am" class="form-label">Description AM</label>
-                            <textarea class="ckeditor form-control @error('description_am') _incorrectly @enderror"
-                                name="description_am" id="description_am">{{ old('description_am')}}</textarea>
-                            @error('description_am')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="description_ru" class="form-label">Description RU</label>
-                            <textarea class="ckeditor form-control @error('description_ru') _incorrectly @enderror"
-                                name="description_ru" id="description_ru">{{ old('description_ru')}}</textarea>
-                            @error('description_ru')
-                            <div class="error_message"> {{ $message }} </div>
-                            @enderror
-                        </div> --}}
+                        
 
                         <div class="col-lg-12">
                             <label for="" class="form-label">Links </label>

@@ -66,24 +66,7 @@
                             </div>
                         </div>
                     @endif
-                <!-- schema_path section start -->
-                <div class="flex mb-3">
-                    <label for="inputNumber" class="col-sm-2 col-form-label">Schema</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="file" name="schema_path" id="schema_path" accept="image/png, image/jpeg, image/jpg, image/PNG, image/JPG">
-                    </div>
-                </div>
-                    @if($map_region_info->schema_path==null)
-                        @error('schema_path')
-                            <div class="error_message"> {{ $message }} </div>
-                        @enderror
-                    @else
-                        <div class="schema_path_div">
-                            <div class="d-flex file_div">
-                                <img src="{{route('get-file',['path'=>$map_region_info->schema_path])}}">
-                            </div>
-                        </div>
-                    @endif
+               
                 <!-- region_info_files section start -->
                     <div class="flex mb-3">
                         <label for="inputNumber" class="col-sm-2 col-form-label">Files</label>

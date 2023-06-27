@@ -41,7 +41,7 @@ class RegionTranslationSeeder extends Seeder
             'id'=>3,
             'region_id'=>1,
             'language_id'=>3,
-            'name'=>'Ադերբաջան',
+            'name'=>'Ադրբեջան',
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
@@ -1064,7 +1064,7 @@ class RegionTranslationSeeder extends Seeder
             'id'=>105,
             'region_id'=>35,
             'language_id'=>3,
-            'name'=>'Դոմինիկյան հանրապ',
+            'name'=>'Դոմինիկյան Հանրապ.',
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
@@ -2945,7 +2945,7 @@ class RegionTranslationSeeder extends Seeder
             'id'=>279,
             'region_id'=>92,
             'language_id'=>3,
-            'name'=>'Կորյակներ',
+            'name'=>'Կորյակիա',
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
@@ -3066,7 +3066,7 @@ class RegionTranslationSeeder extends Seeder
             'id'=>293,
             'region_id'=>97,
             'language_id'=>2,
-            'name'=>'Таджикстан',
+            'name'=>'Таджикистан',
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
@@ -3374,7 +3374,7 @@ class RegionTranslationSeeder extends Seeder
             'id'=>321,
             'region_id'=>106,
             'language_id'=>3,
-            'name'=>'Ուզբեկստան',
+            'name'=>'ՈՒզբեկստան',
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
@@ -3803,7 +3803,7 @@ class RegionTranslationSeeder extends Seeder
             'id'=>360,
             'region_id'=>119,
             'language_id'=>3,
-            'name'=>'Ուգանդա',
+            'name'=>'ՈՒգանդա',
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
@@ -4078,7 +4078,7 @@ class RegionTranslationSeeder extends Seeder
             'id'=>385,
             'region_id'=>129,
             'language_id'=>1,
-            'name'=>'Microslate of Burma',
+            'name'=>'Microplate of Burma',
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
