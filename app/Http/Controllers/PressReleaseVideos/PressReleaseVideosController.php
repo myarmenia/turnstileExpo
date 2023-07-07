@@ -85,11 +85,11 @@ class PressReleaseVideosController extends Controller
                 if (str_contains($link['link'], 'youtube.com/watch?v=')) {
                     $pl_list = str_replace('https://www.youtube.com/watch?v=', '', $link['link']);
                     $playlist = explode('&', $pl_list)[0];
-                    $video_iframe = "<iframe width='460' height='165' src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+                    $video_iframe = "<iframe src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
                 }
                 if (str_contains($link['link'], 'youtu.be/')) {
                     $playlist = explode('youtu.be/', $link['link'])[1];
-                    $video_iframe = "<iframe width='460' height='165' src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+                    $video_iframe = "<iframe src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
                 }
 
                 $created_video_link = VideoLink::create([
@@ -184,11 +184,11 @@ class PressReleaseVideosController extends Controller
                 if (str_contains($link['link'], 'youtube.com/watch?v=')) {
                     $pl_list = str_replace('https://www.youtube.com/watch?v=', '', $link['link']);
                     $playlist = explode('&', $pl_list)[0];
-                    $video_iframe = "<iframe width='460' height='165' src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+                    $video_iframe = "<iframe src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
                 }
                 if (str_contains($link['link'], 'youtu.be/')) {
                     $playlist = explode('youtu.be/', $link['link'])[1];
-                    $video_iframe = "<iframe width='460' height='165' src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+                    $video_iframe = "<iframe src='https://www.youtube.com/embed/$playlist' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
                 }
 
                 $created_video_link = VideoLink::create([
