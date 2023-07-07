@@ -203,6 +203,7 @@ class PressReleaseVideosController extends Controller
                         'language_id' => $title_key,
                         'title' => $title,
                     ]);
+                    
                 }
             }
         }
