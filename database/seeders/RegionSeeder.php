@@ -457,20 +457,6 @@ class RegionSeeder extends Seeder
             ] );
 
             Region::create( [
-            'id'=>68,
-            'parent_id'=>67,
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
-
-            Region::create( [
-            'id'=>69,
-            'parent_id'=>67,
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
-
-            Region::create( [
             'id'=>70,
             'parent_id'=>NULL,
             'created_at'=>NULL,
