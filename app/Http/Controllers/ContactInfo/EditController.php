@@ -25,8 +25,6 @@ class EditController extends Controller
     public function update($id, Request $request)
     {
 
-        // dd($request->all());
-
         $contact_info = ContactInfo::find($id);
 
         $delete_image = $contact_info->map_image;

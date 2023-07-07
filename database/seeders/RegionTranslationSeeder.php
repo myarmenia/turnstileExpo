@@ -2093,73 +2093,6 @@ class RegionTranslationSeeder extends Seeder
             ] );
 
 
-
-            Regiontranslation::create( [
-            'id'=>202,
-            'region_id'=>68,
-            'language_id'=>1,
-            'name'=>'Kazakhstan (South)',
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
-
-
-
-            Regiontranslation::create( [
-            'id'=>203,
-            'region_id'=>68,
-            'language_id'=>2,
-            'name'=>'Казахстан (Юг)',
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
-
-
-
-            Regiontranslation::create( [
-            'id'=>204,
-            'region_id'=>68,
-            'language_id'=>3,
-            'name'=>'Ղազախստան (հվ)',
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
-
-
-
-            Regiontranslation::create( [
-            'id'=>205,
-            'region_id'=>69,
-            'language_id'=>1,
-            'name'=>'Kazakhstan (SE)',
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
-
-
-
-            Regiontranslation::create( [
-            'id'=>206,
-            'region_id'=>69,
-            'language_id'=>2,
-            'name'=>'Казахстан (Юв)',
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
-
-
-
-            Regiontranslation::create( [
-            'id'=>207,
-            'region_id'=>69,
-            'language_id'=>3,
-            'name'=>'Ղազախստան (հվ-արմ)',
-            'created_at'=>NULL,
-            'updated_at'=>NULL
-            ] );
-
-
-
             Regiontranslation::create( [
             'id'=>208,
             'region_id'=>70,
@@ -2168,7 +2101,6 @@ class RegionTranslationSeeder extends Seeder
             'created_at'=>NULL,
             'updated_at'=>NULL
             ] );
-
 
 
             Regiontranslation::create( [
