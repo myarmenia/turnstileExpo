@@ -46,7 +46,7 @@ return [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'useTLS' => true,
                 'encrypted' => true,
-                'host' => '127.0.0.1',
+                'host' => 'https://turnstileexpo.gorc-ka.am',
                 'port' => 443,
                 // 'scheme' => 'http'
                 'scheme' => 'https'
