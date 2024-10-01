@@ -117,7 +117,7 @@ return [
          * in a separate file specified by local_pk.
          */
         // 'local_cert' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT', null),
-        'local_cert' => '/etc/letsencrypt/live/turnstileexpo.gorc-ka.am/cert.pem', // Путь к вашему сертификату
+        'local_cert' => '/etc/letsencrypt/live/turnstileexpo.gorc-ka.am/fullchain.pem', // Путь к вашему сертификату
 
         /*
          * Path to local private key file on filesystem in case of separate files for
