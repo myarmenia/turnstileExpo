@@ -44,17 +44,17 @@ return [
             // ],
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'useTLS' => true,
-                'encrypted' => true,
+                // 'useTLS' => true,
+                // 'encrypted' => true,
                 'host' => '127.0.0.1',
-                'port' => 443,
+                'port' => 6006,
                 // 'scheme' => 'http'
                 'scheme' => 'https'
 
             ],
-            'client_options' => [
-                // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
-            ],
+            // 'client_options' => [
+            //     // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
+            // ],
         ],
 
         'ably' => [
